@@ -2,460 +2,1732 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>DiagnoRate — Pakistan's Diagnostic AI Agent</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DiagnoRate — Pakistan's Diagnostic Verdict</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --g:#0A6E50;--g2:#13A374;--g3:#D6F0E8;--g4:#EBF8F3;
-  --ink:#0C1912;--ink2:#2B3D34;--ink3:#5A6E63;--ink4:#9BB0A5;
-  --bg:#F2F8F5;--bg2:#E6F2EC;--white:#FFFFFF;
-  --bdr:rgba(10,110,80,0.10);--bdr2:rgba(10,110,80,0.22);
-  --sh:0 2px 20px rgba(10,110,80,0.08);--sh2:0 8px 40px rgba(10,110,80,0.14);
-  --r:16px;--rs:10px;--amber:#C47A1B;--red:#A83232;
+  --bone:    #FAF7F2;
+  --paper:   #F4EFE6;
+  --cream:   #EDE5D5;
+  --ink:     #14140F;
+  --ink2:    #2C2C24;
+  --ink3:    #5C5C50;
+  --ink4:    #8A8A78;
+  --ink5:    #B8B5A8;
+  --line:    #D8D2C2;
+  --line2:   #E5E0D0;
+  --green:   #1B5E3F;
+  --green2:  #2A8B5C;
+  --green3:  #D8EDDF;
+  --gold:    #8C6A1A;
+  --gold2:   #F2E5C0;
+  --rust:    #94391C;
+  --rust2:   #F0DCD0;
+  --r:       18px;
+  --rs:      12px;
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);overflow:hidden;}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body {
+  font-family: 'Inter Tight', sans-serif;
+  background: var(--bone);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-.app{display:flex;height:100vh;max-width:1200px;margin:0 auto;}
+/* TEXTURE */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(rgba(0,0,0,0.018) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none; z-index: 1;
+}
 
-/* SIDEBAR */
-.sidebar{width:280px;background:var(--white);border-right:1px solid var(--bdr);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
-.brand-wrap{padding:22px 18px 16px;border-bottom:1px solid var(--bdr);}
-.brand-logo{width:38px;height:38px;background:var(--g);border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:9px;}
-.brand-logo svg{width:20px;height:20px;}
-.brand-name{font-family:'Fraunces',serif;font-size:21px;font-weight:500;color:var(--ink);letter-spacing:-.3px;}
-.brand-name em{color:var(--g);font-style:normal;}
-.brand-tag{font-size:11px;color:var(--ink4);margin-top:2px;}
+/* ════════════════════════════════════════
+   TOP BAR
+   ════════════════════════════════════════ */
+.topbar {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 36px;
+  border-bottom: 1px solid var(--line2);
+}
+.brand {
+  display: flex; align-items: center; gap: 11px;
+  cursor: pointer;
+}
+.brand-mark {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600; font-style: italic;
+}
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600;
+  letter-spacing: -.3px;
+}
+.brand-name em {
+  font-style: italic; font-weight: 400;
+  color: var(--green);
+}
 
-.lang-row{display:flex;gap:6px;padding:10px 18px;border-bottom:1px solid var(--bdr);}
-.lang-btn{flex:1;padding:7px;border-radius:8px;border:1px solid var(--bdr);background:var(--bg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--ink3);cursor:pointer;text-align:center;transition:.15s;}
-.lang-btn.on{background:var(--g);color:#fff;border-color:var(--g);}
+.top-meta {
+  display: flex; align-items: center; gap: 18px;
+  font-size: 11px;
+  color: var(--ink4);
+  letter-spacing: .4px; text-transform: uppercase;
+}
+.lang-pair {
+  display: flex; gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  padding: 3px;
+  background: var(--paper);
+}
+.lp {
+  padding: 4px 12px; border-radius: 20px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 11px; font-weight: 500;
+  border: none; background: transparent;
+  color: var(--ink3); cursor: pointer; transition: .15s;
+  letter-spacing: .3px;
+}
+.lp.on { background: var(--ink); color: var(--bone); }
 
-.qq-section{padding:12px 18px 8px;flex:1;overflow-y:auto;}
-.qq-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.6px;color:var(--ink4);margin-bottom:8px;}
-.qq-list{display:flex;flex-direction:column;gap:5px;}
-.qq-item{padding:8px 11px;background:var(--bg);border-radius:var(--rs);border:1px solid var(--bdr);font-size:12px;color:var(--ink2);cursor:pointer;transition:.15s;line-height:1.4;}
-.qq-item:hover{background:var(--g4);border-color:var(--bdr2);}
+/* ════════════════════════════════════════
+   STAGE — three views
+   ════════════════════════════════════════ */
+.stage { position: relative; z-index: 5; }
+.scene { display: none; padding: 54px 36px 80px; max-width: 1080px; margin: 0 auto; }
+.scene.on { display: block; animation: rise .6s cubic-bezier(.2,.8,.2,1); }
+@keyframes rise { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
 
-.stats-strip{padding:10px 18px;border-top:1px solid var(--bdr);display:flex;flex-direction:column;gap:5px;}
-.stat-row{display:flex;justify-content:space-between;font-size:11px;}
-.stat-label{color:var(--ink4);}
-.stat-val{font-weight:500;color:var(--g);}
-.disclaimer{padding:8px 18px 12px;font-size:10px;color:var(--ink4);line-height:1.5;border-top:1px solid var(--bdr);}
+/* PROGRESS BAR */
+.progress {
+  display: flex; align-items: center; gap: 9px;
+  margin-bottom: 36px;
+  font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--ink4);
+}
+.prog-step {
+  display: flex; align-items: center; gap: 7px;
+}
+.prog-circle {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; font-weight: 600; font-style: italic;
+  color: var(--ink4);
+  background: transparent;
+  transition: .25s;
+}
+.prog-step.done .prog-circle { background: var(--ink); color: var(--bone); border-color: var(--ink); }
+.prog-step.active .prog-circle { background: var(--green); color: var(--bone); border-color: var(--green); }
+.prog-step.active .prog-label { color: var(--ink); }
+.prog-line {
+  flex: 0 0 28px; height: 1px;
+  background: var(--line);
+}
 
-/* CHAT */
-.chat-area{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);}
+/* ════════════════════════════════════════
+   SCENE 1 — PATH PICKER
+   ════════════════════════════════════════ */
+.intro-eye {
+  font-size: 11px; letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--ink4);
+  margin-bottom: 18px;
+}
+.intro-h {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(46px, 6vw, 72px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -1.6px;
+  margin-bottom: 16px;
+  max-width: 880px;
+}
+.intro-h em { font-style: italic; color: var(--green); font-weight: 500; }
+.intro-sub {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink3);
+  max-width: 580px;
+  margin-bottom: 56px;
+}
 
-.chat-header{background:var(--white);padding:13px 22px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-.ch-left{display:flex;align-items:center;gap:10px;}
-.agent-avatar{width:34px;height:34px;background:var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;}
-.agent-avatar svg{width:17px;height:17px;}
-.agent-name{font-size:14px;font-weight:500;color:var(--ink);}
-.agent-status{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--g);margin-top:1px;}
-.status-dot{width:6px;height:6px;border-radius:50%;background:var(--g2);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.clear-btn{padding:6px 12px;border-radius:20px;border:1px solid var(--bdr);background:transparent;font-size:11px;color:var(--ink3);cursor:pointer;transition:.15s;}
-.clear-btn:hover{background:var(--bg);}
+.path-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  max-width: 920px;
+}
+.path-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 36px 32px 32px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), border-color .2s, background .2s;
+}
+.path-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--ink);
+  background: #fff;
+}
+.path-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(27,94,63,0.06), transparent 60%);
+  opacity: 0; transition: opacity .3s;
+}
+.path-card:hover::before { opacity: 1; }
+.path-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px; font-style: italic;
+  color: var(--ink4);
+  margin-bottom: 18px;
+}
+.path-icon {
+  width: 56px; height: 56px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 22px;
+  background: var(--bone);
+}
+.path-icon svg { width: 24px; height: 24px; }
+.path-h {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px; font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.5px;
+  margin-bottom: 10px;
+}
+.path-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink3);
+  margin-bottom: 26px;
+  max-width: 320px;
+}
+.path-arrow {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--green);
+}
+.path-arrow svg { width: 14px; height: 14px; transition: transform .25s; }
+.path-card:hover .path-arrow svg { transform: translateX(4px); }
 
-.messages{flex:1;overflow-y:auto;padding:22px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth;}
-.messages::-webkit-scrollbar{width:4px;}
-.messages::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:2px;}
+/* ════════════════════════════════════════
+   SCENE 2 — INPUT FLOWS
+   ════════════════════════════════════════ */
+.input-h {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5vw, 58px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -1.2px;
+  margin-bottom: 14px;
+  max-width: 720px;
+}
+.input-h em { font-style: italic; color: var(--green); font-weight: 500; }
+.input-sub {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink3);
+  margin-bottom: 44px;
+  max-width: 540px;
+}
 
-.msg{display:flex;gap:9px;max-width:76%;animation:msgIn .22s ease;}
-@keyframes msgIn{from{transform:translateY(7px);opacity:0}to{transform:translateY(0);opacity:1}}
-.msg.user{align-self:flex-end;flex-direction:row-reverse;}
-.msg.agent{align-self:flex-start;}
+.field-block { margin-bottom: 38px; }
+.field-label {
+  font-size: 11px; letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink4);
+  margin-bottom: 14px;
+}
 
-.msg-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
-.msg.agent .msg-avatar{background:var(--g);}
-.msg.user .msg-avatar{background:var(--ink2);}
-.msg-avatar svg{width:13px;height:13px;}
+/* CITY CHIPS */
+.city-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.city-chip {
+  padding: 13px 22px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: var(--paper);
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: var(--ink2);
+  cursor: pointer;
+  transition: .18s;
+}
+.city-chip:hover { border-color: var(--ink); background: #fff; }
+.city-chip.on {
+  background: var(--ink); color: var(--bone); border-color: var(--ink);
+}
 
-.msg-bubble{padding:11px 15px;border-radius:15px;font-size:13.5px;line-height:1.65;max-width:100%;}
-.msg.agent .msg-bubble{background:var(--white);border:1px solid var(--bdr);border-bottom-left-radius:4px;color:var(--ink2);box-shadow:var(--sh);}
-.msg.user .msg-bubble{background:var(--g);color:#fff;border-bottom-right-radius:4px;}
+/* TEST GRID */
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+}
+.test-tile {
+  padding: 18px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--rs);
+  background: var(--paper);
+  cursor: pointer;
+  transition: .18s;
+  position: relative;
+}
+.test-tile:hover { border-color: var(--ink); background: #fff; transform: translateY(-1px); }
+.test-tile.on {
+  background: var(--ink); border-color: var(--ink);
+}
+.test-tile.on .tt-name { color: var(--bone); }
+.test-tile.on .tt-meta { color: rgba(250,247,242,0.55); }
+.tt-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 500;
+  letter-spacing: -.2px;
+  margin-bottom: 4px;
+}
+.tt-meta {
+  font-size: 11px; letter-spacing: .6px;
+  text-transform: uppercase;
+  color: var(--ink4);
+}
 
-.typing-indicator{display:flex;gap:4px;align-items:center;padding:13px 15px;}
-.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--ink4);animation:tb .9s ease infinite;}
-.typing-dot:nth-child(2){animation-delay:.2s;}
-.typing-dot:nth-child(3){animation-delay:.4s;}
-@keyframes tb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+/* SYMPTOM TEXTAREA */
+.symptom-box {
+  display: block; width: 100%;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--rs);
+  background: var(--paper);
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  resize: none;
+  outline: none;
+  min-height: 130px;
+  transition: .18s;
+}
+.symptom-box:focus { background: #fff; border-color: var(--ink); }
+.symptom-box::placeholder { color: var(--ink5); font-style: italic; }
 
-/* WELCOME */
-.welcome-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 22px;text-align:center;}
-.ws-icon{width:60px;height:60px;background:var(--g4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:14px;border:1px solid var(--bdr2);}
-.ws-icon svg{width:28px;height:28px;color:var(--g);}
-.ws-title{font-family:'Fraunces',serif;font-size:22px;color:var(--ink);margin-bottom:7px;}
-.ws-sub{font-size:13px;color:var(--ink3);line-height:1.6;max-width:380px;}
-.ws-chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:18px;}
-.ws-chip{padding:8px 15px;background:var(--white);border-radius:30px;border:1px solid var(--bdr);font-size:12.5px;color:var(--ink2);cursor:pointer;transition:.15s;box-shadow:var(--sh);}
-.ws-chip:hover{background:var(--g4);border-color:var(--bdr2);color:var(--g);}
+.symptom-suggest {
+  display: flex; flex-wrap: wrap; gap: 7px;
+  margin-top: 14px;
+}
+.ss {
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: transparent;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 12px; color: var(--ink3);
+  cursor: pointer;
+  transition: .15s;
+}
+.ss:hover { background: var(--paper); border-color: var(--ink3); color: var(--ink); }
 
-/* INPUT */
-.input-row{padding:14px 22px 18px;background:var(--white);border-top:1px solid var(--bdr);flex-shrink:0;}
-.input-wrap{display:flex;gap:9px;align-items:flex-end;background:var(--bg);border:1.5px solid var(--bdr);border-radius:13px;padding:9px 13px;transition:border-color .2s;}
-.input-wrap:focus-within{border-color:var(--g2);}
-.msg-input{flex:1;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13.5px;color:var(--ink);resize:none;outline:none;max-height:120px;min-height:22px;line-height:1.5;}
-.msg-input::placeholder{color:var(--ink4);}
-.send-btn{width:34px;height:34px;background:var(--g);border:none;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:opacity .15s;}
-.send-btn:hover{opacity:.85;}
-.send-btn:disabled{opacity:.35;cursor:default;}
-.send-btn svg{width:15px;height:15px;}
-.input-hint{font-size:10px;color:var(--ink4);margin-top:7px;text-align:center;}
+/* PRIORITY (only test path) */
+.priority-row { display: flex; flex-wrap: wrap; gap: 9px; }
+.pr-chip {
+  padding: 11px 18px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: var(--paper);
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: var(--ink3);
+  cursor: pointer;
+  transition: .18s;
+}
+.pr-chip:hover { border-color: var(--ink); }
+.pr-chip.on {
+  background: var(--green); color: #fff; border-color: var(--green);
+}
+
+/* ACTION ROW */
+.action-row {
+  display: flex; gap: 14px; align-items: center;
+  margin-top: 14px;
+}
+.btn-back {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 14px 22px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: var(--ink3);
+  cursor: pointer;
+  transition: .15s;
+}
+.btn-back:hover { border-color: var(--ink); color: var(--ink); }
+.btn-back svg { width: 13px; height: 13px; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 16px 32px;
+  background: var(--ink);
+  border: none;
+  border-radius: 30px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: .3px;
+  color: var(--bone);
+  cursor: pointer;
+  transition: .18s;
+}
+.btn-primary:hover { background: var(--green); transform: translateX(2px); }
+.btn-primary:disabled { opacity: .35; cursor: not-allowed; }
+.btn-primary svg { width: 14px; height: 14px; }
+
+/* ════════════════════════════════════════
+   SCENE 3 — VERDICT
+   ════════════════════════════════════════ */
+.verdict-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 36px;
+  align-items: start;
+}
+@media (max-width: 980px) {
+  .verdict-grid { grid-template-columns: 1fr; }
+}
+
+/* VERDICT MAIN */
+.verdict-main { }
+
+.verdict-eye {
+  font-size: 11px; letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--ink4);
+  margin-bottom: 22px;
+  display: flex; align-items: center; gap: 10px;
+}
+.verdict-eye::before {
+  content: ''; width: 28px; height: 1px; background: var(--ink4);
+}
+
+.verdict-sentence {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5vw, 58px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -1.2px;
+  margin-bottom: 28px;
+}
+.verdict-sentence em {
+  font-style: italic;
+  color: var(--green);
+}
+.verdict-because {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink3);
+  margin-bottom: 36px;
+  max-width: 620px;
+  font-weight: 400;
+}
+
+/* CIRCLE — winner */
+.winner-block {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 36px 36px 32px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.winner-block::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--green3), transparent 65%);
+  opacity: .55;
+  pointer-events: none;
+}
+
+.winner-top {
+  display: flex; align-items: flex-start;
+  gap: 28px; margin-bottom: 28px;
+  position: relative;
+}
+.winner-info { flex: 1; min-width: 0; }
+.winner-tag {
+  display: inline-block;
+  padding: 4px 11px;
+  background: var(--green3); color: var(--green);
+  border-radius: 30px;
+  font-size: 10px; letter-spacing: 1.3px;
+  text-transform: uppercase; font-weight: 600;
+  margin-bottom: 14px;
+}
+.winner-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -.6px;
+  margin-bottom: 8px;
+}
+.winner-branch {
+  font-size: 14px; color: var(--ink3);
+  margin-bottom: 4px;
+}
+.winner-addr {
+  font-size: 12px; color: var(--ink4);
+}
+
+/* THE BIG CIRCLE */
+.score-circle {
+  flex-shrink: 0;
+  width: 124px; height: 124px;
+  border-radius: 50%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: var(--green);
+  color: #fff;
+  position: relative;
+}
+.score-circle::after {
+  content: ''; position: absolute; inset: -7px;
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  opacity: .25;
+}
+.sc-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 46px; font-weight: 600;
+  line-height: 1;
+}
+.sc-of {
+  font-size: 9px; letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-top: 4px;
+  opacity: .7;
+}
+
+/* WINNER METRICS */
+.winner-mets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  position: relative;
+}
+.met {
+  text-align: left;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--line2);
+}
+.met-circle {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid var(--green);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  margin-bottom: 12px;
+  background: var(--bone);
+}
+.met-pct {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px; font-weight: 600;
+  color: var(--green);
+  line-height: 1;
+}
+.met-label {
+  font-size: 10px; letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+.met-sub {
+  font-size: 11px; color: var(--ink4);
+  line-height: 1.4;
+}
+
+/* TEST PRICE STRIP */
+.price-strip {
+  background: var(--ink);
+  color: var(--bone);
+  border-radius: var(--rs);
+  padding: 22px 26px;
+  margin-top: 22px;
+  display: flex; justify-content: space-between; align-items: center;
+  position: relative;
+}
+.ps-left { }
+.ps-eye {
+  font-size: 10px; letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(250,247,242,.5);
+  margin-bottom: 6px;
+}
+.ps-test {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 500;
+}
+.ps-right { text-align: right; }
+.ps-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 600;
+  line-height: 1;
+}
+.ps-tat {
+  font-size: 11px;
+  color: rgba(250,247,242,.55);
+  margin-top: 5px;
+  letter-spacing: .4px;
+}
+
+/* SOURCES LINE */
+.sources-line {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 11px; letter-spacing: .6px;
+  color: var(--ink4);
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line2);
+  flex-wrap: wrap;
+}
+.sources-line strong { font-weight: 500; color: var(--ink3); }
+
+/* ALTERNATIVES */
+.alt-section { margin-bottom: 28px; }
+.alt-eye {
+  font-size: 11px; letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--ink4);
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.alt-eye::before { content:''; width: 28px; height: 1px; background: var(--ink4); }
+.alt-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 720px) {
+  .alt-row { grid-template-columns: 1fr; }
+}
+.alt-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--rs);
+  padding: 20px;
+  display: flex; align-items: center; gap: 18px;
+  transition: .18s;
+  cursor: pointer;
+}
+.alt-card:hover { border-color: var(--ink); transform: translateX(2px); }
+.alt-circle {
+  flex-shrink: 0;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink2);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: var(--bone);
+}
+.alt-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+}
+.alt-info { flex: 1; min-width: 0; }
+.alt-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+.alt-tag {
+  font-size: 11px; color: var(--ink4);
+  letter-spacing: .3px;
+}
+.alt-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px; font-weight: 500;
+  color: var(--ink2);
+  flex-shrink: 0;
+}
+
+/* RESTART */
+.restart {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 20px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 12px; font-weight: 500;
+  color: var(--ink3);
+  cursor: pointer;
+  transition: .15s;
+  margin-top: 8px;
+}
+.restart:hover { border-color: var(--ink); color: var(--ink); }
+.restart svg { width: 12px; height: 12px; }
+
+/* ════════════════════════════════════════
+   AI PANEL (right side of verdict)
+   ════════════════════════════════════════ */
+.ai-panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 24px;
+  position: sticky; top: 24px;
+  display: flex; flex-direction: column;
+  height: fit-content;
+  max-height: calc(100vh - 60px);
+}
+.ai-panel-head {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line2);
+  margin-bottom: 16px;
+}
+.ai-mark {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bone);
+}
+.ai-mark::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green2);
+  box-shadow: 0 0 0 0 var(--green2);
+  animation: aip 1.8s infinite;
+}
+@keyframes aip { 0%{box-shadow: 0 0 0 0 rgba(42,139,92,.4)} 70%{box-shadow: 0 0 0 7px rgba(42,139,92,0)} 100%{box-shadow: 0 0 0 0 rgba(42,139,92,0)} }
+.ai-title-block { flex: 1; min-width: 0; }
+.ai-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px; font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 3px;
+}
+.ai-tagline {
+  font-size: 11px; color: var(--ink4);
+  letter-spacing: .3px;
+}
+
+.ai-msgs {
+  flex: 1; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 11px;
+  padding-right: 4px;
+  margin-bottom: 14px;
+  min-height: 200px;
+  max-height: 380px;
+}
+.ai-msgs::-webkit-scrollbar { width: 3px; }
+.ai-msgs::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+
+.ai-empty {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  flex: 1; text-align: center; padding: 16px 8px;
+}
+.ai-empty-icon {
+  width: 44px; height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+  background: var(--bone);
+}
+.ai-empty-icon svg { width: 18px; height: 18px; color: var(--ink3); }
+.ai-empty-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink3);
+  line-height: 1.4;
+  margin-bottom: 16px;
+  max-width: 240px;
+}
+.ai-suggest {
+  display: flex; flex-direction: column; gap: 6px;
+  width: 100%;
+}
+.ai-sg {
+  padding: 9px 14px;
+  background: var(--bone);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 12px; color: var(--ink2);
+  cursor: pointer;
+  text-align: left;
+  transition: .15s;
+}
+.ai-sg:hover { background: #fff; border-color: var(--ink3); }
+
+.ai-msg {
+  display: flex; gap: 8px;
+  animation: msgIn .25s ease;
+  max-width: 92%;
+}
+@keyframes msgIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+.ai-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+.ai-msg.bot  { align-self: flex-start; }
+.ai-bubble {
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.55;
+  border-radius: 13px;
+  max-width: 100%;
+}
+.ai-msg.bot .ai-bubble {
+  background: var(--bone);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-bottom-left-radius: 4px;
+}
+.ai-msg.user .ai-bubble {
+  background: var(--ink);
+  color: var(--bone);
+  border-bottom-right-radius: 4px;
+}
+
+.ai-typing {
+  display: flex; gap: 4px; align-items: center;
+  padding: 12px 14px;
+}
+.ai-typing span {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--ink4);
+  animation: tb .9s infinite;
+}
+.ai-typing span:nth-child(2){animation-delay:.18s}
+.ai-typing span:nth-child(3){animation-delay:.36s}
+@keyframes tb { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-4px)} }
+
+.ai-input-wrap {
+  display: flex; gap: 8px; align-items: flex-end;
+  background: var(--bone);
+  border: 1.5px solid var(--line);
+  border-radius: 13px;
+  padding: 9px 12px;
+  transition: border-color .2s;
+}
+.ai-input-wrap:focus-within { border-color: var(--ink); background: #fff; }
+.ai-textarea {
+  flex: 1; border: none; background: transparent;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px; color: var(--ink);
+  resize: none; outline: none;
+  max-height: 100px; min-height: 22px;
+  line-height: 1.5;
+}
+.ai-textarea::placeholder { color: var(--ink5); font-style: italic; }
+.ai-send {
+  width: 32px; height: 32px;
+  background: var(--ink); border: none;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity .15s;
+}
+.ai-send:hover { opacity: .85; }
+.ai-send:disabled { opacity: .3; cursor: default; }
+.ai-send svg { width: 13px; height: 13px; color: var(--bone); }
+.ai-disclaimer {
+  font-size: 9px; color: var(--ink5);
+  text-align: center; letter-spacing: .3px;
+  margin-top: 8px;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 26px; left: 50%;
+  transform: translateX(-50%) translateY(60px);
+  background: var(--ink);
+  color: var(--bone);
+  padding: 11px 22px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 999;
+  letter-spacing: .3px;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
 
 /* MOBILE */
-@media(max-width:680px){
-  .sidebar{display:none;}
-  .messages{padding:14px;}
-  .chat-header{padding:11px 14px;}
-  .input-row{padding:10px 14px 14px;}
-  .msg{max-width:88%;}
+@media (max-width: 640px) {
+  .topbar { padding: 16px 22px; }
+  .scene { padding: 32px 22px 60px; }
+  .top-meta { gap: 10px; }
+  .top-meta-text { display: none; }
+  .path-grid { grid-template-columns: 1fr; }
+  .winner-top { flex-direction: column-reverse; align-items: flex-start; }
+  .winner-mets { grid-template-columns: repeat(2, 1fr); }
+  .ai-panel { position: static; max-height: none; }
 }
-
-.qq-section::-webkit-scrollbar{width:3px;}
-.qq-section::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:2px;}
-.error-msg .msg-bubble{background:#FCEAEA;border-color:#F09595;color:var(--red);}
 </style>
 </head>
 <body>
-<div class="app">
 
-  <div class="sidebar">
-    <div class="brand-wrap">
-      <div class="brand-logo">
-        <svg viewBox="0 0 22 22" fill="none">
-          <path d="M11 2C11 2 5 6 5 11.5C5 14.8 7.7 17.5 11 17.5C14.3 17.5 17 14.8 17 11.5C17 6 11 2 11 2Z" fill="white" opacity=".9"/>
-          <path d="M8 11.5H14M11 9V14" stroke="#0A6E50" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="brand-name">Diagno<em>Rate</em></div>
-      <div class="brand-tag">Pakistan's Diagnostic AI Agent</div>
-    </div>
-
-    <div class="lang-row">
-      <button class="lang-btn on" id="btn-en" onclick="setLang('en')">English</button>
-      <button class="lang-btn" id="btn-ur" onclick="setLang('ur')">اردو</button>
-    </div>
-
-    <div class="qq-section">
-      <div class="qq-label" id="qq-label">Try asking</div>
-      <div class="qq-list" id="qq-list"></div>
-    </div>
-
-    <div class="stats-strip">
-      <div class="stat-row"><span class="stat-label">Labs indexed</span><span class="stat-val">6 brands · 38+ branches</span></div>
-      <div class="stat-row"><span class="stat-label">Cities covered</span><span class="stat-val">Lahore · ISB · Karachi</span></div>
-      <div class="stat-row"><span class="stat-label">Data updated</span><span class="stat-val">April 2026</span></div>
-      <div class="stat-row"><span class="stat-label">Sources</span><span class="stat-val">Google · PNAC · PHC</span></div>
-    </div>
-
-    <div class="disclaimer">
-      Data from Google Places API, PNAC registry & PHC. Scores are transparency indices — not medical advice. Verify prices before visiting.
-    </div>
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand" onclick="goScene(1)">
+    <div class="brand-mark">D</div>
+    <div class="brand-name">Diagno<em>Rate</em></div>
   </div>
-
-  <div class="chat-area">
-    <div class="chat-header">
-      <div class="ch-left">
-        <div class="agent-avatar">
-          <svg viewBox="0 0 18 18" fill="none">
-            <path d="M9 1.5C9 1.5 4 5 4 9.5C4 12.5 6.2 15 9 15C11.8 15 14 12.5 14 9.5C14 5 9 1.5 9 1.5Z" fill="white" opacity=".9"/>
-            <path d="M6.5 9.5H11.5M9 7V12" stroke="#0A6E50" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div>
-          <div class="agent-name" id="agent-name">DiagnoRate Agent</div>
-          <div class="agent-status"><span class="status-dot"></span><span id="agent-status">Ready to help</span></div>
-        </div>
-      </div>
-      <button class="clear-btn" id="clear-btn" onclick="clearChat()">Clear chat</button>
-    </div>
-
-    <div class="messages" id="messages">
-      <div class="welcome-state" id="welcome-state">
-        <div class="ws-icon">
-          <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M15 3C15 3 7 8 7 16C7 20.4 10.6 24 15 24C19.4 24 23 20.4 23 16C23 8 15 3 15 3Z"/>
-            <path d="M11 16H19M15 12V20"/>
-          </svg>
-        </div>
-        <div class="ws-title" id="ws-title">Pakistan's Diagnostic Agent</div>
-        <div class="ws-sub" id="ws-sub">Ask me about any lab, test price, TAT, or which diagnostic centre to trust. I'll give you an honest, sourced answer in English or Urdu.</div>
-        <div class="ws-chips" id="ws-chips"></div>
-      </div>
-    </div>
-
-    <div class="input-row">
-      <div class="input-wrap">
-        <textarea class="msg-input" id="msg-input" rows="1"
-          placeholder="Ask about any lab or test…"
-          onkeydown="handleKey(event)"
-          oninput="autoResize(this)"></textarea>
-        <button class="send-btn" id="send-btn" onclick="sendMessage()" disabled>
-          <svg viewBox="0 0 16 16" fill="white"><path d="M2 8L14 2L8 14L7 9L2 8Z"/></svg>
-        </button>
-      </div>
-      <div class="input-hint" id="input-hint">Powered by Claude · Data from Google, PNAC & PHC · Not medical advice</div>
+  <div class="top-meta">
+    <span class="top-meta-text">Pakistan · Independent</span>
+    <div class="lang-pair">
+      <button class="lp on" id="lp-en" onclick="setLang('en')">EN</button>
+      <button class="lp" id="lp-ur" onclick="setLang('ur')">اردو</button>
     </div>
   </div>
 </div>
 
-<script>
-// ── LANGUAGE CONFIG ──
-let currentLang = 'en';
-let conversationHistory = [];
-let isThinking = false;
+<!-- STAGE -->
+<div class="stage">
 
-const STRINGS = {
-  en: {
-    qqLabel:'Try asking',
-    agentName:'DiagnoRate Agent',
-    agentStatus:'Ready to help',
-    wsTitle:"Pakistan's Diagnostic Agent",
-    wsSub:"Ask me about any lab, test price, TAT, or which diagnostic centre to trust. I'll give you an honest, sourced answer in English or Urdu.",
-    inputHint:"Powered by Claude · Data from Google, PNAC & PHC · Not medical advice",
-    placeholder:"Ask about any lab or test…",
-    thinking:"Looking up data…",
-    clearBtn:"Clear chat",
-    chips:[
-      "Best lab for CBC in Lahore?",
-      "Cheapest HbA1c test Johar Town",
-      "Is Chughtai Lab reliable?",
-      "Compare Aga Khan vs Chughtai",
-      "Which lab for cancer markers?",
-      "Best lab in Islamabad?"
-    ],
-    quickQ:[
-      "Cheapest CBC in Lahore?",
-      "Best lab near DHA Lahore",
-      "HbA1c price comparison all labs",
-      "Which lab is CAP accredited?",
-      "Fastest TAT for blood tests",
-      "Reliable lab for diabetes test",
-      "Best lab near Johar Town",
-      "Best lab in Islamabad",
-      "Which lab for thyroid test?",
-      "Budget lab for routine checkup"
-    ],
-    errorMsg:"Sorry, I couldn't get a response. Please check your connection and try again."
-  },
-  ur: {
-    qqLabel:'یہ پوچھ کر دیکھیں',
-    agentName:'ڈائیگنوریٹ ایجنٹ',
-    agentStatus:'مدد کے لیے تیار',
-    wsTitle:"پاکستان کا ڈائیگناسٹک ایجنٹ",
-    wsSub:"کوئی بھی لیب، ٹیسٹ کی قیمت، یا کہاں ٹیسٹ کروانا بہتر ہے — اردو یا انگریزی میں پوچھیں۔",
-    inputHint:"Claude سے چلتا ہے · Google، PNAC اور PHC کا ڈیٹا · طبی مشورہ نہیں",
-    placeholder:"کوئی بھی لیب یا ٹیسٹ کے بارے میں پوچھیں…",
-    thinking:"ڈیٹا ڈھونڈ رہا ہوں…",
-    clearBtn:"بات چیت صاف کریں",
-    chips:[
-      "لاہور میں CBC کے لیے بہترین لیب؟",
-      "جوہر ٹاؤن کے قریب سستا HbA1c",
-      "کیا چغتائی لیب قابل اعتماد ہے؟",
-      "آغا خان بمقابلہ چغتائی لیب",
-      "ذیابیطس کے ٹیسٹ کے لیے بہترین لیب",
-      "اسلام آباد میں بہترین لیب؟"
-    ],
-    quickQ:[
-      "لاہور میں سب سے سستا CBC؟",
-      "DHA لاہور کے قریب بہترین لیب",
-      "HbA1c قیمت کا موازنہ",
-      "CAP سرٹیفائیڈ لیب کون سی ہے؟",
-      "خون کے ٹیسٹ کے لیے تیز ترین لیب",
-      "جوہر ٹاؤن کے قریب لیب",
-      "اسلام آباد میں بہترین لیب",
-      "تھائرائیڈ ٹیسٹ کے لیے کہاں جائیں",
-      "کینسر مارکر ٹیسٹ کے لیے کہاں جائیں",
-      "سستے میں مکمل چیک اپ کہاں ہو"
-    ],
-    errorMsg:"معذرت، جواب نہیں مل سکا۔ انٹرنیٹ چیک کریں اور دوبارہ کوشش کریں۔"
-  }
-};
-
-function setLang(lang) {
-  currentLang = lang;
-  document.getElementById('btn-en').classList.toggle('on', lang==='en');
-  document.getElementById('btn-ur').classList.toggle('on', lang==='ur');
-  const s = STRINGS[lang];
-  document.getElementById('qq-label').textContent = s.qqLabel;
-  document.getElementById('agent-name').textContent = s.agentName;
-  document.getElementById('agent-status').textContent = s.agentStatus;
-  document.getElementById('input-hint').textContent = s.inputHint;
-  document.getElementById('msg-input').placeholder = s.placeholder;
-  document.getElementById('clear-btn').textContent = s.clearBtn;
-  const wt = document.getElementById('ws-title');
-  const ws = document.getElementById('ws-sub');
-  if (wt) wt.textContent = s.wsTitle;
-  if (ws) ws.textContent = s.wsSub;
-  renderQuickQ();
-  renderWsChips();
-}
-
-function renderQuickQ() {
-  document.getElementById('qq-list').innerHTML =
-    STRINGS[currentLang].quickQ.map(q =>
-      `<div class="qq-item" onclick="askQuestion(${JSON.stringify(q)})">${q}</div>`
-    ).join('');
-}
-
-function renderWsChips() {
-  const w = document.getElementById('ws-chips');
-  if (!w) return;
-  w.innerHTML = STRINGS[currentLang].chips.map(c =>
-    `<div class="ws-chip" onclick="askQuestion(${JSON.stringify(c)})">${c}</div>`
-  ).join('');
-}
-
-function handleKey(e) {
-  if (e.key==='Enter' && !e.shiftKey) {
-    e.preventDefault();
-    if (!document.getElementById('send-btn').disabled) sendMessage();
-  }
-}
-
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
-}
-
-function askQuestion(q) {
-  const input = document.getElementById('msg-input');
-  input.value = q;
-  autoResize(input);
-  document.getElementById('send-btn').disabled = false;
-  sendMessage();
-}
-
-function hideWelcome() {
-  const ws = document.getElementById('welcome-state');
-  if (ws) ws.remove();
-}
-
-function addMessage(role, content, isError=false) {
-  hideWelcome();
-  const container = document.getElementById('messages');
-  const div = document.createElement('div');
-  div.className = `msg ${role}${isError?' error-msg':''}`;
-  const avatarSvg = role==='agent'
-    ? `<svg viewBox="0 0 18 18" fill="none"><path d="M9 1.5C9 1.5 4 5 4 9.5C4 12.5 6.2 15 9 15C11.8 15 14 12.5 14 9.5C14 5 9 1.5 9 1.5Z" fill="white" opacity=".9"/><path d="M6.5 9.5H11.5M9 7V12" stroke="#0A6E50" stroke-width="1.5" stroke-linecap="round"/></svg>`
-    : `<svg viewBox="0 0 18 18" fill="white"><circle cx="9" cy="6" r="3.5"/><path d="M3 16c0-4 3-6 6-6s6 2 6 6"/></svg>`;
-  div.innerHTML = `
-    <div class="msg-avatar">${avatarSvg}</div>
-    <div class="msg-bubble">${formatMessage(content)}</div>
-  `;
-  container.appendChild(div);
-  container.scrollTop = container.scrollHeight;
-}
-
-function formatMessage(text) {
-  return text
-    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-    .replace(/✓ ([^\n]+)/g,'<span style="color:var(--g);font-weight:500">✓ $1</span>')
-    .replace(/⚠️ ([^\n]+)/g,'<span style="color:var(--amber)">⚠️ $1</span>')
-    .replace(/\n\n/g,'<br/><br/>')
-    .replace(/\n/g,'<br/>');
-}
-
-function showTyping() {
-  hideWelcome();
-  const container = document.getElementById('messages');
-  const div = document.createElement('div');
-  div.className = 'msg agent';
-  div.id = 'typing-msg';
-  div.innerHTML = `
-    <div class="msg-avatar">
-      <svg viewBox="0 0 18 18" fill="none"><path d="M9 1.5C9 1.5 4 5 4 9.5C4 12.5 6.2 15 9 15C11.8 15 14 12.5 14 9.5C14 5 9 1.5 9 1.5Z" fill="white" opacity=".9"/><path d="M6.5 9.5H11.5M9 7V12" stroke="#0A6E50" stroke-width="1.5" stroke-linecap="round"/></svg>
+  <!-- ═════════ SCENE 1 — PATH PICKER ═════════ -->
+  <div class="scene on" id="scene-1">
+    <div class="progress">
+      <div class="prog-step active"><div class="prog-circle">i</div><span class="prog-label">Where to start</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step"><div class="prog-circle">ii</div><span class="prog-label">Tell us</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step"><div class="prog-circle">iii</div><span class="prog-label">Verdict</span></div>
     </div>
-    <div class="msg-bubble">
-      <div class="typing-indicator">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
+
+    <div class="intro-eye">An honest diagnostic verdict — in three steps</div>
+    <h1 class="intro-h">Don't guess <em>where</em> to do<br/>your blood test.</h1>
+    <p class="intro-sub">DiagnoRate compares Pakistan's diagnostic labs against verified public data and tells you, plainly, where you should go. No ads. No bookings. No conflicts.</p>
+
+    <div class="path-grid">
+      <div class="path-card" onclick="choosePath('test')">
+        <div class="path-num">i.</div>
+        <div class="path-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M9 2h6v4l3 3v9a4 4 0 01-4 4h-4a4 4 0 01-4-4V9l3-3V2z"/>
+            <path d="M9 13h6M9 17h4"/>
+          </svg>
+        </div>
+        <div class="path-h">I know which test<br/>I need to do.</div>
+        <div class="path-desc">Pick your city and test. We will tell you the right lab.</div>
+        <div class="path-arrow">
+          Begin
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </div>
+      </div>
+
+      <div class="path-card" onclick="choosePath('symptom')">
+        <div class="path-num">ii.</div>
+        <div class="path-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 3a8 8 0 100 16 8 8 0 000-16z"/>
+            <path d="M9 10h.01M15 10h.01M9 15c1 1 5 1 6 0"/>
+          </svg>
+        </div>
+        <div class="path-h">I'm not sure what<br/>test I need.</div>
+        <div class="path-desc">Describe what you're feeling. We will suggest the right test, then the right lab.</div>
+        <div class="path-arrow">
+          Tell us how you feel
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </div>
       </div>
     </div>
-  `;
-  container.appendChild(div);
-  container.scrollTop = container.scrollHeight;
+  </div>
+
+  <!-- ═════════ SCENE 2A — TEST FLOW ═════════ -->
+  <div class="scene" id="scene-2a">
+    <div class="progress">
+      <div class="prog-step done"><div class="prog-circle">i</div><span class="prog-label">Path</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step active"><div class="prog-circle">ii</div><span class="prog-label">Tell us</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step"><div class="prog-circle">iii</div><span class="prog-label">Verdict</span></div>
+    </div>
+
+    <h1 class="input-h">Which test, <em>and where</em>?</h1>
+    <p class="input-sub">Tell us your city and the test you need. We will compare every lab and bring you the verdict.</p>
+
+    <div class="field-block">
+      <div class="field-label">Your city</div>
+      <div class="city-row" id="city-row"></div>
+    </div>
+
+    <div class="field-block">
+      <div class="field-label">The test</div>
+      <div class="test-grid" id="test-grid"></div>
+    </div>
+
+    <div class="field-block">
+      <div class="field-label">What matters most to you (optional)</div>
+      <div class="priority-row" id="priority-row"></div>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-back" onclick="goScene(1)">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 7H2M6 11L2 7l4-4"/></svg>
+        Back
+      </button>
+      <button class="btn-primary" id="btn-test-go" onclick="runTestVerdict()" disabled>
+        See the verdict
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═════════ SCENE 2B — SYMPTOM FLOW ═════════ -->
+  <div class="scene" id="scene-2b">
+    <div class="progress">
+      <div class="prog-step done"><div class="prog-circle">i</div><span class="prog-label">Path</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step active"><div class="prog-circle">ii</div><span class="prog-label">Tell us</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step"><div class="prog-circle">iii</div><span class="prog-label">Verdict</span></div>
+    </div>
+
+    <h1 class="input-h">Tell us <em>how you feel</em>.</h1>
+    <p class="input-sub">In your own words — Urdu or English. We will suggest the right test, then find the right lab.</p>
+
+    <div class="field-block">
+      <div class="field-label">What's going on?</div>
+      <textarea class="symptom-box" id="symptom-input" placeholder="e.g. I've been feeling tired for two weeks, frequent thirst, and the doctor wants me to check my sugar levels…"></textarea>
+      <div class="symptom-suggest">
+        <div class="ss" onclick="addSymptom('Fatigue and thirst — possible diabetes')">Fatigue & thirst</div>
+        <div class="ss" onclick="addSymptom('Frequent fevers — need infection workup')">Recurring fever</div>
+        <div class="ss" onclick="addSymptom('Cholesterol concern — family history of heart disease')">Cholesterol concern</div>
+        <div class="ss" onclick="addSymptom('Tired all the time — possible thyroid issue')">Constant tiredness</div>
+        <div class="ss" onclick="addSymptom('Pre-pregnancy checkup needed')">Pre-pregnancy checkup</div>
+        <div class="ss" onclick="addSymptom('General annual blood work')">Annual checkup</div>
+      </div>
+    </div>
+
+    <div class="field-block">
+      <div class="field-label">Your city</div>
+      <div class="city-row" id="city-row-b"></div>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-back" onclick="goScene(1)">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 7H2M6 11L2 7l4-4"/></svg>
+        Back
+      </button>
+      <button class="btn-primary" id="btn-sym-go" onclick="runSymptomVerdict()" disabled>
+        Get my verdict
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═════════ SCENE 3 — VERDICT ═════════ -->
+  <div class="scene" id="scene-3">
+    <div class="progress">
+      <div class="prog-step done"><div class="prog-circle">i</div><span class="prog-label">Path</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step done"><div class="prog-circle">ii</div><span class="prog-label">Tell us</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step active"><div class="prog-circle">iii</div><span class="prog-label">Verdict</span></div>
+    </div>
+
+    <div class="verdict-grid">
+      <div class="verdict-main">
+        <div class="verdict-eye" id="verdict-eye">Your verdict</div>
+        <h1 class="verdict-sentence" id="verdict-sentence"></h1>
+        <p class="verdict-because" id="verdict-because"></p>
+
+        <div class="winner-block">
+          <div class="winner-top">
+            <div class="winner-info">
+              <div class="winner-tag">Recommended for you</div>
+              <div class="winner-name" id="winner-name"></div>
+              <div class="winner-branch" id="winner-branch"></div>
+              <div class="winner-addr" id="winner-addr"></div>
+            </div>
+            <div class="score-circle">
+              <div class="sc-num" id="winner-score"></div>
+              <div class="sc-of">/ 10 trust</div>
+            </div>
+          </div>
+          <div class="winner-mets" id="winner-mets"></div>
+
+          <div class="price-strip" id="price-strip"></div>
+
+          <div class="sources-line" id="sources-line"></div>
+        </div>
+
+        <div class="alt-section">
+          <div class="alt-eye">Other strong options</div>
+          <div class="alt-row" id="alt-row"></div>
+        </div>
+
+        <button class="restart" onclick="restart()">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7a5 5 0 119 3M2 4v3h3"/></svg>
+          Start over
+        </button>
+      </div>
+
+      <!-- AI PANEL -->
+      <div class="ai-panel">
+        <div class="ai-panel-head">
+          <div class="ai-mark"></div>
+          <div class="ai-title-block">
+            <div class="ai-title">Need to know more?</div>
+            <div class="ai-tagline">Ask anything about this verdict</div>
+          </div>
+        </div>
+
+        <div class="ai-msgs" id="ai-msgs">
+          <div class="ai-empty" id="ai-empty">
+            <div class="ai-empty-icon">
+              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M9 2C9 2 4 5.5 4 9.5C4 12.5 6.2 15 9 15C11.8 15 14 12.5 14 9.5C14 5.5 9 2 9 2Z"/>
+                <path d="M6.5 9.5h5M9 7v5"/>
+              </svg>
+            </div>
+            <div class="ai-empty-text" id="ai-empty-text">Ask about this lab, the test, prices, or what to expect.</div>
+            <div class="ai-suggest" id="ai-suggest"></div>
+          </div>
+        </div>
+
+        <div class="ai-input-wrap">
+          <textarea class="ai-textarea" id="ai-input" rows="1" placeholder="Ask a question…" onkeydown="aiKey(event)" oninput="aiResize(this)"></textarea>
+          <button class="ai-send" id="ai-send" onclick="aiSend()" disabled>
+            <svg viewBox="0 0 14 14" fill="white"><path d="M2 7L12 2L7 12L6 8L2 7Z"/></svg>
+          </button>
+        </div>
+        <div class="ai-disclaimer">Powered by Claude · Not medical advice</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════
+const CITIES = [
+  { id:'lahore',    name:'Lahore' },
+  { id:'islamabad', name:'Islamabad' },
+  { id:'karachi',   name:'Karachi' }
+];
+
+const TESTS = [
+  { id:'cbc',   name:'CBC',           sub:'Complete Blood Count' },
+  { id:'lft',   name:'LFT',           sub:'Liver Function Test' },
+  { id:'rft',   name:'RFT',           sub:'Renal Function Test' },
+  { id:'lipid', name:'Lipid Profile', sub:'Cholesterol panel' },
+  { id:'hba1c', name:'HbA1c',         sub:'Diabetes — 3 month avg' },
+  { id:'tsh',   name:'Thyroid (TSH)', sub:'Thyroid function' },
+  { id:'vitd',  name:'Vitamin D',     sub:'25-hydroxy vitamin D' },
+  { id:'cculture', name:'Culture C/S', sub:'Bacterial culture & sensitivity' }
+];
+
+const PRIORITIES = [
+  { id:'price',    label:'Lowest price' },
+  { id:'accuracy', label:'Highest accuracy' },
+  { id:'tat',      label:'Fastest results' },
+  { id:'wait',     label:'No queues' }
+];
+
+// LABS — verified data, scoring on multiple parameters
+const LABS = [
+  {
+    id:'agakhan', name:'Aga Khan Lab',
+    bestBranch:{ name:'Gulberg II', addr:'3-A Main Gulberg, Lahore' },
+    score:9.0, accuracy:94, tat:90, wait:78, access:83,
+    accred:['CAP','JCI','ISO 15189'],
+    sources:['Google Places API','PNAC registry','CAP directory'],
+    cities:['lahore','islamabad','karachi']
+  },
+  {
+    id:'sk', name:'Shaukat Khanum Lab',
+    bestBranch:{ name:'Johar Town (Main)', addr:'7A Block R-3 Johar Town, Lahore' },
+    score:8.6, accuracy:92, tat:85, wait:60, access:55,
+    accred:['JCI','PNAC'],
+    sources:['Google Places API','JCI registry','PNAC registry'],
+    cities:['lahore']
+  },
+  {
+    id:'chughtai', name:'Chughtai Lab',
+    bestBranch:{ name:'DHA Phase 5', addr:'Commercial Broadway, DHA Ph.5, Lahore' },
+    score:8.2, accuracy:82, tat:78, wait:64, access:60,
+    accred:['ISO 15189','CAP'],
+    sources:['Google Places API','PNAC registry','chughtailab.com'],
+    cities:['lahore','islamabad','karachi']
+  },
+  {
+    id:'excel', name:'Excel Labs',
+    bestBranch:{ name:'Jail Road', addr:'Opp. Services Hospital, Jail Rd, Lahore' },
+    score:7.8, accuracy:80, tat:75, wait:68, access:70,
+    accred:['ISO 9001','24/7'],
+    sources:['Google Places API','PHC license','excel-labs.com'],
+    cities:['lahore','islamabad']
+  },
+  {
+    id:'essa', name:'Dr. Essa Lab',
+    bestBranch:{ name:'Gulberg Main', addr:'Main Boulevard Gulberg III, Lahore' },
+    score:7.5, accuracy:76, tat:72, wait:70, access:72,
+    accred:['Est. 1987','PHC licensed'],
+    sources:['Google Places API','PHC license','Health forums'],
+    cities:['lahore','karachi']
+  },
+  {
+    id:'idc', name:'IDC',
+    bestBranch:{ name:'G-8 Markaz', addr:'G-8 Markaz, Islamabad' },
+    score:7.9, accuracy:80, tat:69, wait:56, access:72,
+    accred:['ISO 9001'],
+    sources:['Google Places API','PHC license','InstaCare (Apr 2026)'],
+    cities:['lahore','islamabad']
+  }
+];
+
+// VERIFIED PRICES (Apr 2026)
+const PRICES = {
+  cbc:    { agakhan:850,  sk:0,     chughtai:800,  excel:1050, essa:720,  idc:1100 },
+  lft:    { agakhan:1350, sk:0,     chughtai:1200, excel:1400, essa:1100, idc:2200 },
+  rft:    { agakhan:1100, sk:0,     chughtai:950,  excel:1200, essa:900,  idc:1800 },
+  lipid:  { agakhan:1100, sk:0,     chughtai:1000, excel:1200, essa:900,  idc:2700 },
+  hba1c:  { agakhan:1700, sk:0,     chughtai:1600, excel:1800, essa:1500, idc:1920 },
+  tsh:    { agakhan:950,  sk:0,     chughtai:900,  excel:1000, essa:800,  idc:1200 },
+  vitd:   { agakhan:2100, sk:0,     chughtai:2000, excel:2200, essa:1800, idc:2400 },
+  cculture:{agakhan:1600, sk:0,     chughtai:1500, excel:1600, essa:1400, idc:1800 }
+};
+
+const TAT = {
+  cbc:    { agakhan:'2–4h',sk:'24h',chughtai:'2–4h',excel:'4–6h',essa:'Same day',idc:'4–8h' },
+  lft:    { agakhan:'4h',sk:'24h',chughtai:'4h',excel:'5h',essa:'6h',idc:'6h' },
+  rft:    { agakhan:'4h',sk:'24h',chughtai:'4h',excel:'5h',essa:'6h',idc:'6h' },
+  lipid:  { agakhan:'4h',sk:'24h',chughtai:'4h',excel:'5h',essa:'6h',idc:'6h' },
+  hba1c:  { agakhan:'12h',sk:'24h',chughtai:'12h',excel:'18h',essa:'24h',idc:'24h' },
+  tsh:    { agakhan:'12h',sk:'24h',chughtai:'12h',excel:'18h',essa:'24h',idc:'24h' },
+  vitd:   { agakhan:'24h',sk:'48h',chughtai:'24h',excel:'36h',essa:'48h',idc:'48h' },
+  cculture:{agakhan:'48h',sk:'72h',chughtai:'48h',excel:'48h',essa:'72h',idc:'72h' }
+};
+
+// SYMPTOM → TEST mapping (simple keyword based)
+const SYMPTOM_MAP = [
+  { keys:['diabet','sugar','thirst','urinat'], test:'hba1c', why:'HbA1c gives a 3-month picture of your blood sugar — the standard test for diabetes' },
+  { keys:['choleste','heart','lipid','fat'], test:'lipid', why:'A lipid profile measures cholesterol — essential for heart risk assessment' },
+  { keys:['thyroid','tired','fatigue','weight','cold'], test:'tsh', why:'TSH is the first-line test for thyroid issues — fatigue and weight changes are common signals' },
+  { keys:['fever','infect','flu','pain'], test:'cbc', why:'A CBC checks for infection signs — the right starting point for fevers' },
+  { keys:['liver','jaundic','yellow','alcohol'], test:'lft', why:'LFT evaluates liver function — the right test for jaundice or liver concerns' },
+  { keys:['kidney','urine','swelling','renal'], test:'rft', why:'RFT measures kidney function — the right call for swelling, urination changes, or renal concerns' },
+  { keys:['vitamin','bone','sun','deficien'], test:'vitd', why:'Vitamin D testing — important for bone health and energy in Pakistan where deficiency is common' },
+  { keys:['pregnan','baby','conceiv'], test:'cbc', why:'For pre-pregnancy planning, a CBC is the foundational test along with thyroid and vitamin checks' },
+  { keys:['annual','checkup','routine','general'], test:'cbc', why:'For an annual checkup, CBC is the baseline. Pair it with HbA1c and lipid for a fuller picture.' },
+  { keys:['urin','culture','burning','infection'], test:'cculture', why:'A urine or blood culture identifies the exact bacteria — useful for targeted antibiotic treatment' }
+];
+
+// WEIGHT TABLES (n active priorities)
+const WEIGHTS = {
+  0: { accuracy:.40, tat:.25, wait:.15, access:.10, price:.10 },
+  1: 'computed',
+  2: 'computed',
+  3: 'computed',
+  4: 'computed'
+};
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+const state = {
+  path: null,
+  scene: 1,
+  city: null,
+  test: null,
+  priorities: [],
+  symptomText: '',
+  result: null,
+  lang: 'en',
+  chat: [],
+  thinking: false
+};
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+function goScene(n) {
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('on'));
+  if (n === 1) document.getElementById('scene-1').classList.add('on');
+  else if (n === 2) {
+    if (state.path === 'test') document.getElementById('scene-2a').classList.add('on');
+    else document.getElementById('scene-2b').classList.add('on');
+  }
+  else if (n === 3) document.getElementById('scene-3').classList.add('on');
+  state.scene = n;
+  window.scrollTo({ top:0, behavior:'smooth' });
 }
 
-function removeTyping() {
-  const t = document.getElementById('typing-msg');
+function choosePath(p) {
+  state.path = p;
+  goScene(2);
+  if (p === 'test') renderTestFlow();
+  else renderSymptomFlow();
+}
+
+function setLang(l) {
+  state.lang = l;
+  document.getElementById('lp-en').classList.toggle('on', l==='en');
+  document.getElementById('lp-ur').classList.toggle('on', l==='ur');
+}
+
+function restart() {
+  state.path = null;
+  state.city = null;
+  state.test = null;
+  state.priorities = [];
+  state.symptomText = '';
+  state.result = null;
+  state.chat = [];
+  goScene(1);
+}
+
+// ═══════════════════════════════════════
+// SCENE 2A — TEST FLOW
+// ═══════════════════════════════════════
+function renderTestFlow() {
+  document.getElementById('city-row').innerHTML = CITIES.map(c =>
+    `<div class="city-chip${state.city===c.id?' on':''}" onclick="pickCity('${c.id}',this)">${c.name}</div>`
+  ).join('');
+
+  document.getElementById('test-grid').innerHTML = TESTS.map(t =>
+    `<div class="test-tile${state.test===t.id?' on':''}" onclick="pickTest('${t.id}',this)">
+       <div class="tt-name">${t.name}</div>
+       <div class="tt-meta">${t.sub}</div>
+     </div>`
+  ).join('');
+
+  document.getElementById('priority-row').innerHTML = PRIORITIES.map(p =>
+    `<div class="pr-chip${state.priorities.includes(p.id)?' on':''}" onclick="togglePriority('${p.id}',this)">${p.label}</div>`
+  ).join('');
+
+  updateTestGoState();
+}
+
+function pickCity(id, el) {
+  state.city = id;
+  document.querySelectorAll('#city-row .city-chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  updateTestGoState();
+}
+
+function pickTest(id, el) {
+  state.test = id;
+  document.querySelectorAll('#test-grid .test-tile').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  updateTestGoState();
+}
+
+function togglePriority(id, el) {
+  if (state.priorities.includes(id)) {
+    state.priorities = state.priorities.filter(x => x !== id);
+    el.classList.remove('on');
+  } else {
+    state.priorities.push(id);
+    el.classList.add('on');
+  }
+}
+
+function updateTestGoState() {
+  const ok = state.city && state.test;
+  document.getElementById('btn-test-go').disabled = !ok;
+}
+
+// ═══════════════════════════════════════
+// SCENE 2B — SYMPTOM FLOW
+// ═══════════════════════════════════════
+function renderSymptomFlow() {
+  document.getElementById('city-row-b').innerHTML = CITIES.map(c =>
+    `<div class="city-chip${state.city===c.id?' on':''}" onclick="pickCityB('${c.id}',this)">${c.name}</div>`
+  ).join('');
+
+  const txt = document.getElementById('symptom-input');
+  txt.value = state.symptomText || '';
+  txt.oninput = () => {
+    state.symptomText = txt.value;
+    updateSymGoState();
+  };
+  updateSymGoState();
+}
+
+function addSymptom(t) {
+  const inp = document.getElementById('symptom-input');
+  inp.value = t;
+  state.symptomText = t;
+  updateSymGoState();
+}
+
+function pickCityB(id, el) {
+  state.city = id;
+  document.querySelectorAll('#city-row-b .city-chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  updateSymGoState();
+}
+
+function updateSymGoState() {
+  const ok = state.city && state.symptomText && state.symptomText.trim().length > 4;
+  document.getElementById('btn-sym-go').disabled = !ok;
+}
+
+// ═══════════════════════════════════════
+// SCORING & RANKING
+// ═══════════════════════════════════════
+function scoreLab(lab, testId, priorities) {
+  let weights;
+  const n = priorities.length;
+  const priceScore = lab.id === 'sk' ? 0 : (PRICES[testId][lab.id] === 0 ? 0 : Math.max(0, 100 - ((PRICES[testId][lab.id] - 700) / 18)));
+
+  if (n === 0) {
+    weights = { accuracy:.40, tat:.25, wait:.15, access:.10, price:.10 };
+  } else {
+    // Boost the active priorities; redistribute the rest equally
+    const boost = priorities.length === 1 ? .60 : priorities.length === 2 ? .40 : priorities.length === 3 ? .28 : .22;
+    const baseRest = (1 - boost * priorities.length) / (5 - priorities.length);
+    weights = {
+      accuracy: priorities.includes('accuracy') ? boost : baseRest,
+      tat:      priorities.includes('tat') ? boost : baseRest,
+      wait:     priorities.includes('wait') ? boost : baseRest,
+      access:   baseRest,
+      price:    priorities.includes('price') ? boost : baseRest
+    };
+  }
+
+  return (
+    lab.accuracy * weights.accuracy +
+    lab.tat      * weights.tat +
+    lab.wait     * weights.wait +
+    lab.access   * weights.access +
+    priceScore   * weights.price
+  );
+}
+
+function rankLabs(testId, city, priorities) {
+  return LABS
+    .filter(lab => lab.cities.includes(city))
+    .filter(lab => PRICES[testId][lab.id] > 0 || lab.id === 'sk') // SK always shown for cancer
+    .map(lab => ({ ...lab, computed: scoreLab(lab, testId, priorities), price: PRICES[testId][lab.id], tat: TAT[testId][lab.id] }))
+    .sort((a,b) => b.computed - a.computed);
+}
+
+// ═══════════════════════════════════════
+// VERDICT GENERATION
+// ═══════════════════════════════════════
+function buildVerdictSentence(winner, test, priorities) {
+  const t = TESTS.find(x => x.id === test);
+  const cityName = CITIES.find(c => c.id === state.city).name;
+
+  if (priorities.length === 0) {
+    return `For your ${t.name} in ${cityName}, go to <em>${winner.name}</em>.`;
+  }
+
+  const labels = priorities.map(p => PRIORITIES.find(x => x.id === p).label.toLowerCase()).join(' & ');
+  return `For ${labels} on your ${t.name}, <em>${winner.name}</em> is your answer.`;
+}
+
+function buildBecause(winner, test, priorities) {
+  const t = TESTS.find(x => x.id === test);
+  const reasons = [];
+
+  if (winner.score >= 8.8) reasons.push('the strongest accreditation in Pakistan');
+  if (winner.tat <= 4) reasons.push('the fastest turnaround');
+  if (winner.price <= 800) reasons.push('among the most affordable');
+  if (winner.accuracy >= 90) reasons.push('verified high accuracy');
+  if (winner.accred.includes('CAP') || winner.accred.includes('JCI')) reasons.push('international accreditation (' + winner.accred.filter(a => ['CAP','JCI'].includes(a)).join(' & ') + ')');
+
+  const r = reasons.length ? reasons.slice(0,3).join(', ') : 'a balanced score across price, speed, and accuracy';
+  return `Why? ${r.charAt(0).toUpperCase()+r.slice(1)}. The ${winner.bestBranch.name} branch performs strongest within their network for this test.`;
+}
+
+function suggestTest(symptomText) {
+  const lower = symptomText.toLowerCase();
+  for (const m of SYMPTOM_MAP) {
+    if (m.keys.some(k => lower.includes(k))) return { test: m.test, why: m.why };
+  }
+  return { test: 'cbc', why: 'When the picture isn\'t clear, a CBC is the smartest first step — it screens for the most common issues' };
+}
+
+// ═══════════════════════════════════════
+// RUN VERDICT
+// ═══════════════════════════════════════
+function runTestVerdict() {
+  const ranked = rankLabs(state.test, state.city, state.priorities);
+  if (!ranked.length) { showToast('No labs available for this combination'); return; }
+  state.result = { ranked, suggestedReason: null };
+  goScene(3);
+  paintVerdict();
+}
+
+function runSymptomVerdict() {
+  const sug = suggestTest(state.symptomText);
+  state.test = sug.test;
+  state.priorities = []; // symptom path doesn't ask for priorities — accuracy default
+  const ranked = rankLabs(state.test, state.city, state.priorities);
+  state.result = { ranked, suggestedReason: sug.why };
+  goScene(3);
+  paintVerdict();
+}
+
+function paintVerdict() {
+  const winner = state.result.ranked[0];
+  const test = TESTS.find(t => t.id === state.test);
+  const cityName = CITIES.find(c => c.id === state.city).name;
+
+  // Eyebrow
+  const eye = state.path === 'symptom'
+    ? `Suggested test: ${test.name} · ${cityName}`
+    : `${test.name} · ${cityName}`;
+  document.getElementById('verdict-eye').textContent = eye;
+
+  // Sentence
+  document.getElementById('verdict-sentence').innerHTML = buildVerdictSentence(winner, state.test, state.priorities);
+
+  // Because
+  let because = '';
+  if (state.path === 'symptom' && state.result.suggestedReason) {
+    because = `${state.result.suggestedReason}. ` + buildBecause(winner, state.test, state.priorities);
+  } else {
+    because = buildBecause(winner, state.test, state.priorities);
+  }
+  document.getElementById('verdict-because').textContent = because;
+
+  // Winner block
+  document.getElementById('winner-name').textContent = winner.name;
+  document.getElementById('winner-branch').textContent = winner.bestBranch.name + ' — strongest branch for this test';
+  document.getElementById('winner-addr').textContent = winner.bestBranch.addr;
+  document.getElementById('winner-score').textContent = winner.score.toFixed(1);
+
+  // Metrics
+  document.getElementById('winner-mets').innerHTML = `
+    <div class="met">
+      <div class="met-circle"><div class="met-pct">${winner.accuracy}%</div></div>
+      <div class="met-label">Accuracy</div>
+      <div class="met-sub">From accreditation & web data</div>
+    </div>
+    <div class="met">
+      <div class="met-circle"><div class="met-pct">${winner.tat}%</div></div>
+      <div class="met-label">Speed</div>
+      <div class="met-sub">Turnaround vs. promise</div>
+    </div>
+    <div class="met">
+      <div class="met-circle"><div class="met-pct">${winner.wait}%</div></div>
+      <div class="met-label">Low wait</div>
+      <div class="met-sub">In-branch queue time</div>
+    </div>
+    <div class="met">
+      <div class="met-circle"><div class="met-pct">${winner.access}%</div></div>
+      <div class="met-label">Access</div>
+      <div class="met-sub">Parking & location</div>
+    </div>
+  `;
+
+  // Price strip
+  const priceText = winner.price > 0 ? `Rs ${winner.price.toLocaleString()}` : 'Contact lab';
+  document.getElementById('price-strip').innerHTML = `
+    <div class="ps-left">
+      <div class="ps-eye">${test.name} · ${test.sub}</div>
+      <div class="ps-test">at ${winner.name}</div>
+    </div>
+    <div class="ps-right">
+      <div class="ps-price">${priceText}</div>
+      <div class="ps-tat">${winner.tat ? 'Result in ' + winner.tat : 'Confirm with lab'}</div>
+    </div>
+  `;
+
+  // Sources
+  document.getElementById('sources-line').innerHTML = winner.sources.map(s => `<span><strong>·</strong> ${s}</span>`).join('') + '<span style="margin-left:auto"><strong>·</strong> Updated April 2026</span>';
+
+  // Alternatives
+  const others = state.result.ranked.slice(1, 5);
+  document.getElementById('alt-row').innerHTML = others.map(lab => {
+    const p = PRICES[state.test][lab.id];
+    const priceTxt = p > 0 ? `Rs ${p.toLocaleString()}` : '—';
+    return `
+      <div class="alt-card" onclick="askAbout('${lab.id}')">
+        <div class="alt-circle"><div class="alt-num">${lab.score.toFixed(1)}</div></div>
+        <div class="alt-info">
+          <div class="alt-name">${lab.name}</div>
+          <div class="alt-tag">${lab.bestBranch.name}</div>
+        </div>
+        <div class="alt-price">${priceTxt}</div>
+      </div>
+    `;
+  }).join('');
+
+  // AI suggestions reset
+  resetAi(winner, test);
+}
+
+// ═══════════════════════════════════════
+// AI PANEL
+// ═══════════════════════════════════════
+function resetAi(winner, test) {
+  state.chat = [];
+  document.getElementById('ai-msgs').innerHTML = `
+    <div class="ai-empty" id="ai-empty">
+      <div class="ai-empty-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M9 2C9 2 4 5.5 4 9.5C4 12.5 6.2 15 9 15C11.8 15 14 12.5 14 9.5C14 5.5 9 2 9 2Z"/>
+          <path d="M6.5 9.5h5M9 7v5"/>
+        </svg>
+      </div>
+      <div class="ai-empty-text">Ask anything about ${winner.name} or this test.</div>
+      <div class="ai-suggest" id="ai-suggest"></div>
+    </div>
+  `;
+  document.getElementById('ai-suggest').innerHTML = `
+    <div class="ai-sg" onclick="askPreset('What should I bring to ${winner.name}?')">What should I bring?</div>
+    <div class="ai-sg" onclick="askPreset('Do I need to fast for the ${test.name} test?')">Do I need to fast?</div>
+    <div class="ai-sg" onclick="askPreset('Is home collection available at ${winner.name}?')">Home collection?</div>
+    <div class="ai-sg" onclick="askPreset('How does ${winner.name} compare with the others on the list?')">Compare with others</div>
+  `;
+}
+
+function askAbout(labId) {
+  const lab = LABS.find(l => l.id === labId);
+  askPreset(`Tell me more about ${lab.name} — strengths, weaknesses, accreditation.`);
+}
+
+function askPreset(text) {
+  document.getElementById('ai-input').value = text;
+  document.getElementById('ai-send').disabled = false;
+  aiSend();
+}
+
+function aiKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    if (!document.getElementById('ai-send').disabled) aiSend();
+  }
+}
+
+function aiResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+}
+
+document.addEventListener('input', e => {
+  if (e.target.id === 'ai-input') {
+    document.getElementById('ai-send').disabled = !e.target.value.trim() || state.thinking;
+  }
+});
+
+function hideAiEmpty() {
+  const empty = document.getElementById('ai-empty');
+  if (empty) empty.remove();
+}
+
+function addBubble(role, content, isErr=false) {
+  hideAiEmpty();
+  const div = document.createElement('div');
+  div.className = 'ai-msg ' + role;
+  div.innerHTML = `<div class="ai-bubble">${content.replace(/\n/g,'<br/>')}</div>`;
+  if (isErr) div.querySelector('.ai-bubble').style.cssText = 'background:#F0DCD0;border-color:#E0BFA8;color:#7A2C18';
+  document.getElementById('ai-msgs').appendChild(div);
+  document.getElementById('ai-msgs').scrollTop = 999999;
+}
+
+function showThinking() {
+  hideAiEmpty();
+  const div = document.createElement('div');
+  div.className = 'ai-msg bot'; div.id = 'thinking';
+  div.innerHTML = `<div class="ai-bubble"><div class="ai-typing"><span></span><span></span><span></span></div></div>`;
+  document.getElementById('ai-msgs').appendChild(div);
+  document.getElementById('ai-msgs').scrollTop = 999999;
+}
+
+function removeThinking() {
+  const t = document.getElementById('thinking');
   if (t) t.remove();
 }
 
-async function sendMessage() {
-  const input = document.getElementById('msg-input');
-  const text = input.value.trim();
-  if (!text || isThinking) return;
+async function aiSend() {
+  const inp = document.getElementById('ai-input');
+  const text = inp.value.trim();
+  if (!text || state.thinking) return;
+  inp.value = ''; inp.style.height = 'auto';
+  document.getElementById('ai-send').disabled = true;
+  state.thinking = true;
+  addBubble('user', text);
+  state.chat.push({ role:'user', content:text });
+  showThinking();
 
-  input.value = '';
-  input.style.height = 'auto';
-  document.getElementById('send-btn').disabled = true;
-  isThinking = true;
-  document.getElementById('agent-status').textContent = STRINGS[currentLang].thinking;
-
-  addMessage('user', text);
-  conversationHistory.push({ role:'user', content:text });
-  showTyping();
+  // Build context for AI
+  const winner = state.result?.ranked[0];
+  const test = TESTS.find(t => t.id === state.test);
+  const cityName = state.city ? CITIES.find(c => c.id === state.city).name : '';
+  const ctx = `Context: User just got a verdict for ${test?.name || 'a test'} in ${cityName}. The recommended lab is ${winner?.name || ''} (${winner?.bestBranch.name || ''}, score ${winner?.score || ''}). Price Rs ${winner?.price || ''}, TAT ${winner?.tat || ''}. They are asking a follow-up question.`;
 
   try {
-    // ── Calls YOUR backend at /api/chat — not Anthropic directly ──
-    const response = await fetch('/api/chat', {
+    const resp = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        messages: conversationHistory,
-        language: currentLang
+        messages: [{ role:'user', content: ctx + '\n\nUser question: ' + text }],
+        language: state.lang
       })
     });
-
-    if (!response.ok) throw new Error(`Status ${response.status}`);
-    const data = await response.json();
-
+    if (!resp.ok) throw new Error('API error');
+    const data = await resp.json();
     if (data.error) throw new Error(data.error);
-
-    conversationHistory.push({ role:'assistant', content:data.reply });
-    removeTyping();
-    addMessage('agent', data.reply);
-
-  } catch (err) {
-    console.error('DiagnoRate error:', err);
-    removeTyping();
-    addMessage('agent', STRINGS[currentLang].errorMsg, true);
+    state.chat.push({ role:'assistant', content: data.reply });
+    removeThinking();
+    addBubble('bot', data.reply);
+  } catch(err) {
+    removeThinking();
+    addBubble('bot', state.lang === 'ur' ? 'معذرت، جواب نہیں مل سکا۔' : 'Sorry, I couldn\'t reach the AI. Please try again.', true);
   }
 
-  isThinking = false;
-  document.getElementById('agent-status').textContent = STRINGS[currentLang].agentStatus;
-  document.getElementById('send-btn').disabled = !document.getElementById('msg-input').value.trim();
+  state.thinking = false;
+  document.getElementById('ai-send').disabled = !document.getElementById('ai-input').value.trim();
 }
 
-function clearChat() {
-  conversationHistory = [];
-  const s = STRINGS[currentLang];
-  document.getElementById('messages').innerHTML = `
-    <div class="welcome-state" id="welcome-state">
-      <div class="ws-icon">
-        <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M15 3C15 3 7 8 7 16C7 20.4 10.6 24 15 24C19.4 24 23 20.4 23 16C23 8 15 3 15 3Z"/>
-          <path d="M11 16H19M15 12V20"/>
-        </svg>
-      </div>
-      <div class="ws-title" id="ws-title">${s.wsTitle}</div>
-      <div class="ws-sub" id="ws-sub">${s.wsSub}</div>
-      <div class="ws-chips" id="ws-chips"></div>
-    </div>
-  `;
-  renderWsChips();
+// ═══════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-document.getElementById('msg-input').addEventListener('input', () => {
-  document.getElementById('send-btn').disabled =
-    !document.getElementById('msg-input').value.trim() || isThinking;
-});
-
-setLang('en');
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+goScene(1);
 </script>
 </body>
 </html>
