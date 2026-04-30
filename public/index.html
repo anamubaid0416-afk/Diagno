@@ -569,7 +569,128 @@ body::before {
   line-height: 1.4;
 }
 
-/* TEST PRICE STRIP */
+/* PRESCRIPTION ITEMISED LIST */
+.rx-list {
+  background: var(--ink);
+  color: var(--bone);
+  border-radius: var(--rs);
+  padding: 24px 28px;
+  margin-top: 22px;
+}
+.rx-eye {
+  font-size: 10px; letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(250,247,242,.5);
+  margin-bottom: 18px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.rx-eye-right { font-style: italic; letter-spacing: .3px; }
+.rx-rows { display: flex; flex-direction: column; gap: 0; }
+.rx-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(250,247,242,.08);
+}
+.rx-row:last-child { border-bottom: none; }
+.rx-test-block { flex: 1; min-width: 0; }
+.rx-test-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 500;
+  line-height: 1.2;
+}
+.rx-test-tat {
+  font-size: 11px;
+  color: rgba(250,247,242,.4);
+  margin-top: 3px;
+  letter-spacing: .2px;
+  font-style: italic;
+}
+.rx-test-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 600;
+  flex-shrink: 0; padding-left: 18px;
+}
+.rx-total {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-top: 14px; padding-top: 18px;
+  border-top: 1.5px solid rgba(250,247,242,.18);
+}
+.rx-total-left {}
+.rx-total-eye {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 16px;
+  color: rgba(250,247,242,.7);
+}
+.rx-total-tat {
+  font-size: 11px; color: rgba(250,247,242,.5);
+  margin-top: 4px; letter-spacing: .3px;
+}
+.rx-total-amt {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 600;
+  line-height: 1;
+}
+
+/* SPLIT SAVINGS STRIP */
+.split-strip {
+  background: var(--gold2);
+  border: 1px solid #E8D6A8;
+  border-radius: var(--rs);
+  padding: 20px 24px;
+  margin-top: 14px;
+}
+.split-eye {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10px; letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.split-eye svg { width: 13px; height: 13px; }
+.split-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-style: italic;
+  color: var(--ink);
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+.split-headline strong { font-style: normal; font-weight: 600; color: var(--gold); }
+.split-rows { display: flex; flex-direction: column; gap: 8px; }
+.split-row {
+  display: flex; align-items: baseline; gap: 12px;
+  font-size: 13px;
+}
+.split-test {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  min-width: 110px;
+  color: var(--ink);
+  font-size: 15px;
+}
+.split-at {
+  flex: 1;
+  color: var(--ink3);
+  font-size: 12px;
+}
+.split-at strong { font-weight: 500; color: var(--ink2); font-size: 13px; }
+.split-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: right;
+  font-size: 15px;
+}
+.split-foot {
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px dashed rgba(140,106,26,.3);
+  font-size: 12px;
+  color: var(--gold);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+/* TEST PRICE STRIP — single test */
 .price-strip {
   background: var(--ink);
   color: var(--bone);
@@ -940,8 +1061,8 @@ body::before {
             <path d="M9 13h6M9 17h4"/>
           </svg>
         </div>
-        <div class="path-h">I know which test<br/>I need to do.</div>
-        <div class="path-desc">Pick your city and test. We will tell you the right lab.</div>
+        <div class="path-h">I have a prescription<br/>or know my tests.</div>
+        <div class="path-desc">Pick all the tests on your prescription and your city. We will tell you the right lab.</div>
         <div class="path-arrow">
           Begin
           <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
@@ -976,8 +1097,8 @@ body::before {
       <div class="prog-step"><div class="prog-circle">iii</div><span class="prog-label">Verdict</span></div>
     </div>
 
-    <h1 class="input-h">Which test, <em>and where</em>?</h1>
-    <p class="input-sub">Tell us your city and the test you need. We will compare every lab and bring you the verdict.</p>
+    <h1 class="input-h">Your prescription, <em>your city</em>.</h1>
+    <p class="input-sub">Pick the tests on your prescription and your city. We will compute the best lab for the full set — itemised, total cost, and where you could save by splitting.</p>
 
     <div class="field-block">
       <div class="field-label">Your city</div>
@@ -985,7 +1106,7 @@ body::before {
     </div>
 
     <div class="field-block">
-      <div class="field-label">The test</div>
+      <div class="field-label">Your prescription <span id="rx-counter" style="color:var(--green);font-weight:500;letter-spacing:0;text-transform:none;font-size:13px;margin-left:8px">No tests selected</span></div>
       <div class="test-grid" id="test-grid"></div>
     </div>
 
@@ -1080,7 +1201,7 @@ body::before {
           </div>
           <div class="winner-mets" id="winner-mets"></div>
 
-          <div class="price-strip" id="price-strip"></div>
+          <div id="rx-container"></div>
 
           <div class="sources-line" id="sources-line"></div>
         </div>
@@ -1267,7 +1388,8 @@ const state = {
   path: null,
   scene: 1,
   city: null,
-  test: null,
+  tests: [],         // Multi-test array (was single test)
+  test: null,        // Kept for symptom flow (single suggestion)
   priorities: [],
   symptomText: '',
   result: null,
@@ -1307,6 +1429,7 @@ function setLang(l) {
 function restart() {
   state.path = null;
   state.city = null;
+  state.tests = [];
   state.test = null;
   state.priorities = [];
   state.symptomText = '';
@@ -1324,7 +1447,7 @@ function renderTestFlow() {
   ).join('');
 
   document.getElementById('test-grid').innerHTML = TESTS.map(t =>
-    `<div class="test-tile${state.test===t.id?' on':''}" onclick="pickTest('${t.id}',this)">
+    `<div class="test-tile${state.tests.includes(t.id)?' on':''}" onclick="pickTest('${t.id}',this)">
        <div class="tt-name">${t.name}</div>
        <div class="tt-meta">${t.sub}</div>
      </div>`
@@ -1335,6 +1458,7 @@ function renderTestFlow() {
   ).join('');
 
   updateTestGoState();
+  updatePrescriptionCount();
 }
 
 function pickCity(id, el) {
@@ -1345,10 +1469,25 @@ function pickCity(id, el) {
 }
 
 function pickTest(id, el) {
-  state.test = id;
-  document.querySelectorAll('#test-grid .test-tile').forEach(c => c.classList.remove('on'));
-  el.classList.add('on');
+  // Multi-select: toggle test in/out of state.tests array
+  if (state.tests.includes(id)) {
+    state.tests = state.tests.filter(x => x !== id);
+    el.classList.remove('on');
+  } else {
+    state.tests.push(id);
+    el.classList.add('on');
+  }
   updateTestGoState();
+  updatePrescriptionCount();
+}
+
+function updatePrescriptionCount() {
+  const counter = document.getElementById('rx-counter');
+  if (!counter) return;
+  const n = state.tests.length;
+  if (n === 0) counter.textContent = 'No tests selected';
+  else if (n === 1) counter.textContent = '1 test selected';
+  else counter.textContent = `${n} tests selected — full prescription`;
 }
 
 function togglePriority(id, el) {
@@ -1362,7 +1501,7 @@ function togglePriority(id, el) {
 }
 
 function updateTestGoState() {
-  const ok = state.city && state.test;
+  const ok = state.city && state.tests.length > 0;
   document.getElementById('btn-test-go').disabled = !ok;
 }
 
@@ -1403,19 +1542,55 @@ function updateSymGoState() {
 }
 
 // ═══════════════════════════════════════
-// SCORING & RANKING
+// SCORING & RANKING — MULTI-TEST
 // ═══════════════════════════════════════
-function scoreLab(lab, testId, priorities) {
+function getLabTotalForTests(labId, testIds) {
+  // Returns null if lab cannot do any of these tests
+  let total = 0;
+  let canDoAll = true;
+  for (const tid of testIds) {
+    const p = PRICES[tid][labId];
+    if (!p || p === 0) { canDoAll = false; break; }
+    total += p;
+  }
+  return canDoAll ? total : null;
+}
+
+function getCheapestPerTest(testIds, availableLabs) {
+  // For each test, find cheapest lab. Returns map: { testId: { labId, price } }
+  const result = {};
+  for (const tid of testIds) {
+    let cheapest = null;
+    for (const lab of availableLabs) {
+      const p = PRICES[tid][lab.id];
+      if (p && p > 0 && (!cheapest || p < cheapest.price)) {
+        cheapest = { labId: lab.id, labName: lab.name, price: p };
+      }
+    }
+    if (cheapest) result[tid] = cheapest;
+  }
+  return result;
+}
+
+function scoreLab(lab, testIds, priorities, allLabsTotals) {
+  // Compute price score relative to cheapest total in this set
+  const labTotal = getLabTotalForTests(lab.id, testIds);
+  if (labTotal === null) return -1;
+
+  const cheapestTotal = Math.min(...Object.values(allLabsTotals).filter(v => v !== null));
+  // priceScore: 100 if cheapest, drops as price rises (every 10% above cheapest = -10 points)
+  const priceScore = cheapestTotal > 0
+    ? Math.max(0, 100 - ((labTotal - cheapestTotal) / cheapestTotal) * 100)
+    : 50;
+
   let weights;
   const n = priorities.length;
-  const priceScore = lab.id === 'sk' ? 0 : (PRICES[testId][lab.id] === 0 ? 0 : Math.max(0, 100 - ((PRICES[testId][lab.id] - 700) / 18)));
 
   if (n === 0) {
     weights = { accuracy:.40, tat:.25, wait:.15, access:.10, price:.10 };
   } else {
-    // Boost the active priorities; redistribute the rest equally
-    const boost = priorities.length === 1 ? .60 : priorities.length === 2 ? .40 : priorities.length === 3 ? .28 : .22;
-    const baseRest = (1 - boost * priorities.length) / (5 - priorities.length);
+    const boost = n === 1 ? .60 : n === 2 ? .40 : n === 3 ? .28 : .22;
+    const baseRest = (1 - boost * n) / (5 - n);
     weights = {
       accuracy: priorities.includes('accuracy') ? boost : baseRest,
       tat:      priorities.includes('tat') ? boost : baseRest,
@@ -1434,41 +1609,84 @@ function scoreLab(lab, testId, priorities) {
   );
 }
 
-function rankLabs(testId, city, priorities) {
-  return LABS
-    .filter(lab => lab.cities.includes(city))
-    .filter(lab => PRICES[testId][lab.id] > 0 || lab.id === 'sk') // SK always shown for cancer
-    .map(lab => ({ ...lab, computed: scoreLab(lab, testId, priorities), price: PRICES[testId][lab.id], tat: TAT[testId][lab.id] }))
-    .sort((a,b) => b.computed - a.computed);
+function rankLabs(testIds, city, priorities) {
+  const cityLabs = LABS.filter(lab => lab.cities.includes(city));
+
+  // Compute totals for all labs first (for relative price scoring)
+  const allTotals = {};
+  cityLabs.forEach(lab => {
+    allTotals[lab.id] = getLabTotalForTests(lab.id, testIds);
+  });
+
+  return cityLabs
+    .map(lab => {
+      const total = allTotals[lab.id];
+      if (total === null) return null;
+      const itemized = testIds.map(tid => ({
+        testId: tid,
+        testName: TESTS.find(t => t.id === tid).name,
+        price: PRICES[tid][lab.id],
+        tat: TAT[tid][lab.id]
+      }));
+      return {
+        ...lab,
+        computed: scoreLab(lab, testIds, priorities, allTotals),
+        total,
+        itemized
+      };
+    })
+    .filter(l => l !== null)
+    .sort((a, b) => b.computed - a.computed);
 }
 
 // ═══════════════════════════════════════
 // VERDICT GENERATION
 // ═══════════════════════════════════════
-function buildVerdictSentence(winner, test, priorities) {
-  const t = TESTS.find(x => x.id === test);
+function buildVerdictSentence(winner, testIds, priorities) {
   const cityName = CITIES.find(c => c.id === state.city).name;
 
-  if (priorities.length === 0) {
-    return `For your ${t.name} in ${cityName}, go to <em>${winner.name}</em>.`;
+  if (testIds.length === 1) {
+    const t = TESTS.find(x => x.id === testIds[0]);
+    if (priorities.length === 0) {
+      return `For your ${t.name} in ${cityName}, go to <em>${winner.name}</em>.`;
+    }
+    const labels = priorities.map(p => PRIORITIES.find(x => x.id === p).label.toLowerCase()).join(' & ');
+    return `For ${labels} on your ${t.name}, <em>${winner.name}</em> is your answer.`;
   }
 
+  // Multi-test prescription
+  const testCount = testIds.length;
+  if (priorities.length === 0) {
+    return `For your full prescription in ${cityName} — ${testCount} tests — go to <em>${winner.name}</em>.`;
+  }
   const labels = priorities.map(p => PRIORITIES.find(x => x.id === p).label.toLowerCase()).join(' & ');
-  return `For ${labels} on your ${t.name}, <em>${winner.name}</em> is your answer.`;
+  return `For ${labels} across your ${testCount}-test prescription, <em>${winner.name}</em> wins.`;
 }
 
-function buildBecause(winner, test, priorities) {
-  const t = TESTS.find(x => x.id === test);
+function buildBecause(winner, testIds, priorities, splitSavings) {
   const reasons = [];
 
   if (winner.score >= 8.8) reasons.push('the strongest accreditation in Pakistan');
-  if (winner.tat <= 4) reasons.push('the fastest turnaround');
-  if (winner.price <= 800) reasons.push('among the most affordable');
   if (winner.accuracy >= 90) reasons.push('verified high accuracy');
-  if (winner.accred.includes('CAP') || winner.accred.includes('JCI')) reasons.push('international accreditation (' + winner.accred.filter(a => ['CAP','JCI'].includes(a)).join(' & ') + ')');
+  if (winner.accred.includes('CAP') || winner.accred.includes('JCI')) {
+    reasons.push('international accreditation (' + winner.accred.filter(a => ['CAP','JCI'].includes(a)).join(' & ') + ')');
+  }
 
-  const r = reasons.length ? reasons.slice(0,3).join(', ') : 'a balanced score across price, speed, and accuracy';
-  return `Why? ${r.charAt(0).toUpperCase()+r.slice(1)}. The ${winner.bestBranch.name} branch performs strongest within their network for this test.`;
+  // For multi-test, mention the total
+  if (testIds.length > 1) {
+    reasons.push(`Rs ${winner.total.toLocaleString()} for the full set, all under one roof`);
+  } else if (winner.itemized[0].price <= 800) {
+    reasons.push('among the most affordable');
+  }
+
+  const r = reasons.length ? reasons.slice(0, 3).join(', ') : 'a balanced score across price, speed, and accuracy';
+  let txt = `Why? ${r.charAt(0).toUpperCase() + r.slice(1)}. The ${winner.bestBranch.name} branch performs strongest within their network.`;
+
+  if (splitSavings && splitSavings.totalSavings > 100) {
+    txt += ` You could save Rs ${splitSavings.totalSavings.toLocaleString()} by splitting tests across labs — but the total trip and time often costs more than the saving.`;
+  }
+
+  return txt;
 }
 
 function suggestTest(symptomText) {
@@ -1483,9 +1701,26 @@ function suggestTest(symptomText) {
 // RUN VERDICT
 // ═══════════════════════════════════════
 function runTestVerdict() {
-  const ranked = rankLabs(state.test, state.city, state.priorities);
+  const ranked = rankLabs(state.tests, state.city, state.priorities);
   if (!ranked.length) { showToast('No labs available for this combination'); return; }
-  state.result = { ranked, suggestedReason: null };
+
+  // Compute split savings — cheapest possible if you split tests across labs
+  const cityLabs = LABS.filter(lab => lab.cities.includes(state.city));
+  const cheapestPerTest = getCheapestPerTest(state.tests, cityLabs);
+  let splitTotal = 0;
+  let splitOK = true;
+  for (const tid of state.tests) {
+    if (cheapestPerTest[tid]) splitTotal += cheapestPerTest[tid].price;
+    else { splitOK = false; break; }
+  }
+  const winner = ranked[0];
+  const splitSavings = splitOK ? {
+    totalSavings: winner.total - splitTotal,
+    splitTotal,
+    perTest: cheapestPerTest
+  } : null;
+
+  state.result = { ranked, suggestedReason: null, splitSavings };
   goScene(3);
   paintVerdict();
 }
@@ -1493,39 +1728,46 @@ function runTestVerdict() {
 function runSymptomVerdict() {
   const sug = suggestTest(state.symptomText);
   state.test = sug.test;
-  state.priorities = []; // symptom path doesn't ask for priorities — accuracy default
-  const ranked = rankLabs(state.test, state.city, state.priorities);
-  state.result = { ranked, suggestedReason: sug.why };
+  state.tests = [sug.test];      // single-element array for the multi-test pipeline
+  state.priorities = [];
+  const ranked = rankLabs(state.tests, state.city, state.priorities);
+  state.result = { ranked, suggestedReason: sug.why, splitSavings: null };
   goScene(3);
   paintVerdict();
 }
 
 function paintVerdict() {
   const winner = state.result.ranked[0];
-  const test = TESTS.find(t => t.id === state.test);
+  const isMulti = state.tests.length > 1;
   const cityName = CITIES.find(c => c.id === state.city).name;
 
-  // Eyebrow
-  const eye = state.path === 'symptom'
-    ? `Suggested test: ${test.name} · ${cityName}`
-    : `${test.name} · ${cityName}`;
+  // Eyebrow — adapt for multi vs single
+  let eye;
+  if (isMulti) {
+    eye = `${state.tests.length} tests · ${cityName}`;
+  } else {
+    const t = TESTS.find(x => x.id === state.tests[0]);
+    eye = state.path === 'symptom'
+      ? `Suggested test: ${t.name} · ${cityName}`
+      : `${t.name} · ${cityName}`;
+  }
   document.getElementById('verdict-eye').textContent = eye;
 
   // Sentence
-  document.getElementById('verdict-sentence').innerHTML = buildVerdictSentence(winner, state.test, state.priorities);
+  document.getElementById('verdict-sentence').innerHTML = buildVerdictSentence(winner, state.tests, state.priorities);
 
-  // Because
-  let because = '';
+  // Because — pass split savings for honest disclosure
+  let because;
   if (state.path === 'symptom' && state.result.suggestedReason) {
-    because = `${state.result.suggestedReason}. ` + buildBecause(winner, state.test, state.priorities);
+    because = `${state.result.suggestedReason}. ` + buildBecause(winner, state.tests, state.priorities, state.result.splitSavings);
   } else {
-    because = buildBecause(winner, state.test, state.priorities);
+    because = buildBecause(winner, state.tests, state.priorities, state.result.splitSavings);
   }
   document.getElementById('verdict-because').textContent = because;
 
   // Winner block
   document.getElementById('winner-name').textContent = winner.name;
-  document.getElementById('winner-branch').textContent = winner.bestBranch.name + ' — strongest branch for this test';
+  document.getElementById('winner-branch').textContent = winner.bestBranch.name + ' — strongest branch';
   document.getElementById('winner-addr').textContent = winner.bestBranch.addr;
   document.getElementById('winner-score').textContent = winner.score.toFixed(1);
 
@@ -1553,27 +1795,86 @@ function paintVerdict() {
     </div>
   `;
 
-  // Price strip
-  const priceText = winner.price > 0 ? `Rs ${winner.price.toLocaleString()}` : 'Contact lab';
-  document.getElementById('price-strip').innerHTML = `
-    <div class="ps-left">
-      <div class="ps-eye">${test.name} · ${test.sub}</div>
-      <div class="ps-test">at ${winner.name}</div>
+  // RX CONTAINER — itemised + (optional) split-savings strip
+  const rxContainer = document.getElementById('rx-container');
+  const itemRows = winner.itemized.map(item => `
+    <div class="rx-row">
+      <div class="rx-test-block">
+        <div class="rx-test-name">${item.testName}</div>
+        <div class="rx-test-tat">Result in ${item.tat}</div>
+      </div>
+      <div class="rx-test-price">Rs ${item.price.toLocaleString()}</div>
     </div>
-    <div class="ps-right">
-      <div class="ps-price">${priceText}</div>
-      <div class="ps-tat">${winner.tat ? 'Result in ' + winner.tat : 'Confirm with lab'}</div>
+  `).join('');
+
+  // Compute longest TAT for total label
+  const longestTat = winner.itemized.map(i => i.tat).sort((a,b) => {
+    const parseHrs = s => {
+      if (s.includes('Same day')) return 24;
+      const m = s.match(/(\d+)/g);
+      return m ? Math.max(...m.map(Number)) : 0;
+    };
+    return parseHrs(b) - parseHrs(a);
+  })[0];
+
+  let rxHtml = `
+    <div class="rx-list">
+      <div class="rx-eye">
+        <span>Your prescription · at ${winner.name}</span>
+        <span class="rx-eye-right">${winner.itemized.length} ${winner.itemized.length === 1 ? 'test' : 'tests'}</span>
+      </div>
+      <div class="rx-rows">${itemRows}</div>
+      <div class="rx-total">
+        <div class="rx-total-left">
+          <div class="rx-total-eye">Total — one visit, one trip</div>
+          <div class="rx-total-tat">All results within ${longestTat}</div>
+        </div>
+        <div class="rx-total-amt">Rs ${winner.total.toLocaleString()}</div>
+      </div>
     </div>
   `;
 
-  // Sources
-  document.getElementById('sources-line').innerHTML = winner.sources.map(s => `<span><strong>·</strong> ${s}</span>`).join('') + '<span style="margin-left:auto"><strong>·</strong> Updated April 2026</span>';
+  // Split savings strip — only show if multi-test AND savings > 0
+  const splits = state.result.splitSavings;
+  if (isMulti && splits && splits.totalSavings > 0) {
+    const splitItemRows = state.tests.map(tid => {
+      const c = splits.perTest[tid];
+      const t = TESTS.find(x => x.id === tid);
+      const isAtWinner = c.labId === winner.id;
+      return `
+        <div class="split-row">
+          <div class="split-test">${t.name}</div>
+          <div class="split-at">cheapest at <strong>${c.labName}</strong>${isAtWinner ? ' (same)' : ''}</div>
+          <div class="split-price">Rs ${c.price.toLocaleString()}</div>
+        </div>
+      `;
+    }).join('');
 
-  // Alternatives
+    rxHtml += `
+      <div class="split-strip">
+        <div class="split-eye">
+          <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6.5" cy="6.5" r="5.5"/><path d="M6.5 4v3M6.5 8.5v.5"/></svg>
+          The honest disclosure
+        </div>
+        <div class="split-headline">If you split your tests across labs, the cheapest possible total is <strong>Rs ${splits.splitTotal.toLocaleString()}</strong> — saving Rs ${splits.totalSavings.toLocaleString()} versus going to one lab.</div>
+        <div class="split-rows">${splitItemRows}</div>
+        <div class="split-foot">But splitting means multiple trips, multiple sample collections, and reports across different systems. Most patients save more in time & travel by sticking with one trusted lab.</div>
+      </div>
+    `;
+  }
+
+  rxContainer.innerHTML = rxHtml;
+
+  // Sources
+  document.getElementById('sources-line').innerHTML =
+    winner.sources.map(s => `<span><strong>·</strong> ${s}</span>`).join('') +
+    '<span style="margin-left:auto"><strong>·</strong> Updated April 2026</span>';
+
+  // Alternatives — show their TOTAL for the prescription
   const others = state.result.ranked.slice(1, 5);
   document.getElementById('alt-row').innerHTML = others.map(lab => {
-    const p = PRICES[state.test][lab.id];
-    const priceTxt = p > 0 ? `Rs ${p.toLocaleString()}` : '—';
+    const priceTxt = `Rs ${lab.total.toLocaleString()}`;
+    const priceLabel = isMulti ? `<div style="font-size:9px;color:var(--ink4);letter-spacing:.5px;text-transform:uppercase;text-align:right;margin-top:1px">total</div>` : '';
     return `
       <div class="alt-card" onclick="askAbout('${lab.id}')">
         <div class="alt-circle"><div class="alt-num">${lab.score.toFixed(1)}</div></div>
@@ -1581,20 +1882,28 @@ function paintVerdict() {
           <div class="alt-name">${lab.name}</div>
           <div class="alt-tag">${lab.bestBranch.name}</div>
         </div>
-        <div class="alt-price">${priceTxt}</div>
+        <div>
+          <div class="alt-price">${priceTxt}</div>
+          ${priceLabel}
+        </div>
       </div>
     `;
   }).join('');
 
   // AI suggestions reset
-  resetAi(winner, test);
+  resetAi(winner);
 }
 
 // ═══════════════════════════════════════
 // AI PANEL
 // ═══════════════════════════════════════
-function resetAi(winner, test) {
+function resetAi(winner) {
   state.chat = [];
+  const isMulti = state.tests.length > 1;
+  const testName = isMulti
+    ? `${state.tests.length}-test prescription`
+    : (TESTS.find(t => t.id === state.tests[0]) || {}).name || 'this test';
+
   document.getElementById('ai-msgs').innerHTML = `
     <div class="ai-empty" id="ai-empty">
       <div class="ai-empty-icon">
@@ -1603,13 +1912,18 @@ function resetAi(winner, test) {
           <path d="M6.5 9.5h5M9 7v5"/>
         </svg>
       </div>
-      <div class="ai-empty-text">Ask anything about ${winner.name} or this test.</div>
+      <div class="ai-empty-text">Ask anything about ${winner.name} or your ${testName}.</div>
       <div class="ai-suggest" id="ai-suggest"></div>
     </div>
   `;
+
+  const fastingQ = isMulti
+    ? `Do I need to fast for any of these tests?`
+    : `Do I need to fast for the ${testName} test?`;
+
   document.getElementById('ai-suggest').innerHTML = `
     <div class="ai-sg" onclick="askPreset('What should I bring to ${winner.name}?')">What should I bring?</div>
-    <div class="ai-sg" onclick="askPreset('Do I need to fast for the ${test.name} test?')">Do I need to fast?</div>
+    <div class="ai-sg" onclick="askPreset(${JSON.stringify(fastingQ)})">Do I need to fast?</div>
     <div class="ai-sg" onclick="askPreset('Is home collection available at ${winner.name}?')">Home collection?</div>
     <div class="ai-sg" onclick="askPreset('How does ${winner.name} compare with the others on the list?')">Compare with others</div>
   `;
@@ -1684,11 +1998,21 @@ async function aiSend() {
   state.chat.push({ role:'user', content:text });
   showThinking();
 
-  // Build context for AI
+  // Build context for AI — include full prescription if multi-test
   const winner = state.result?.ranked[0];
-  const test = TESTS.find(t => t.id === state.test);
+  const isMulti = state.tests.length > 1;
   const cityName = state.city ? CITIES.find(c => c.id === state.city).name : '';
-  const ctx = `Context: User just got a verdict for ${test?.name || 'a test'} in ${cityName}. The recommended lab is ${winner?.name || ''} (${winner?.bestBranch.name || ''}, score ${winner?.score || ''}). Price Rs ${winner?.price || ''}, TAT ${winner?.tat || ''}. They are asking a follow-up question.`;
+
+  let ctx;
+  if (isMulti && winner) {
+    const itemsTxt = winner.itemized.map(i => `${i.testName} (Rs ${i.price}, TAT ${i.tat})`).join(', ');
+    ctx = `Context: User has a prescription for ${winner.itemized.length} tests in ${cityName}: ${itemsTxt}. Recommended lab: ${winner.name} (${winner.bestBranch.name}, score ${winner.score}). Total cost Rs ${winner.total}. They are asking a follow-up question.`;
+  } else if (winner) {
+    const t = TESTS.find(t => t.id === state.tests[0]);
+    ctx = `Context: User just got a verdict for ${t?.name || 'a test'} in ${cityName}. The recommended lab is ${winner.name} (${winner.bestBranch.name}, score ${winner.score}). Price Rs ${winner.itemized[0]?.price}, TAT ${winner.itemized[0]?.tat}. They are asking a follow-up question.`;
+  } else {
+    ctx = `Context: User is on the verdict page asking a follow-up.`;
+  }
 
   try {
     const resp = await fetch('/api/chat', {
