@@ -1,2395 +1,943 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>YourMessiah — The honest verdict on Pakistan's labs</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<style>
-/* ════════════════════════════════════════
-   YOURMESSIAH v5.3 — DESIGN SYSTEM
-   Inspired by: Stripe · Zocdoc · Notion · Apple
-   ════════════════════════════════════════ */
-:root {
-  /* PRIMARY PALETTE */
-  --navy:       #123C69;
-  --navy-deep:  #0E2F52;
-  --navy-soft:  #1F4E83;
-  --teal:       #14B8A6;
-  --teal-soft:  #5EEAD4;
-  --teal-pale:  #CCFBF1;
-  --cyan:       #06B6D4;
-  --cyan-soft:  #67E8F9;
-  --cyan-pale:  #ECFEFF;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagno - Compare diagnostic labs with confidence</title>
+  <meta name="description" content="Compare diagnostic labs across Pakistan using prices, report delivery, patient experiences, radiology availability, and transparency indicators." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0b2545;
+      --navy-2: #123b63;
+      --teal: #11b7a5;
+      --teal-2: #dff9f5;
+      --sky: #eaf5ff;
+      --ink: #102033;
+      --muted: #607086;
+      --line: #e5edf4;
+      --soft: #f6f9fc;
+      --white: #ffffff;
+      --amber: #b7791f;
+      --green: #0f8f70;
+      --shadow: 0 18px 55px rgba(11, 37, 69, 0.11);
+      --shadow-soft: 0 8px 30px rgba(11, 37, 69, 0.08);
+      --radius: 22px;
+      --radius-sm: 14px;
+    }
 
-  /* NEUTRALS */
-  --bg:         #F8FAFC;
-  --bg-card:    #FFFFFF;
-  --bg-subtle:  #F1F5F9;
-  --bg-muted:   #E2E8F0;
-  --line:       #E2E8F0;
-  --line-soft:  #F1F5F9;
-  --line-strong:#CBD5E1;
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* TEXT */
-  --ink:        #0F172A;
-  --ink2:       #1E293B;
-  --ink3:       #475569;
-  --ink4:       #64748B;
-  --ink5:       #94A3B8;
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
 
-  /* SIGNALS */
-  --amber:      #B45309;
-  --amber-bg:   #FEF3C7;
-  --rose:       #BE123C;
-  --rose-bg:    #FCE7F3;
+    .page {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 88% 4%, rgba(17, 183, 165, 0.12), transparent 30%),
+        linear-gradient(180deg, #f8fcff 0%, #ffffff 36%, #f7fbff 100%);
+    }
 
-  /* RADIUS */
-  --r:          14px;
-  --rs:         10px;
-  --rxs:        8px;
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px clamp(18px, 5vw, 72px);
+      background: rgba(255,255,255,0.86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(229,237,244,0.8);
+    }
 
-  /* SHADOWS — Stripe-style soft */
-  --sh-1: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.04);
-  --sh-2: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
-  --sh-3: 0 10px 15px -3px rgba(15, 23, 42, 0.06), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
-  --sh-glow: 0 0 0 4px rgba(6, 182, 212, 0.12);
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: 0;
+      font-size: 20px;
+    }
 
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; }
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.55;
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-}
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      box-shadow: 0 10px 22px rgba(17,183,165,0.22);
+    }
 
-/* ════════════════════════════════════════
-   TOPBAR — Stripe-style: slim, left-aligned, bordered
-   ════════════════════════════════════════ */
-.topbar {
-  position: sticky; top: 0; z-index: 50;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 32px;
-  background: rgba(248, 250, 252, 0.85);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid var(--line);
-}
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
 
-.brand {
-  display: flex; align-items: center; gap: 10px;
-  cursor: pointer;
-  user-select: none;
-}
-.brand-mark {
-  width: 30px; height: 30px;
-  background: var(--navy);
-  border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff;
-  font-family: 'Manrope', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  position: relative;
-  overflow: hidden;
-}
-.brand-mark::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent 50%, rgba(20, 184, 166, 0.4) 100%);
-}
-.brand-name {
-  font-family: 'Manrope', sans-serif;
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.4px;
-  color: var(--ink);
-}
-.brand-name em {
-  font-style: normal;
-  font-weight: 700;
-  color: var(--teal);
-}
+    .nav-cta {
+      background: var(--navy);
+      color: #fff;
+      padding: 11px 16px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+    }
 
-.top-meta {
-  display: flex; align-items: center; gap: 16px;
-  font-size: 12px;
-  color: var(--ink4);
-}
-.top-meta-text {
-  font-weight: 500;
-  letter-spacing: 0.1px;
-}
+    .wrap {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
 
-.lang-pair {
-  display: flex; gap: 2px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 2px;
-}
-.lp {
-  padding: 5px 12px;
-  border-radius: 6px;
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  border: none;
-  background: transparent;
-  color: var(--ink4);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.lp:hover { color: var(--ink2); }
-.lp.on {
-  background: #fff;
-  color: var(--navy);
-  box-shadow: var(--sh-1);
-}
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(330px, 0.98fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: center;
+      padding: clamp(46px, 8vw, 94px) 0 34px;
+    }
 
-/* ════════════════════════════════════════
-   STAGE / SCENE
-   ════════════════════════════════════════ */
-.stage { position: relative; }
-.scene {
-  display: none;
-  padding: 64px 32px 96px;
-  max-width: 1120px;
-  margin: 0 auto;
-}
-.scene.on {
-  display: block;
-  animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-@keyframes rise {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--green);
+      background: #e9fbf6;
+      border: 1px solid #c9f1e7;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
 
-/* PROGRESS — minimal Stripe-style stepper */
-.progress {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 48px;
-  font-size: 12px;
-  color: var(--ink4);
-  font-weight: 500;
-}
-.prog-step {
-  display: flex; align-items: center; gap: 8px;
-}
-.prog-circle {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid var(--line-strong);
-  background: var(--bg-card);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--ink4);
-  transition: all 0.25s ease;
-}
-.prog-step.done .prog-circle {
-  background: var(--navy);
-  border-color: var(--navy);
-  color: #fff;
-}
-.prog-step.active .prog-circle {
-  background: var(--teal);
-  border-color: var(--teal);
-  color: #fff;
-  box-shadow: var(--sh-glow);
-}
-.prog-step.active .prog-label { color: var(--ink2); font-weight: 600; }
-.prog-line {
-  flex: 0 0 32px;
-  height: 1.5px;
-  background: var(--line-strong);
-  border-radius: 1px;
-}
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 5px rgba(17,183,165,0.13);
+    }
 
-/* ════════════════════════════════════════
-   SCENE 1 — PATH PICKER
-   ════════════════════════════════════════ */
-.intro-eye {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  color: var(--teal);
-  background: var(--teal-pale);
-  padding: 6px 12px;
-  border-radius: 20px;
-  margin-bottom: 24px;
-}
-.intro-eye::before {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--teal);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(44px, 7vw, 78px);
+      line-height: 0.98;
+      letter-spacing: 0;
+      max-width: 760px;
+    }
 
-.intro-h {
-  font-family: 'Manrope', sans-serif;
-  font-size: clamp(40px, 5.5vw, 64px);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -2px;
-  color: var(--ink);
-  margin-bottom: 20px;
-  max-width: 820px;
-}
-.intro-h em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--teal) 0%, var(--cyan) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.intro-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: 17px;
-  line-height: 1.6;
-  color: var(--ink3);
-  max-width: 580px;
-  margin-bottom: 56px;
-  font-weight: 400;
-}
+    .hero-copy {
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 20px);
+      max-width: 660px;
+    }
 
-.path-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  max-width: 920px;
-}
-.path-card {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 32px 28px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: var(--sh-1);
-}
-.path-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--teal);
-  box-shadow: var(--sh-3);
-}
-.path-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--navy), var(--teal), var(--cyan));
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.path-card:hover::after { opacity: 1; }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 28px 0 0;
+    }
 
-.path-num {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-  color: var(--teal);
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
-.path-icon {
-  width: 44px; height: 44px;
-  background: linear-gradient(135deg, var(--cyan-pale) 0%, var(--teal-pale) 100%);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 20px;
-}
-.path-icon svg {
-  width: 22px; height: 22px;
-  color: var(--navy);
-  stroke-width: 1.8;
-}
-.path-h {
-  font-family: 'Manrope', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.6px;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-.path-desc {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--ink3);
-  margin-bottom: 24px;
-  max-width: 320px;
-}
-.path-arrow {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--navy);
-}
-.path-arrow svg {
-  width: 14px; height: 14px;
-  transition: transform 0.2s ease;
-}
-.path-card:hover .path-arrow { color: var(--teal); }
-.path-card:hover .path-arrow svg { transform: translateX(3px); }
+    .btn {
+      border: 0;
+      cursor: pointer;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 800;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
 
-/* ════════════════════════════════════════
-   SCENE 2 — INPUT FLOWS
-   ════════════════════════════════════════ */
-.input-h {
-  font-family: 'Manrope', sans-serif;
-  font-size: clamp(32px, 4.5vw, 48px);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -1.2px;
-  color: var(--ink);
-  margin-bottom: 14px;
-  max-width: 720px;
-}
-.input-h em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--teal) 0%, var(--cyan) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.input-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--ink3);
-  margin-bottom: 44px;
-  max-width: 560px;
-}
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--navy); color: #fff; box-shadow: var(--shadow-soft); }
+    .btn-secondary { background: #fff; color: var(--navy); border: 1px solid var(--line); }
 
-.field-block { margin-bottom: 36px; }
-.field-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  color: var(--ink2);
-  margin-bottom: 12px;
-  display: flex; align-items: center;
-}
+    .trust-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
 
-/* CITY CHIPS */
-.city-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.city-chip {
-  padding: 10px 18px;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  background: var(--bg-card);
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink2);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.city-chip:hover {
-  border-color: var(--navy);
-  background: var(--bg-subtle);
-}
-.city-chip.on {
-  background: var(--navy);
-  color: #fff;
-  border-color: var(--navy);
-}
+    .trust-pill {
+      background: rgba(255,255,255,0.84);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      padding: 8px 11px;
+      font-size: 13px;
+      font-weight: 700;
+    }
 
-/* TEST GRID */
-.test-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 8px;
-}
-.test-tile {
-  padding: 16px 18px;
-  border: 1px solid var(--line);
-  border-radius: var(--rs);
-  background: var(--bg-card);
-  cursor: pointer;
-  transition: all 0.15s ease;
-  position: relative;
-  box-shadow: var(--sh-1);
-}
-.test-tile:hover {
-  border-color: var(--teal);
-  transform: translateY(-1px);
-  box-shadow: var(--sh-2);
-}
-.test-tile.on {
-  background: var(--navy);
-  border-color: var(--navy);
-}
-.test-tile.on::before {
-  content: '';
-  position: absolute;
-  top: 12px; right: 12px;
-  width: 16px; height: 16px;
-  background: var(--teal);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-}
-.test-tile.on::after {
-  content: '';
-  position: absolute;
-  top: 16px; right: 17px;
-  width: 6px; height: 3px;
-  border-left: 1.5px solid #fff;
-  border-bottom: 1.5px solid #fff;
-  transform: rotate(-45deg);
-}
-.test-tile.on .tt-name { color: #fff; }
-.test-tile.on .tt-meta { color: rgba(255, 255, 255, 0.65); }
+    .mockup {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(229,237,244,0.9);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      overflow: hidden;
+    }
 
-.tt-name {
-  font-family: 'Manrope', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.2px;
-  color: var(--ink);
-  margin-bottom: 4px;
-}
-.tt-meta {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: var(--ink4);
-  font-weight: 400;
-}
+    .mockup-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
 
-/* SYMPTOM TEXTAREA */
-.symptom-box {
-  display: block;
-  width: 100%;
-  padding: 18px 20px;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--rs);
-  background: var(--bg-card);
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--ink);
-  resize: none;
-  outline: none;
-  min-height: 130px;
-  transition: all 0.15s ease;
-  box-shadow: var(--sh-1);
-}
-.symptom-box:focus {
-  border-color: var(--teal);
-  box-shadow: var(--sh-glow);
-}
-.symptom-box::placeholder { color: var(--ink5); }
+    .window-dots { display: flex; gap: 7px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #d7e2ed; }
+    .dot:nth-child(2) { background: #bfe9e4; }
+    .dot:nth-child(3) { background: #9fd7ff; }
 
-.symptom-suggest {
-  display: flex; flex-wrap: wrap; gap: 6px;
-  margin-top: 14px;
-}
-.ss {
-  padding: 7px 14px;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: var(--bg-card);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: var(--ink3);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.ss:hover {
-  background: var(--cyan-pale);
-  border-color: var(--cyan);
-  color: var(--navy);
-}
+    .score-chip {
+      color: var(--green);
+      background: #e9fbf6;
+      border: 1px solid #c9f1e7;
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-weight: 800;
+      font-size: 12px;
+    }
 
-/* PRIORITIES */
-.priority-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.pr-chip {
-  padding: 10px 16px;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  background: var(--bg-card);
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink3);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.pr-chip:hover { border-color: var(--teal); color: var(--ink2); }
-.pr-chip.on {
-  background: var(--teal);
-  color: #fff;
-  border-color: var(--teal);
-}
+    .dashboard {
+      background: linear-gradient(180deg, #f7fbff, #fff);
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
 
-/* ACTION ROW */
-.action-row {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 20px;
-}
-.btn-back {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 11px 18px;
-  background: var(--bg-card);
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink3);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.btn-back:hover {
-  background: var(--bg-subtle);
-  border-color: var(--ink5);
-  color: var(--ink2);
-}
-.btn-back svg { width: 14px; height: 14px; }
+    .dash-search {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 13px 15px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 24px;
-  background: var(--navy);
-  border: none;
-  border-radius: 8px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.1px;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.18s ease;
-  box-shadow: var(--sh-2);
-}
-.btn-primary:hover:not(:disabled) {
-  background: var(--navy-deep);
-  transform: translateY(-1px);
-  box-shadow: var(--sh-3);
-}
-.btn-primary:disabled {
-  background: var(--ink5);
-  cursor: not-allowed;
-  box-shadow: none;
-}
-.btn-primary svg { width: 14px; height: 14px; }
+    .compare-mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
 
-/* ════════════════════════════════════════
-   SCENE 3 — VERDICT
-   ════════════════════════════════════════ */
-.verdict-grid {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 32px;
-  align-items: start;
-}
-@media (max-width: 980px) {
-  .verdict-grid { grid-template-columns: 1fr; }
-}
+    .mini-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 4px 14px rgba(11,37,69,0.04);
+    }
 
-.verdict-main { min-width: 0; }
+    .mini-card h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      color: var(--navy);
+    }
 
-.verdict-eye {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  color: var(--teal);
-  background: var(--teal-pale);
-  padding: 6px 12px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-}
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-top: 1px solid #eef4f8;
+      font-size: 12px;
+      color: var(--muted);
+    }
 
-.verdict-sentence {
-  font-family: 'Manrope', sans-serif;
-  font-size: clamp(32px, 4.5vw, 48px);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -1.4px;
-  color: var(--ink);
-  margin-bottom: 20px;
-}
-.verdict-sentence em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--teal) 0%, var(--cyan) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.verdict-because {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--ink3);
-  margin-bottom: 36px;
-  max-width: 640px;
-  font-weight: 400;
-}
+    .metric strong { color: var(--ink); }
 
-/* WINNER BLOCK */
-.winner-block {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 28px 28px 24px;
-  margin-bottom: 24px;
-  box-shadow: var(--sh-2);
-  position: relative;
-  overflow: hidden;
-}
-.winner-block::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--navy), var(--teal), var(--cyan));
-}
+    .analytics-row {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 12px;
+    }
 
-.winner-top {
-  display: flex; align-items: flex-start;
-  gap: 24px;
-  margin-bottom: 28px;
-}
-.winner-info { flex: 1; min-width: 0; }
-.winner-tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 4px 10px;
-  background: var(--teal-pale);
-  color: var(--teal);
-  border-radius: 6px;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-.winner-tag::before {
-  content: '';
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--teal);
-}
-.winner-name {
-  font-family: 'Manrope', sans-serif;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.8px;
-  color: var(--ink);
-  margin-bottom: 6px;
-}
-.winner-branch {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: var(--ink3);
-  margin-bottom: 4px;
-}
-.winner-addr {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: var(--ink4);
-}
+    .bars {
+      display: grid;
+      gap: 9px;
+    }
 
-/* SCORE — circular, navy, premium */
-.score-circle {
-  flex-shrink: 0;
-  width: 110px; height: 110px;
-  border-radius: 50%;
-  background: var(--navy);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  position: relative;
-  color: #fff;
-}
-.score-circle::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border: 1.5px solid var(--teal);
-  border-radius: 50%;
-  opacity: 0.2;
-}
-.score-circle::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border: 1px solid var(--cyan);
-  border-radius: 50%;
-  opacity: 0.4;
-  border-top-color: transparent;
-  border-right-color: transparent;
-  transform: rotate(-45deg);
-}
-.sc-num {
-  font-family: 'Manrope', sans-serif;
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -1px;
-}
-.sc-of {
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-  margin-top: 4px;
-  opacity: 0.65;
-}
+    .bar-line {
+      height: 10px;
+      border-radius: 999px;
+      background: #e7eef6;
+      overflow: hidden;
+    }
 
-/* METRICS — Stripe dashboard style */
-.winner-mets {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  padding-top: 22px;
-  border-top: 1px solid var(--line-soft);
-}
-.met {
-  text-align: left;
-}
-.met-circle {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: var(--cyan-pale);
-  border: 1.5px solid var(--cyan);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 12px;
-}
-.met-pct {
-  font-family: 'Manrope', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--navy);
-  line-height: 1;
-  letter-spacing: -0.3px;
-}
-.met-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--ink2);
-  letter-spacing: 0.1px;
-  margin-bottom: 2px;
-}
-.met-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: var(--ink4);
-  line-height: 1.4;
-}
+    .bar-line span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal), #48c7f2);
+    }
 
-/* PRESCRIPTION ITEMISED — navy panel */
-.rx-list {
-  background: var(--navy);
-  color: #fff;
-  border-radius: var(--r);
-  padding: 24px 28px;
-  margin-top: 22px;
-  position: relative;
-  overflow: hidden;
-}
-.rx-list::after {
-  content: '';
-  position: absolute;
-  top: -40px; right: -40px;
-  width: 200px; height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 70%);
-  pointer-events: none;
-}
-.rx-eye {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-  margin-bottom: 18px;
-  display: flex; justify-content: space-between; align-items: center;
-  position: relative;
-}
-.rx-eye-right {
-  text-transform: none;
-  letter-spacing: 0;
-  font-weight: 500;
-}
-.rx-rows {
-  display: flex; flex-direction: column;
-  position: relative;
-}
-.rx-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-.rx-row:last-child { border-bottom: none; }
-.rx-test-block { flex: 1; min-width: 0; }
-.rx-test-name {
-  font-family: 'Manrope', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.2px;
-  line-height: 1.2;
-  color: #fff;
-}
-.rx-test-tat {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 3px;
-  font-weight: 400;
-}
-.rx-test-price {
-  font-family: 'Manrope', sans-serif;
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  flex-shrink: 0;
-  padding-left: 18px;
-}
-.rx-total {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-top: 16px;
-  padding-top: 18px;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.18);
-  position: relative;
-}
-.rx-total-eye {
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-}
-.rx-total-tat {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 4px;
-  letter-spacing: 0.1px;
-}
-.rx-total-amt {
-  font-family: 'Manrope', sans-serif;
-  font-size: 32px;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -1px;
-  color: #fff;
-}
+    section { padding: 54px 0; }
 
-/* SPLIT SAVINGS STRIP */
-.split-strip {
-  background: var(--cyan-pale);
-  border: 1px solid var(--cyan);
-  border-radius: var(--rs);
-  padding: 18px 22px;
-  margin-top: 14px;
-}
-.split-eye {
-  display: flex; align-items: center; gap: 7px;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  color: var(--navy);
-  margin-bottom: 12px;
-}
-.split-eye svg {
-  width: 13px; height: 13px;
-  color: var(--cyan);
-}
-.split-headline {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--ink2);
-  margin-bottom: 14px;
-  font-weight: 400;
-}
-.split-headline strong {
-  font-weight: 700;
-  color: var(--navy);
-}
-.split-rows { display: flex; flex-direction: column; gap: 6px; }
-.split-row {
-  display: flex; align-items: center; gap: 12px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-}
-.split-test {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 600;
-  min-width: 110px;
-  color: var(--ink2);
-  font-size: 13px;
-  letter-spacing: -0.1px;
-}
-.split-at {
-  flex: 1;
-  color: var(--ink3);
-  font-size: 12px;
-}
-.split-at strong {
-  font-weight: 600;
-  color: var(--ink2);
-}
-.split-price {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 700;
-  color: var(--navy);
-  text-align: right;
-  font-size: 14px;
-}
-.split-foot {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px dashed rgba(6, 182, 212, 0.4);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: var(--ink3);
-  line-height: 1.55;
-}
+    .search-shell {
+      margin-top: 18px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      border-radius: 26px;
+      padding: 16px;
+    }
 
-/* SOURCES LINE */
-.sources-line {
-  display: flex; align-items: center; gap: 16px;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: var(--ink4);
-  margin-top: 22px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line-soft);
-  flex-wrap: wrap;
-  font-weight: 500;
-}
-.sources-line strong {
-  font-weight: 700;
-  color: var(--teal);
-}
+    .search-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 10px 10px 10px 18px;
+    }
 
-/* ALTERNATIVES */
-.alt-section { margin-bottom: 28px; }
-.alt-eye {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 14px;
-}
-.alt-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-@media (max-width: 720px) {
-  .alt-row { grid-template-columns: 1fr; }
-}
-.alt-card {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: var(--rs);
-  padding: 16px 18px;
-  display: flex; align-items: center; gap: 16px;
-  transition: all 0.18s ease;
-  cursor: pointer;
-  box-shadow: var(--sh-1);
-}
-.alt-card:hover {
-  border-color: var(--teal);
-  transform: translateX(2px);
-  box-shadow: var(--sh-2);
-}
-.alt-circle {
-  flex-shrink: 0;
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  background: var(--bg-subtle);
-  border: 1.5px solid var(--line-strong);
-  display: flex; align-items: center; justify-content: center;
-}
-.alt-num {
-  font-family: 'Manrope', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--navy);
-  line-height: 1;
-  letter-spacing: -0.4px;
-}
-.alt-info { flex: 1; min-width: 0; }
-.alt-name {
-  font-family: 'Manrope', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.3px;
-  color: var(--ink);
-  margin-bottom: 2px;
-}
-.alt-tag {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: var(--ink4);
-  font-weight: 400;
-}
-.alt-price {
-  font-family: 'Manrope', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--ink2);
-  flex-shrink: 0;
-  letter-spacing: -0.2px;
-}
+    .search-box input {
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: 16px;
+      min-width: 0;
+    }
 
-/* RESTART */
-.restart {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 9px 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--line-strong);
-  border-radius: 7px;
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ink3);
-  cursor: pointer;
-  transition: all 0.15s ease;
-  margin-top: 6px;
-}
-.restart:hover {
-  background: var(--bg-subtle);
-  color: var(--ink2);
-  border-color: var(--ink5);
-}
-.restart svg { width: 12px; height: 12px; }
+    .examples {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 14px 2px 0;
+    }
 
-/* ════════════════════════════════════════
-   AI PANEL
-   ════════════════════════════════════════ */
-.ai-panel {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 22px;
-  position: sticky; top: 88px;
-  display: flex; flex-direction: column;
-  height: fit-content;
-  max-height: calc(100vh - 110px);
-  box-shadow: var(--sh-2);
-}
-.ai-panel-head {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line-soft);
-  margin-bottom: 16px;
-}
-.ai-mark {
-  flex-shrink: 0;
-  width: 40px; height: 40px;
-  background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-.ai-mark::before {
-  content: '';
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
-  animation: aip 1.8s infinite;
-}
-@keyframes aip {
-  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); }
-  70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-}
-.ai-title-block { flex: 1; min-width: 0; }
-.ai-title {
-  font-family: 'Manrope', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  color: var(--ink);
-  margin-bottom: 3px;
-  line-height: 1.2;
-}
-.ai-tagline {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: var(--ink4);
-  font-weight: 400;
-}
+    .example {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 8px 11px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
 
-.ai-msgs {
-  flex: 1;
-  overflow-y: auto;
-  display: flex; flex-direction: column; gap: 10px;
-  padding-right: 4px;
-  margin-bottom: 14px;
-  min-height: 200px;
-  max-height: 380px;
-}
-.ai-msgs::-webkit-scrollbar { width: 4px; }
-.ai-msgs::-webkit-scrollbar-track { background: transparent; }
-.ai-msgs::-webkit-scrollbar-thumb {
-  background: var(--line-strong);
-  border-radius: 2px;
-}
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
 
-.ai-empty {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  flex: 1; text-align: center; padding: 16px 8px;
-}
-.ai-empty-icon {
-  width: 48px; height: 48px;
-  background: linear-gradient(135deg, var(--cyan-pale) 0%, var(--teal-pale) 100%);
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 14px;
-}
-.ai-empty-icon svg {
-  width: 22px; height: 22px;
-  color: var(--navy);
-  stroke-width: 1.6;
-}
-.ai-empty-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: var(--ink3);
-  line-height: 1.5;
-  margin-bottom: 18px;
-  max-width: 260px;
-  font-weight: 400;
-}
-.ai-suggest {
-  display: flex; flex-direction: column; gap: 6px;
-  width: 100%;
-}
-.ai-sg {
-  padding: 10px 14px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  color: var(--ink2);
-  font-weight: 500;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.15s ease;
-}
-.ai-sg:hover {
-  background: var(--cyan-pale);
-  border-color: var(--cyan);
-  color: var(--navy);
-}
+    .kicker {
+      color: var(--teal);
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
 
-.ai-msg {
-  display: flex; gap: 8px;
-  animation: msgIn 0.25s ease;
-  max-width: 92%;
-}
-@keyframes msgIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.ai-msg.user { align-self: flex-end; flex-direction: row-reverse; }
-.ai-msg.bot { align-self: flex-start; }
-.ai-bubble {
-  padding: 10px 14px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  line-height: 1.55;
-  border-radius: 12px;
-  max-width: 100%;
-}
-.ai-msg.bot .ai-bubble {
-  background: var(--bg-subtle);
-  border: 1px solid var(--line);
-  color: var(--ink);
-  border-bottom-left-radius: 4px;
-}
-.ai-msg.user .ai-bubble {
-  background: var(--navy);
-  color: #fff;
-  border-bottom-right-radius: 4px;
-}
+    h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(30px, 4.4vw, 50px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
 
-.ai-typing {
-  display: flex; gap: 4px; align-items: center;
-  padding: 12px 14px;
-}
-.ai-typing span {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--ink5);
-  animation: tb 0.9s infinite;
-}
-.ai-typing span:nth-child(2) { animation-delay: 0.18s; }
-.ai-typing span:nth-child(3) { animation-delay: 0.36s; }
-@keyframes tb {
-  0%, 60%, 100% { transform: translateY(0); }
-  30% { transform: translateY(-4px); }
-}
+    .section-copy {
+      margin: 0;
+      color: var(--muted);
+      max-width: 520px;
+      font-size: 16px;
+    }
 
-.ai-input-wrap {
-  display: flex; gap: 8px; align-items: flex-end;
-  background: var(--bg-card);
-  border: 1.5px solid var(--line-strong);
-  border-radius: 10px;
-  padding: 8px 10px 8px 14px;
-  transition: all 0.15s ease;
-}
-.ai-input-wrap:focus-within {
-  border-color: var(--teal);
-  box-shadow: var(--sh-glow);
-}
-.ai-textarea {
-  flex: 1;
-  border: none;
-  background: transparent;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  color: var(--ink);
-  resize: none;
-  outline: none;
-  max-height: 100px;
-  min-height: 20px;
-  line-height: 1.5;
-  padding: 4px 0;
-}
-.ai-textarea::placeholder { color: var(--ink5); }
-.ai-send {
-  width: 32px; height: 32px;
-  background: var(--navy);
-  border: none;
-  border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: all 0.15s ease;
-}
-.ai-send:hover:not(:disabled) {
-  background: var(--teal);
-  transform: translateY(-1px);
-}
-.ai-send:disabled {
-  background: var(--ink5);
-  cursor: default;
-}
-.ai-send svg {
-  width: 13px; height: 13px;
-  color: #fff;
-}
-.ai-disclaimer {
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  color: var(--ink5);
-  text-align: center;
-  letter-spacing: 0.1px;
-  margin-top: 8px;
-  font-weight: 400;
-}
+    .comparison {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
 
-/* TOAST */
-.toast {
-  position: fixed;
-  bottom: 28px; left: 50%;
-  transform: translateX(-50%) translateY(60px);
-  background: var(--ink);
-  color: #fff;
-  padding: 11px 22px;
-  border-radius: 8px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  z-index: 999;
-  letter-spacing: 0.1px;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: var(--sh-3);
-}
-.toast.show { transform: translateX(-50%) translateY(0); }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1.1fr repeat(3, 1fr);
+      min-width: 760px;
+    }
 
-/* MOBILE */
-@media (max-width: 640px) {
-  .topbar { padding: 12px 18px; }
-  .scene { padding: 36px 20px 60px; }
-  .top-meta { gap: 8px; }
-  .top-meta-text { display: none; }
-  .path-grid { grid-template-columns: 1fr; }
-  .winner-top { flex-direction: column-reverse; align-items: flex-start; }
-  .winner-mets { grid-template-columns: repeat(2, 1fr); }
-  .ai-panel { position: static; max-height: none; }
-  .verdict-grid { gap: 24px; }
-}
-</style>
+    .cell {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      min-height: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .cell:nth-child(4n) { border-right: 0; }
+    .head-cell {
+      background: #f8fbfe;
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    .label-cell {
+      color: var(--muted);
+      font-weight: 700;
+      background: #fbfdff;
+    }
+
+    .score {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--green);
+      letter-spacing: 0;
+    }
+
+    .small-note { color: var(--muted); font-size: 12px; }
+
+    .experience {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      padding: 12px 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      box-shadow: 0 4px 18px rgba(11,37,69,0.05);
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .human-card {
+      background: linear-gradient(135deg, #0b2545, #0d756d);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: clamp(24px, 4vw, 38px);
+      box-shadow: var(--shadow);
+    }
+
+    .human-card p {
+      color: rgba(255,255,255,0.78);
+      margin: 14px 0 0;
+      font-size: 17px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .step, .feature, .trust-card, .lab-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 8px 28px rgba(11,37,69,0.05);
+    }
+
+    .step-num {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--teal-2);
+      color: var(--green);
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .step h3, .feature h3, .trust-card h3, .lab-card h3 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .step p, .feature p, .trust-card p, .lab-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: var(--sky);
+      margin-bottom: 14px;
+      font-size: 18px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .lab-section {
+      background: var(--soft);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .lab-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .lab-card li::before {
+      content: "•";
+      color: var(--teal);
+      font-weight: 900;
+      margin-right: 8px;
+    }
+
+    .cta-band {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 30px;
+      padding: clamp(26px, 5vw, 46px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-band h2 { color: #fff; }
+    .cta-band p { color: rgba(255,255,255,0.72); margin: 12px 0 0; max-width: 620px; }
+    .cta-band .btn { background: #fff; color: var(--navy); }
+
+    footer {
+      padding: 38px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
+
+    .mobile-only { display: none; }
+
+    @media (max-width: 900px) {
+      .nav { padding: 14px 18px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero, .experience, .cta-band { grid-template-columns: 1fr; }
+      .hero { padding-top: 36px; }
+      .mockup { order: -1; }
+      .steps, .features, .trust-grid, .lab-grid { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .section-copy { margin-top: 12px; }
+      .comparison { overflow-x: auto; }
+      .mobile-only { display: inline; }
+    }
+
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 28px, 1180px); }
+      h1 { font-size: 43px; }
+      .hero-actions .btn, .search-box .btn { width: 100%; }
+      .search-box { grid-template-columns: 1fr; padding: 14px; }
+      .compare-mini, .analytics-row { grid-template-columns: 1fr; }
+      .mockup { padding: 12px; border-radius: 24px; }
+      section { padding: 42px 0; }
+      .cell { padding: 15px; }
+    }
+  </style>
 </head>
 <body>
-
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="brand" onclick="goScene(1)">
-    <div class="brand-mark">Y</div>
-    <div class="brand-name">Your<em>Messiah</em></div>
-  </div>
-  <div class="top-meta">
-    <span class="top-meta-text">Pakistan · Independent</span>
-    <div class="lang-pair">
-      <button class="lp on" id="lp-en" onclick="setLang('en')">EN</button>
-      <button class="lp" id="lp-ur" onclick="setLang('ur')">اردو</button>
-    </div>
-  </div>
-</div>
-
-<!-- STAGE -->
-<div class="stage">
-
-  <!-- ═════════ SCENE 1 — PATH PICKER ═════════ -->
-  <div class="scene on" id="scene-1">
-    <div class="progress">
-      <div class="prog-step active"><div class="prog-circle">i</div><span class="prog-label">Where to start</span></div>
-      <div class="prog-line"></div>
-      <div class="prog-step"><div class="prog-circle">ii</div><span class="prog-label">Tell us</span></div>
-      <div class="prog-line"></div>
-      <div class="prog-step"><div class="prog-circle">iii</div><span class="prog-label">Verdict</span></div>
-    </div>
-
-    <div class="intro-eye">An honest diagnostic verdict — in three steps</div>
-    <h1 class="intro-h">Don't guess <em>where</em> to do<br/>your blood test.</h1>
-    <p class="intro-sub">YourMessiah compares Pakistan's diagnostic labs against verified public data and tells you, plainly, where you should go. No ads. No bookings. No conflicts. Just the honest verdict.</p>
-
-    <div class="path-grid">
-      <div class="path-card" onclick="choosePath('test')">
-        <div class="path-num">i.</div>
-        <div class="path-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M9 2h6v4l3 3v9a4 4 0 01-4 4h-4a4 4 0 01-4-4V9l3-3V2z"/>
-            <path d="M9 13h6M9 17h4"/>
-          </svg>
-        </div>
-        <div class="path-h">I have a prescription<br/>or know my tests.</div>
-        <div class="path-desc">Pick all the tests on your prescription and your city. We will tell you the right lab.</div>
-        <div class="path-arrow">
-          Begin
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-        </div>
-      </div>
-
-      <div class="path-card" onclick="choosePath('symptom')">
-        <div class="path-num">ii.</div>
-        <div class="path-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M12 3a8 8 0 100 16 8 8 0 000-16z"/>
-            <path d="M9 10h.01M15 10h.01M9 15c1 1 5 1 6 0"/>
-          </svg>
-        </div>
-        <div class="path-h">I'm not sure what<br/>test I need.</div>
-        <div class="path-desc">Describe what you're feeling. We will suggest the right test, then the right lab.</div>
-        <div class="path-arrow">
-          Tell us how you feel
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═════════ SCENE 2A — TEST FLOW ═════════ -->
-  <div class="scene" id="scene-2a">
-    <div class="progress">
-      <div class="prog-step done"><div class="prog-circle">i</div><span class="prog-label">Path</span></div>
-      <div class="prog-line"></div>
-      <div class="prog-step active"><div class="prog-circle">ii</div><span class="prog-label">Tell us</span></div>
-      <div class="prog-line"></div>
-      <div class="prog-step"><div class="prog-circle">iii</div><span class="prog-label">Verdict</span></div>
-    </div>
-
-    <h1 class="input-h">Your prescription, <em>your city</em>.</h1>
-    <p class="input-sub">Pick the tests on your prescription and your city. We will compute the best lab for the full set — itemised, total cost, and where you could save by splitting.</p>
-
-    <div class="field-block">
-      <div class="field-label">Your city</div>
-      <div class="city-row" id="city-row"></div>
-    </div>
-
-    <div class="field-block">
-      <div class="field-label">Your prescription <span id="rx-counter" style="color:var(--green);font-weight:500;letter-spacing:0;text-transform:none;font-size:13px;margin-left:8px">No tests selected</span></div>
-      <div class="test-grid" id="test-grid"></div>
-    </div>
-
-    <div class="field-block">
-      <div class="field-label">What matters most to you (optional)</div>
-      <div class="priority-row" id="priority-row"></div>
-    </div>
-
-    <div class="action-row">
-      <button class="btn-back" onclick="goScene(1)">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 7H2M6 11L2 7l4-4"/></svg>
-        Back
-      </button>
-      <button class="btn-primary" id="btn-test-go" onclick="runTestVerdict()" disabled>
-        See the verdict
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- ═════════ SCENE 2B — SYMPTOM FLOW ═════════ -->
-  <div class="scene" id="scene-2b">
-    <div class="progress">
-      <div class="prog-step done"><div class="prog-circle">i</div><span class="prog-label">Path</span></div>
-      <div class="prog-line"></div>
-      <div class="prog-step active"><div class="prog-circle">ii</div><span class="prog-label">Tell us</span></div>
-      <div class="prog-line"></div>
-      <div class="prog-step"><div class="prog-circle">iii</div><span class="prog-label">Verdict</span></div>
-    </div>
-
-    <h1 class="input-h">Tell us <em>how you feel</em>.</h1>
-    <p class="input-sub">In your own words — Urdu or English. We will suggest the right test, then find the right lab.</p>
-
-    <div class="field-block">
-      <div class="field-label">What's going on?</div>
-      <textarea class="symptom-box" id="symptom-input" placeholder="e.g. I've been feeling tired for two weeks, frequent thirst, and the doctor wants me to check my sugar levels…"></textarea>
-      <div class="symptom-suggest">
-        <div class="ss" onclick="addSymptom('Fatigue and thirst — possible diabetes')">Fatigue & thirst</div>
-        <div class="ss" onclick="addSymptom('Frequent fevers — need infection workup')">Recurring fever</div>
-        <div class="ss" onclick="addSymptom('Cholesterol concern — family history of heart disease')">Cholesterol concern</div>
-        <div class="ss" onclick="addSymptom('Tired all the time — possible thyroid issue')">Constant tiredness</div>
-        <div class="ss" onclick="addSymptom('Pre-pregnancy checkup needed')">Pre-pregnancy checkup</div>
-        <div class="ss" onclick="addSymptom('General annual blood work')">Annual checkup</div>
-      </div>
-    </div>
-
-    <div class="field-block">
-      <div class="field-label">Your city</div>
-      <div class="city-row" id="city-row-b"></div>
-    </div>
-
-    <div class="action-row">
-      <button class="btn-back" onclick="goScene(1)">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 7H2M6 11L2 7l4-4"/></svg>
-        Back
-      </button>
-      <button class="btn-primary" id="btn-sym-go" onclick="runSymptomVerdict()" disabled>
-        Get my verdict
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- ═════════ SCENE 3 — VERDICT ═════════ -->
-  <div class="scene" id="scene-3">
-    <div class="progress">
-      <div class="prog-step done"><div class="prog-circle">i</div><span class="prog-label">Path</span></div>
-      <div class="prog-line"></div>
-      <div class="prog-step done"><div class="prog-circle">ii</div><span class="prog-label">Tell us</span></div>
-      <div class="prog-line"></div>
-      <div class="prog-step active"><div class="prog-circle">iii</div><span class="prog-label">Verdict</span></div>
-    </div>
-
-    <div class="verdict-grid">
-      <div class="verdict-main">
-        <div class="verdict-eye" id="verdict-eye">Your verdict</div>
-        <h1 class="verdict-sentence" id="verdict-sentence"></h1>
-        <p class="verdict-because" id="verdict-because"></p>
-
-        <div class="winner-block">
-          <div class="winner-top">
-            <div class="winner-info">
-              <div class="winner-tag">Recommended for you</div>
-              <div class="winner-name" id="winner-name"></div>
-              <div class="winner-branch" id="winner-branch"></div>
-              <div class="winner-addr" id="winner-addr"></div>
-            </div>
-            <div class="score-circle">
-              <div class="sc-num" id="winner-score"></div>
-              <div class="sc-of">/ 10 trust</div>
-            </div>
-          </div>
-          <div class="winner-mets" id="winner-mets"></div>
-
-          <div id="rx-container"></div>
-
-          <div class="sources-line" id="sources-line"></div>
-        </div>
-
-        <div class="alt-section">
-          <div class="alt-eye">Other strong options</div>
-          <div class="alt-row" id="alt-row"></div>
-        </div>
-
-        <button class="restart" onclick="restart()">
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7a5 5 0 119 3M2 4v3h3"/></svg>
-          Start over
-        </button>
-      </div>
-
-      <!-- AI PANEL -->
-      <div class="ai-panel">
-        <div class="ai-panel-head">
-          <div class="ai-mark"></div>
-          <div class="ai-title-block">
-            <div class="ai-title">Need to know more?</div>
-            <div class="ai-tagline">Ask anything about this verdict</div>
-          </div>
-        </div>
-
-        <div class="ai-msgs" id="ai-msgs">
-          <div class="ai-empty" id="ai-empty">
-            <div class="ai-empty-icon">
-              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4">
-                <path d="M9 2C9 2 4 5.5 4 9.5C4 12.5 6.2 15 9 15C11.8 15 14 12.5 14 9.5C14 5.5 9 2 9 2Z"/>
-                <path d="M6.5 9.5h5M9 7v5"/>
-              </svg>
-            </div>
-            <div class="ai-empty-text" id="ai-empty-text">Ask about this lab, the test, prices, or what to expect.</div>
-            <div class="ai-suggest" id="ai-suggest"></div>
-          </div>
-        </div>
-
-        <div class="ai-input-wrap">
-          <textarea class="ai-textarea" id="ai-input" rows="1" placeholder="Ask a question…" onkeydown="aiKey(event)" oninput="aiResize(this)"></textarea>
-          <button class="ai-send" id="ai-send" onclick="aiSend()" disabled>
-            <svg viewBox="0 0 14 14" fill="white"><path d="M2 7L12 2L7 12L6 8L2 7Z"/></svg>
-          </button>
-        </div>
-        <div class="ai-disclaimer">Powered by Claude · Not medical advice</div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// ═══════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════
-const CITIES = [
-  { id:'lahore',    name:'Lahore' },
-  { id:'islamabad', name:'Islamabad' },
-  { id:'karachi',   name:'Karachi' }
-];
-
-const TESTS = [
-  { id:'cbc',   name:'CBC',           sub:'Complete Blood Count' },
-  { id:'lft',   name:'LFT',           sub:'Liver Function Test' },
-  { id:'rft',   name:'RFT',           sub:'Renal Function Test' },
-  { id:'lipid', name:'Lipid Profile', sub:'Cholesterol panel' },
-  { id:'hba1c', name:'HbA1c',         sub:'Diabetes — 3 month avg' },
-  { id:'tsh',   name:'Thyroid (TSH)', sub:'Thyroid function' },
-  { id:'vitd',  name:'Vitamin D',     sub:'25-hydroxy vitamin D' },
-  { id:'cculture', name:'Culture C/S', sub:'Bacterial culture & sensitivity' }
-];
-
-const PRIORITIES = [
-  { id:'price',    label:'Lowest price' },
-  { id:'accuracy', label:'Highest accuracy' },
-  { id:'tat',      label:'Fastest results' },
-  { id:'wait',     label:'No queues' }
-];
-
-// LABS — verified data, scoring on multiple parameters
-const LABS = [
-  {
-    id:'agakhan', name:'Aga Khan Lab',
-    bestBranch:{ name:'Gulberg II', addr:'3-A Main Gulberg, Lahore' },
-    score:9.0, accuracy:94, tat:90, wait:78, access:83,
-    accred:['CAP','JCI','ISO 15189'],
-    sources:['Google Places API','PNAC registry','CAP directory'],
-    cities:['lahore','islamabad','karachi']
-  },
-  {
-    id:'sk', name:'Shaukat Khanum Lab',
-    bestBranch:{ name:'Johar Town (Main)', addr:'7A Block R-3 Johar Town, Lahore' },
-    score:8.6, accuracy:92, tat:85, wait:60, access:55,
-    accred:['JCI','PNAC'],
-    sources:['Google Places API','JCI registry','PNAC registry'],
-    cities:['lahore']
-  },
-  {
-    id:'chughtai', name:'Chughtai Lab',
-    bestBranch:{ name:'DHA Phase 5', addr:'Commercial Broadway, DHA Ph.5, Lahore' },
-    score:8.2, accuracy:82, tat:78, wait:64, access:60,
-    accred:['ISO 15189','CAP'],
-    sources:['Google Places API','PNAC registry','chughtailab.com'],
-    cities:['lahore','islamabad','karachi']
-  },
-  {
-    id:'excel', name:'Excel Labs',
-    bestBranch:{ name:'Jail Road', addr:'Opp. Services Hospital, Jail Rd, Lahore' },
-    score:7.8, accuracy:80, tat:75, wait:68, access:70,
-    accred:['ISO 9001','24/7'],
-    sources:['Google Places API','PHC license','excel-labs.com'],
-    cities:['lahore','islamabad']
-  },
-  {
-    id:'essa', name:'Dr. Essa Lab',
-    bestBranch:{ name:'Gulberg Main', addr:'Main Boulevard Gulberg III, Lahore' },
-    score:7.5, accuracy:76, tat:72, wait:70, access:72,
-    accred:['Est. 1987','PHC licensed'],
-    sources:['Google Places API','PHC license','Health forums'],
-    cities:['lahore','karachi']
-  },
-  {
-    id:'idc', name:'IDC',
-    bestBranch:{ name:'G-8 Markaz', addr:'G-8 Markaz, Islamabad' },
-    score:7.9, accuracy:80, tat:69, wait:56, access:72,
-    accred:['ISO 9001'],
-    sources:['Google Places API','PHC license','InstaCare (Apr 2026)'],
-    cities:['lahore','islamabad']
-  }
-];
-
-// VERIFIED PRICES (Apr 2026)
-const PRICES = {
-  cbc:    { agakhan:850,  sk:0,     chughtai:800,  excel:1050, essa:720,  idc:1100 },
-  lft:    { agakhan:1350, sk:0,     chughtai:1200, excel:1400, essa:1100, idc:2200 },
-  rft:    { agakhan:1100, sk:0,     chughtai:950,  excel:1200, essa:900,  idc:1800 },
-  lipid:  { agakhan:1100, sk:0,     chughtai:1000, excel:1200, essa:900,  idc:2700 },
-  hba1c:  { agakhan:1700, sk:0,     chughtai:1600, excel:1800, essa:1500, idc:1920 },
-  tsh:    { agakhan:950,  sk:0,     chughtai:900,  excel:1000, essa:800,  idc:1200 },
-  vitd:   { agakhan:2100, sk:0,     chughtai:2000, excel:2200, essa:1800, idc:2400 },
-  cculture:{agakhan:1600, sk:0,     chughtai:1500, excel:1600, essa:1400, idc:1800 }
-};
-
-const TAT = {
-  cbc:    { agakhan:'2–4h',sk:'24h',chughtai:'2–4h',excel:'4–6h',essa:'Same day',idc:'4–8h' },
-  lft:    { agakhan:'4h',sk:'24h',chughtai:'4h',excel:'5h',essa:'6h',idc:'6h' },
-  rft:    { agakhan:'4h',sk:'24h',chughtai:'4h',excel:'5h',essa:'6h',idc:'6h' },
-  lipid:  { agakhan:'4h',sk:'24h',chughtai:'4h',excel:'5h',essa:'6h',idc:'6h' },
-  hba1c:  { agakhan:'12h',sk:'24h',chughtai:'12h',excel:'18h',essa:'24h',idc:'24h' },
-  tsh:    { agakhan:'12h',sk:'24h',chughtai:'12h',excel:'18h',essa:'24h',idc:'24h' },
-  vitd:   { agakhan:'24h',sk:'48h',chughtai:'24h',excel:'36h',essa:'48h',idc:'48h' },
-  cculture:{agakhan:'48h',sk:'72h',chughtai:'48h',excel:'48h',essa:'72h',idc:'72h' }
-};
-
-// SYMPTOM → TEST mapping (simple keyword based)
-const SYMPTOM_MAP = [
-  { keys:['diabet','sugar','thirst','urinat'], test:'hba1c', why:'HbA1c gives a 3-month picture of your blood sugar — the standard test for diabetes' },
-  { keys:['choleste','heart','lipid','fat'], test:'lipid', why:'A lipid profile measures cholesterol — essential for heart risk assessment' },
-  { keys:['thyroid','tired','fatigue','weight','cold'], test:'tsh', why:'TSH is the first-line test for thyroid issues — fatigue and weight changes are common signals' },
-  { keys:['fever','infect','flu','pain'], test:'cbc', why:'A CBC checks for infection signs — the right starting point for fevers' },
-  { keys:['liver','jaundic','yellow','alcohol'], test:'lft', why:'LFT evaluates liver function — the right test for jaundice or liver concerns' },
-  { keys:['kidney','urine','swelling','renal'], test:'rft', why:'RFT measures kidney function — the right call for swelling, urination changes, or renal concerns' },
-  { keys:['vitamin','bone','sun','deficien'], test:'vitd', why:'Vitamin D testing — important for bone health and energy in Pakistan where deficiency is common' },
-  { keys:['pregnan','baby','conceiv'], test:'cbc', why:'For pre-pregnancy planning, a CBC is the foundational test along with thyroid and vitamin checks' },
-  { keys:['annual','checkup','routine','general'], test:'cbc', why:'For an annual checkup, CBC is the baseline. Pair it with HbA1c and lipid for a fuller picture.' },
-  { keys:['urin','culture','burning','infection'], test:'cculture', why:'A urine or blood culture identifies the exact bacteria — useful for targeted antibiotic treatment' }
-];
-
-// WEIGHT TABLES (n active priorities)
-const WEIGHTS = {
-  0: { accuracy:.40, tat:.25, wait:.15, access:.10, price:.10 },
-  1: 'computed',
-  2: 'computed',
-  3: 'computed',
-  4: 'computed'
-};
-
-// ═══════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════
-const state = {
-  path: null,
-  scene: 1,
-  city: null,
-  tests: [],         // Multi-test array (was single test)
-  test: null,        // Kept for symptom flow (single suggestion)
-  priorities: [],
-  symptomText: '',
-  result: null,
-  lang: 'en',
-  chat: [],
-  thinking: false
-};
-
-// ═══════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════
-function goScene(n) {
-  document.querySelectorAll('.scene').forEach(s => s.classList.remove('on'));
-  if (n === 1) document.getElementById('scene-1').classList.add('on');
-  else if (n === 2) {
-    if (state.path === 'test') document.getElementById('scene-2a').classList.add('on');
-    else document.getElementById('scene-2b').classList.add('on');
-  }
-  else if (n === 3) document.getElementById('scene-3').classList.add('on');
-  state.scene = n;
-  window.scrollTo({ top:0, behavior:'smooth' });
-}
-
-function choosePath(p) {
-  state.path = p;
-  goScene(2);
-  if (p === 'test') renderTestFlow();
-  else renderSymptomFlow();
-}
-
-function setLang(l) {
-  state.lang = l;
-  document.getElementById('lp-en').classList.toggle('on', l==='en');
-  document.getElementById('lp-ur').classList.toggle('on', l==='ur');
-}
-
-function restart() {
-  state.path = null;
-  state.city = null;
-  state.tests = [];
-  state.test = null;
-  state.priorities = [];
-  state.symptomText = '';
-  state.result = null;
-  state.chat = [];
-  goScene(1);
-}
-
-// ═══════════════════════════════════════
-// SCENE 2A — TEST FLOW
-// ═══════════════════════════════════════
-function renderTestFlow() {
-  document.getElementById('city-row').innerHTML = CITIES.map(c =>
-    `<div class="city-chip${state.city===c.id?' on':''}" onclick="pickCity('${c.id}',this)">${c.name}</div>`
-  ).join('');
-
-  document.getElementById('test-grid').innerHTML = TESTS.map(t =>
-    `<div class="test-tile${state.tests.includes(t.id)?' on':''}" onclick="pickTest('${t.id}',this)">
-       <div class="tt-name">${t.name}</div>
-       <div class="tt-meta">${t.sub}</div>
-     </div>`
-  ).join('');
-
-  document.getElementById('priority-row').innerHTML = PRIORITIES.map(p =>
-    `<div class="pr-chip${state.priorities.includes(p.id)?' on':''}" onclick="togglePriority('${p.id}',this)">${p.label}</div>`
-  ).join('');
-
-  updateTestGoState();
-  updatePrescriptionCount();
-}
-
-function pickCity(id, el) {
-  state.city = id;
-  document.querySelectorAll('#city-row .city-chip').forEach(c => c.classList.remove('on'));
-  el.classList.add('on');
-  updateTestGoState();
-}
-
-function pickTest(id, el) {
-  // Multi-select: toggle test in/out of state.tests array
-  if (state.tests.includes(id)) {
-    state.tests = state.tests.filter(x => x !== id);
-    el.classList.remove('on');
-  } else {
-    state.tests.push(id);
-    el.classList.add('on');
-  }
-  updateTestGoState();
-  updatePrescriptionCount();
-}
-
-function updatePrescriptionCount() {
-  const counter = document.getElementById('rx-counter');
-  if (!counter) return;
-  const n = state.tests.length;
-  if (n === 0) counter.textContent = 'No tests selected';
-  else if (n === 1) counter.textContent = '1 test selected';
-  else counter.textContent = `${n} tests selected — full prescription`;
-}
-
-function togglePriority(id, el) {
-  if (state.priorities.includes(id)) {
-    state.priorities = state.priorities.filter(x => x !== id);
-    el.classList.remove('on');
-  } else {
-    state.priorities.push(id);
-    el.classList.add('on');
-  }
-}
-
-function updateTestGoState() {
-  const ok = state.city && state.tests.length > 0;
-  document.getElementById('btn-test-go').disabled = !ok;
-}
-
-// ═══════════════════════════════════════
-// SCENE 2B — SYMPTOM FLOW
-// ═══════════════════════════════════════
-function renderSymptomFlow() {
-  document.getElementById('city-row-b').innerHTML = CITIES.map(c =>
-    `<div class="city-chip${state.city===c.id?' on':''}" onclick="pickCityB('${c.id}',this)">${c.name}</div>`
-  ).join('');
-
-  const txt = document.getElementById('symptom-input');
-  txt.value = state.symptomText || '';
-  txt.oninput = () => {
-    state.symptomText = txt.value;
-    updateSymGoState();
-  };
-  updateSymGoState();
-}
-
-function addSymptom(t) {
-  const inp = document.getElementById('symptom-input');
-  inp.value = t;
-  state.symptomText = t;
-  updateSymGoState();
-}
-
-function pickCityB(id, el) {
-  state.city = id;
-  document.querySelectorAll('#city-row-b .city-chip').forEach(c => c.classList.remove('on'));
-  el.classList.add('on');
-  updateSymGoState();
-}
-
-function updateSymGoState() {
-  const ok = state.city && state.symptomText && state.symptomText.trim().length > 4;
-  document.getElementById('btn-sym-go').disabled = !ok;
-}
-
-// ═══════════════════════════════════════
-// SCORING & RANKING — MULTI-TEST
-// ═══════════════════════════════════════
-function getLabTotalForTests(labId, testIds) {
-  // Returns null if lab cannot do any of these tests
-  let total = 0;
-  let canDoAll = true;
-  for (const tid of testIds) {
-    const p = PRICES[tid][labId];
-    if (!p || p === 0) { canDoAll = false; break; }
-    total += p;
-  }
-  return canDoAll ? total : null;
-}
-
-function getCheapestPerTest(testIds, availableLabs) {
-  // For each test, find cheapest lab. Returns map: { testId: { labId, price } }
-  const result = {};
-  for (const tid of testIds) {
-    let cheapest = null;
-    for (const lab of availableLabs) {
-      const p = PRICES[tid][lab.id];
-      if (p && p > 0 && (!cheapest || p < cheapest.price)) {
-        cheapest = { labId: lab.id, labName: lab.name, price: p };
-      }
-    }
-    if (cheapest) result[tid] = cheapest;
-  }
-  return result;
-}
-
-function scoreLab(lab, testIds, priorities, allLabsTotals) {
-  // Compute price score relative to cheapest total in this set
-  const labTotal = getLabTotalForTests(lab.id, testIds);
-  if (labTotal === null) return -1;
-
-  const cheapestTotal = Math.min(...Object.values(allLabsTotals).filter(v => v !== null));
-  // priceScore: 100 if cheapest, drops as price rises (every 10% above cheapest = -10 points)
-  const priceScore = cheapestTotal > 0
-    ? Math.max(0, 100 - ((labTotal - cheapestTotal) / cheapestTotal) * 100)
-    : 50;
-
-  let weights;
-  const n = priorities.length;
-
-  if (n === 0) {
-    weights = { accuracy:.40, tat:.25, wait:.15, access:.10, price:.10 };
-  } else {
-    const boost = n === 1 ? .60 : n === 2 ? .40 : n === 3 ? .28 : .22;
-    const baseRest = (1 - boost * n) / (5 - n);
-    weights = {
-      accuracy: priorities.includes('accuracy') ? boost : baseRest,
-      tat:      priorities.includes('tat') ? boost : baseRest,
-      wait:     priorities.includes('wait') ? boost : baseRest,
-      access:   baseRest,
-      price:    priorities.includes('price') ? boost : baseRest
-    };
-  }
-
-  return (
-    lab.accuracy * weights.accuracy +
-    lab.tat      * weights.tat +
-    lab.wait     * weights.wait +
-    lab.access   * weights.access +
-    priceScore   * weights.price
-  );
-}
-
-function rankLabs(testIds, city, priorities) {
-  const cityLabs = LABS.filter(lab => lab.cities.includes(city));
-
-  // Compute totals for all labs first (for relative price scoring)
-  const allTotals = {};
-  cityLabs.forEach(lab => {
-    allTotals[lab.id] = getLabTotalForTests(lab.id, testIds);
-  });
-
-  return cityLabs
-    .map(lab => {
-      const total = allTotals[lab.id];
-      if (total === null) return null;
-      const itemized = testIds.map(tid => ({
-        testId: tid,
-        testName: TESTS.find(t => t.id === tid).name,
-        price: PRICES[tid][lab.id],
-        tat: TAT[tid][lab.id]
-      }));
-      return {
-        ...lab,
-        computed: scoreLab(lab, testIds, priorities, allTotals),
-        total,
-        itemized
-      };
-    })
-    .filter(l => l !== null)
-    .sort((a, b) => b.computed - a.computed);
-}
-
-// ═══════════════════════════════════════
-// VERDICT GENERATION
-// ═══════════════════════════════════════
-function buildVerdictSentence(winner, testIds, priorities) {
-  const cityName = CITIES.find(c => c.id === state.city).name;
-
-  if (testIds.length === 1) {
-    const t = TESTS.find(x => x.id === testIds[0]);
-    if (priorities.length === 0) {
-      return `For your ${t.name} in ${cityName}, go to <em>${winner.name}</em>.`;
-    }
-    const labels = priorities.map(p => PRIORITIES.find(x => x.id === p).label.toLowerCase()).join(' & ');
-    return `For ${labels} on your ${t.name}, <em>${winner.name}</em> is your answer.`;
-  }
-
-  // Multi-test prescription
-  const testCount = testIds.length;
-  if (priorities.length === 0) {
-    return `For your full prescription in ${cityName} — ${testCount} tests — go to <em>${winner.name}</em>.`;
-  }
-  const labels = priorities.map(p => PRIORITIES.find(x => x.id === p).label.toLowerCase()).join(' & ');
-  return `For ${labels} across your ${testCount}-test prescription, <em>${winner.name}</em> wins.`;
-}
-
-function buildBecause(winner, testIds, priorities, splitSavings) {
-  const reasons = [];
-
-  if (winner.score >= 8.8) reasons.push('the strongest accreditation in Pakistan');
-  if (winner.accuracy >= 90) reasons.push('verified high accuracy');
-  if (winner.accred.includes('CAP') || winner.accred.includes('JCI')) {
-    reasons.push('international accreditation (' + winner.accred.filter(a => ['CAP','JCI'].includes(a)).join(' & ') + ')');
-  }
-
-  // For multi-test, mention the total
-  if (testIds.length > 1) {
-    reasons.push(`Rs ${winner.total.toLocaleString()} for the full set, all under one roof`);
-  } else if (winner.itemized[0].price <= 800) {
-    reasons.push('among the most affordable');
-  }
-
-  const r = reasons.length ? reasons.slice(0, 3).join(', ') : 'a balanced score across price, speed, and accuracy';
-  let txt = `Why? ${r.charAt(0).toUpperCase() + r.slice(1)}. The ${winner.bestBranch.name} branch performs strongest within their network.`;
-
-  if (splitSavings && splitSavings.totalSavings > 100) {
-    txt += ` You could save Rs ${splitSavings.totalSavings.toLocaleString()} by splitting tests across labs — but the total trip and time often costs more than the saving.`;
-  }
-
-  return txt;
-}
-
-function suggestTest(symptomText) {
-  const lower = symptomText.toLowerCase();
-  for (const m of SYMPTOM_MAP) {
-    if (m.keys.some(k => lower.includes(k))) return { test: m.test, why: m.why };
-  }
-  return { test: 'cbc', why: 'When the picture isn\'t clear, a CBC is the smartest first step — it screens for the most common issues' };
-}
-
-// ═══════════════════════════════════════
-// RUN VERDICT
-// ═══════════════════════════════════════
-function runTestVerdict() {
-  const ranked = rankLabs(state.tests, state.city, state.priorities);
-  if (!ranked.length) { showToast('No labs available for this combination'); return; }
-
-  // Compute split savings — cheapest possible if you split tests across labs
-  const cityLabs = LABS.filter(lab => lab.cities.includes(state.city));
-  const cheapestPerTest = getCheapestPerTest(state.tests, cityLabs);
-  let splitTotal = 0;
-  let splitOK = true;
-  for (const tid of state.tests) {
-    if (cheapestPerTest[tid]) splitTotal += cheapestPerTest[tid].price;
-    else { splitOK = false; break; }
-  }
-  const winner = ranked[0];
-  const splitSavings = splitOK ? {
-    totalSavings: winner.total - splitTotal,
-    splitTotal,
-    perTest: cheapestPerTest
-  } : null;
-
-  state.result = { ranked, suggestedReason: null, splitSavings };
-  goScene(3);
-  paintVerdict();
-}
-
-function runSymptomVerdict() {
-  const sug = suggestTest(state.symptomText);
-  state.test = sug.test;
-  state.tests = [sug.test];      // single-element array for the multi-test pipeline
-  state.priorities = [];
-  const ranked = rankLabs(state.tests, state.city, state.priorities);
-  state.result = { ranked, suggestedReason: sug.why, splitSavings: null };
-  goScene(3);
-  paintVerdict();
-}
-
-function paintVerdict() {
-  const winner = state.result.ranked[0];
-  const isMulti = state.tests.length > 1;
-  const cityName = CITIES.find(c => c.id === state.city).name;
-
-  // Eyebrow — adapt for multi vs single
-  let eye;
-  if (isMulti) {
-    eye = `${state.tests.length} tests · ${cityName}`;
-  } else {
-    const t = TESTS.find(x => x.id === state.tests[0]);
-    eye = state.path === 'symptom'
-      ? `Suggested test: ${t.name} · ${cityName}`
-      : `${t.name} · ${cityName}`;
-  }
-  document.getElementById('verdict-eye').textContent = eye;
-
-  // Sentence
-  document.getElementById('verdict-sentence').innerHTML = buildVerdictSentence(winner, state.tests, state.priorities);
-
-  // Because — pass split savings for honest disclosure
-  let because;
-  if (state.path === 'symptom' && state.result.suggestedReason) {
-    because = `${state.result.suggestedReason}. ` + buildBecause(winner, state.tests, state.priorities, state.result.splitSavings);
-  } else {
-    because = buildBecause(winner, state.tests, state.priorities, state.result.splitSavings);
-  }
-  document.getElementById('verdict-because').textContent = because;
-
-  // Winner block
-  document.getElementById('winner-name').textContent = winner.name;
-  document.getElementById('winner-branch').textContent = winner.bestBranch.name + ' — strongest branch';
-  document.getElementById('winner-addr').textContent = winner.bestBranch.addr;
-  document.getElementById('winner-score').textContent = winner.score.toFixed(1);
-
-  // Metrics
-  document.getElementById('winner-mets').innerHTML = `
-    <div class="met">
-      <div class="met-circle"><div class="met-pct">${winner.accuracy}%</div></div>
-      <div class="met-label">Accuracy</div>
-      <div class="met-sub">From accreditation & web data</div>
-    </div>
-    <div class="met">
-      <div class="met-circle"><div class="met-pct">${winner.tat}%</div></div>
-      <div class="met-label">Speed</div>
-      <div class="met-sub">Turnaround vs. promise</div>
-    </div>
-    <div class="met">
-      <div class="met-circle"><div class="met-pct">${winner.wait}%</div></div>
-      <div class="met-label">Low wait</div>
-      <div class="met-sub">In-branch queue time</div>
-    </div>
-    <div class="met">
-      <div class="met-circle"><div class="met-pct">${winner.access}%</div></div>
-      <div class="met-label">Access</div>
-      <div class="met-sub">Parking & location</div>
-    </div>
-  `;
-
-  // RX CONTAINER — itemised + (optional) split-savings strip
-  const rxContainer = document.getElementById('rx-container');
-  const itemRows = winner.itemized.map(item => `
-    <div class="rx-row">
-      <div class="rx-test-block">
-        <div class="rx-test-name">${item.testName}</div>
-        <div class="rx-test-tat">Result in ${item.tat}</div>
-      </div>
-      <div class="rx-test-price">Rs ${item.price.toLocaleString()}</div>
-    </div>
-  `).join('');
-
-  // Compute longest TAT for total label
-  const longestTat = winner.itemized.map(i => i.tat).sort((a,b) => {
-    const parseHrs = s => {
-      if (s.includes('Same day')) return 24;
-      const m = s.match(/(\d+)/g);
-      return m ? Math.max(...m.map(Number)) : 0;
-    };
-    return parseHrs(b) - parseHrs(a);
-  })[0];
-
-  let rxHtml = `
-    <div class="rx-list">
-      <div class="rx-eye">
-        <span>Your prescription · at ${winner.name}</span>
-        <span class="rx-eye-right">${winner.itemized.length} ${winner.itemized.length === 1 ? 'test' : 'tests'}</span>
-      </div>
-      <div class="rx-rows">${itemRows}</div>
-      <div class="rx-total">
-        <div class="rx-total-left">
-          <div class="rx-total-eye">Total — one visit, one trip</div>
-          <div class="rx-total-tat">All results within ${longestTat}</div>
-        </div>
-        <div class="rx-total-amt">Rs ${winner.total.toLocaleString()}</div>
-      </div>
-    </div>
-  `;
-
-  // Split savings strip — only show if multi-test AND savings > 0
-  const splits = state.result.splitSavings;
-  if (isMulti && splits && splits.totalSavings > 0) {
-    const splitItemRows = state.tests.map(tid => {
-      const c = splits.perTest[tid];
-      const t = TESTS.find(x => x.id === tid);
-      const isAtWinner = c.labId === winner.id;
-      return `
-        <div class="split-row">
-          <div class="split-test">${t.name}</div>
-          <div class="split-at">cheapest at <strong>${c.labName}</strong>${isAtWinner ? ' (same)' : ''}</div>
-          <div class="split-price">Rs ${c.price.toLocaleString()}</div>
-        </div>
-      `;
-    }).join('');
-
-    rxHtml += `
-      <div class="split-strip">
-        <div class="split-eye">
-          <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6.5" cy="6.5" r="5.5"/><path d="M6.5 4v3M6.5 8.5v.5"/></svg>
-          The honest disclosure
-        </div>
-        <div class="split-headline">If you split your tests across labs, the cheapest possible total is <strong>Rs ${splits.splitTotal.toLocaleString()}</strong> — saving Rs ${splits.totalSavings.toLocaleString()} versus going to one lab.</div>
-        <div class="split-rows">${splitItemRows}</div>
-        <div class="split-foot">But splitting means multiple trips, multiple sample collections, and reports across different systems. Most patients save more in time & travel by sticking with one trusted lab.</div>
-      </div>
-    `;
-  }
-
-  rxContainer.innerHTML = rxHtml;
-
-  // Sources
-  document.getElementById('sources-line').innerHTML =
-    winner.sources.map(s => `<span><strong>·</strong> ${s}</span>`).join('') +
-    '<span style="margin-left:auto"><strong>·</strong> Updated April 2026</span>';
-
-  // Alternatives — show their TOTAL for the prescription
-  const others = state.result.ranked.slice(1, 5);
-  document.getElementById('alt-row').innerHTML = others.map(lab => {
-    const priceTxt = `Rs ${lab.total.toLocaleString()}`;
-    const priceLabel = isMulti ? `<div style="font-size:9px;color:var(--ink4);letter-spacing:.5px;text-transform:uppercase;text-align:right;margin-top:1px">total</div>` : '';
-    return `
-      <div class="alt-card" onclick="askAbout('${lab.id}')">
-        <div class="alt-circle"><div class="alt-num">${lab.score.toFixed(1)}</div></div>
-        <div class="alt-info">
-          <div class="alt-name">${lab.name}</div>
-          <div class="alt-tag">${lab.bestBranch.name}</div>
-        </div>
+  <div class="page">
+    <header class="nav">
+      <a class="brand" href="#top" aria-label="Diagno home">
+        <span class="brand-mark">D</span>
+        <span>Diagno</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#compare">Compare</a>
+        <a href="#experience">Patient experience</a>
+        <a href="#coverage">Pakistan coverage</a>
+        <a class="nav-cta" href="#search">Compare Labs</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="wrap hero">
         <div>
-          <div class="alt-price">${priceTxt}</div>
-          ${priceLabel}
+          <div class="eyebrow"><span class="pulse"></span> Diagnostic transparency for Pakistan</div>
+          <h1>Compare diagnostic labs with confidence.</h1>
+          <p class="hero-copy">
+            Compare prices, patient experiences, report delivery, radiology availability, home sampling, and transparency indicators across diagnostic labs.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#search">Compare Labs</a>
+            <a class="btn btn-secondary" href="#compare">Explore Transparency Scores</a>
+          </div>
+          <div class="trust-row">
+            <span class="trust-pill">Blood work</span>
+            <span class="trust-pill">Radiology</span>
+            <span class="trust-pill">Patient experience</span>
+            <span class="trust-pill">Privacy-protected feedback</span>
+          </div>
         </div>
+
+        <aside class="mockup" aria-label="Dashboard preview">
+          <div class="mockup-top">
+            <div class="window-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <span class="score-chip">Transparency AI</span>
+          </div>
+          <div class="dashboard">
+            <div class="dash-search">
+              <span>MRI Islamabad</span>
+              <strong>4 labs found</strong>
+            </div>
+            <div class="compare-mini">
+              <div class="mini-card">
+                <h3>Aga Khan Lab</h3>
+                <div class="metric"><span>Transparency</span><strong>91</strong></div>
+                <div class="metric"><span>CBC</span><strong>Rs 850</strong></div>
+                <div class="metric"><span>Reports</span><strong>Fast</strong></div>
+              </div>
+              <div class="mini-card">
+                <h3>IDC</h3>
+                <div class="metric"><span>Transparency</span><strong>79</strong></div>
+                <div class="metric"><span>MRI</span><strong>Available</strong></div>
+                <div class="metric"><span>Experience</span><strong>Mixed</strong></div>
+              </div>
+            </div>
+            <div class="analytics-row">
+              <div class="mini-card">
+                <h3>Patient experience</h3>
+                <div class="bars">
+                  <div class="bar-line"><span style="width: 91%"></span></div>
+                  <div class="bar-line"><span style="width: 78%"></span></div>
+                  <div class="bar-line"><span style="width: 64%"></span></div>
+                </div>
+              </div>
+              <div class="mini-card">
+                <h3>Signals</h3>
+                <div class="metric"><span>Clear billing</span><strong>High</strong></div>
+                <div class="metric"><span>Wait time</span><strong>Low</strong></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="wrap" id="search">
+        <div class="search-shell">
+          <div class="search-box">
+            <input id="searchInput" type="search" placeholder="Search tests, labs, or cities..." aria-label="Search tests, labs, or cities" />
+            <button class="btn btn-primary" id="searchBtn">Search</button>
+          </div>
+          <div class="examples" aria-label="Search examples">
+            <button class="example" data-query="MRI Islamabad">MRI Islamabad</button>
+            <button class="example" data-query="CBC near me">CBC near me</button>
+            <button class="example" data-query="Home sampling">Home sampling</button>
+            <button class="example" data-query="Cheapest Vitamin D">Cheapest Vitamin D</button>
+            <button class="example" data-query="Ultrasound Lahore">Ultrasound Lahore</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="compare">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Comparison preview</div>
+            <h2>See the tradeoffs before you book.</h2>
+          </div>
+          <p class="section-copy">Diagno turns scattered lab details into a simple decision view: transparency, price, report delivery, and patient experience.</p>
+        </div>
+        <div class="comparison" role="region" aria-label="Lab comparison table" tabindex="0">
+          <div class="compare-grid">
+            <div class="cell head-cell">Signal</div>
+            <div class="cell head-cell">Aga Khan Lab</div>
+            <div class="cell head-cell">Chughtai Lab</div>
+            <div class="cell head-cell">IDC</div>
+
+            <div class="cell label-cell">Transparency score</div>
+            <div class="cell"><span class="score">91</span><span class="small-note">Verified quality signals</span></div>
+            <div class="cell"><span class="score">84</span><span class="small-note">Broad branch access</span></div>
+            <div class="cell"><span class="score">79</span><span class="small-note">Radiology strength</span></div>
+
+            <div class="cell label-cell">Example price</div>
+            <div class="cell"><strong>CBC Rs 850</strong><span class="small-note">Price before visit confirmation</span></div>
+            <div class="cell"><strong>CBC Rs 800</strong><span class="small-note">Routine tests friendly</span></div>
+            <div class="cell"><strong>MRI available</strong><span class="small-note">Radiology + lab services</span></div>
+
+            <div class="cell label-cell">Report delivery</div>
+            <div class="cell"><strong>Fast</strong><span class="small-note">Strong for critical tests</span></div>
+            <div class="cell"><strong>Moderate</strong><span class="small-note">Branch dependent</span></div>
+            <div class="cell"><strong>Variable</strong><span class="small-note">Modality dependent</span></div>
+
+            <div class="cell label-cell">Patient experience</div>
+            <div class="cell"><strong>Smooth</strong><span class="small-note">Clear process</span></div>
+            <div class="cell"><strong>Mixed-positive</strong><span class="small-note">Wait time varies</span></div>
+            <div class="cell"><strong>Mixed</strong><span class="small-note">Availability focused</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap experience" id="experience">
+        <div class="human-card">
+          <div class="kicker" style="color:#95fff0">Human experience layer</div>
+          <h2>Built around real patient experiences.</h2>
+          <p>
+            People do not choose labs only by price. They care about waiting, billing clarity, sample collection, staff behavior, report timing, and whether complaints are handled fairly.
+          </p>
+        </div>
+        <div class="tag-cloud">
+          <span class="tag">Smooth Visit</span>
+          <span class="tag">Long Wait</span>
+          <span class="tag">Clear Billing</span>
+          <span class="tag">Fast Reports</span>
+          <span class="tag">Helpful Staff</span>
+          <span class="tag">Comfortable Environment</span>
+          <span class="tag">Home Sampling</span>
+          <span class="tag">Radiology Queue</span>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">How it works</div>
+            <h2>Three steps. No confusion.</h2>
+          </div>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-num">1</div>
+            <h3>Search labs</h3>
+            <p>Search by test, city, lab name, radiology scan, or home sampling need.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">2</div>
+            <h3>Compare signals</h3>
+            <p>View transparency, pricing, report delivery, patient experience, and complaint handling.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">3</div>
+            <h3>Choose confidently</h3>
+            <p>Pick the lab that fits your budget, urgency, location, and trust expectations.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Trust & verification</div>
+            <h2>Confidence, not review spam.</h2>
+          </div>
+          <p class="section-copy">Diagno is positioned as a healthcare decision platform, not a generic star-rating site.</p>
+        </div>
+        <div class="trust-grid">
+          <article class="trust-card">
+            <div class="icon">✓</div>
+            <h3>Verified visits</h3>
+            <p>Experience signals can be weighted higher when backed by visit proof.</p>
+          </article>
+          <article class="trust-card">
+            <div class="icon">₨</div>
+            <h3>Receipt-backed complaints</h3>
+            <p>Billing and pricing complaints become more useful when tied to receipts.</p>
+          </article>
+          <article class="trust-card">
+            <div class="icon">↗</div>
+            <h3>Transparency metrics</h3>
+            <p>Scores focus on price clarity, report timing, accreditation, and complaint response.</p>
+          </article>
+          <article class="trust-card">
+            <div class="icon">🔒</div>
+            <h3>Privacy-protected feedback</h3>
+            <p>Patient identity should remain protected while platform quality improves.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Feature highlights</div>
+            <h2>Everything patients check before visiting.</h2>
+          </div>
+        </div>
+        <div class="features">
+          <article class="feature"><div class="icon">₨</div><h3>Price comparison</h3><p>Compare test and scan prices across labs when public or verified prices are available.</p></article>
+          <article class="feature"><div class="icon">⏱</div><h3>TAT insights</h3><p>Understand claimed versus patient-reported report delivery timelines.</p></article>
+          <article class="feature"><div class="icon">⌂</div><h3>Home sampling</h3><p>Quickly identify labs offering home collection and branch coverage.</p></article>
+          <article class="feature"><div class="icon">☑</div><h3>Patient experience</h3><p>Track staff behavior, wait time, billing clarity, and environment quality.</p></article>
+          <article class="feature"><div class="icon">◇</div><h3>Transparency indicators</h3><p>Highlight accreditation, public pricing, clear process, and service reliability.</p></article>
+          <article class="feature"><div class="icon">!</div><h3>Complaint handling</h3><p>Separate emotional reviews from verified, actionable complaints and lab responses.</p></article>
+        </div>
+      </section>
+
+      <section class="lab-section" id="coverage">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Pakistan-wide coverage</div>
+              <h2>Blood work and radiology in one comparison layer.</h2>
+            </div>
+            <p class="section-copy">The platform is designed to cover national networks, city labs, hospital labs, diagnostic centers, and radiology providers across Pakistan.</p>
+          </div>
+          <div class="lab-grid">
+            <article class="lab-card">
+              <h3>Major lab networks</h3>
+              <p>Useful for routine blood work, home sampling, and multi-city access.</p>
+              <ul>
+                <li>Aga Khan Laboratory</li>
+                <li>Chughtai Lab</li>
+                <li>Dr. Essa Laboratory</li>
+                <li>Excel Labs</li>
+                <li>IDC / Islamabad Diagnostic Centre</li>
+                <li>Shaukat Khanum Laboratory</li>
+              </ul>
+            </article>
+            <article class="lab-card">
+              <h3>Hospital and city labs</h3>
+              <p>Useful for complex tests, specialist referrals, and hospital-linked diagnostics.</p>
+              <ul>
+                <li>Shifa International Lab</li>
+                <li>Dow Diagnostic Research & Reference Lab</li>
+                <li>Indus Hospital Lab</li>
+                <li>Rehman Medical Institute Lab</li>
+                <li>Liaquat National Hospital Lab</li>
+                <li>National Hospital & Medical Centre Lab</li>
+              </ul>
+            </article>
+            <article class="lab-card">
+              <h3>Radiology and imaging</h3>
+              <p>Built for MRI, CT scan, ultrasound, X-ray, mammography, and diagnostic imaging comparison.</p>
+              <ul>
+                <li>IDC Radiology</li>
+                <li>Chughtai Medical Center Imaging</li>
+                <li>Advanced Diagnostic Centre</li>
+                <li>City and hospital radiology departments</li>
+                <li>Private imaging centers</li>
+                <li>Branch-level availability tracking</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <div class="cta-band">
+          <div>
+            <h2>Choose diagnostics with more clarity.</h2>
+            <p>Diagno helps patients move from guesswork to evidence-backed lab decisions across Pakistan.</p>
+          </div>
+          <a class="btn" href="#search">Start Comparing</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <div class="footer-row">
+        <div><strong>Diagno</strong> - confidence in healthcare decisions.</div>
+        <div>Not medical advice. Prices and availability should be confirmed before visiting.</div>
       </div>
-    `;
-  }).join('');
+    </footer>
+  </div>
 
-  // AI suggestions reset
-  resetAi(winner);
-}
+  <script>
+    const input = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+    const examples = document.querySelectorAll(".example");
 
-// ═══════════════════════════════════════
-// AI PANEL
-// ═══════════════════════════════════════
-function resetAi(winner) {
-  state.chat = [];
-  const isMulti = state.tests.length > 1;
-  const testName = isMulti
-    ? `${state.tests.length}-test prescription`
-    : (TESTS.find(t => t.id === state.tests[0]) || {}).name || 'this test';
+    function runSearch(query) {
+      const value = (query || input.value || "").trim();
+      if (!value) {
+        input.focus();
+        return;
+      }
+      input.value = value;
+      const compare = document.getElementById("compare");
+      compare.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
 
-  document.getElementById('ai-msgs').innerHTML = `
-    <div class="ai-empty" id="ai-empty">
-      <div class="ai-empty-icon">
-        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4">
-          <path d="M9 2C9 2 4 5.5 4 9.5C4 12.5 6.2 15 9 15C11.8 15 14 12.5 14 9.5C14 5.5 9 2 9 2Z"/>
-          <path d="M6.5 9.5h5M9 7v5"/>
-        </svg>
-      </div>
-      <div class="ai-empty-text">Ask anything about ${winner.name} or your ${testName}.</div>
-      <div class="ai-suggest" id="ai-suggest"></div>
-    </div>
-  `;
-
-  const fastingQ = isMulti
-    ? `Do I need to fast for any of these tests?`
-    : `Do I need to fast for the ${testName} test?`;
-
-  document.getElementById('ai-suggest').innerHTML = `
-    <div class="ai-sg" onclick="askPreset('What should I bring to ${winner.name}?')">What should I bring?</div>
-    <div class="ai-sg" onclick="askPreset(${JSON.stringify(fastingQ)})">Do I need to fast?</div>
-    <div class="ai-sg" onclick="askPreset('Is home collection available at ${winner.name}?')">Home collection?</div>
-    <div class="ai-sg" onclick="askPreset('How does ${winner.name} compare with the others on the list?')">Compare with others</div>
-  `;
-}
-
-function askAbout(labId) {
-  const lab = LABS.find(l => l.id === labId);
-  askPreset(`Tell me more about ${lab.name} — strengths, weaknesses, accreditation.`);
-}
-
-function askPreset(text) {
-  document.getElementById('ai-input').value = text;
-  document.getElementById('ai-send').disabled = false;
-  aiSend();
-}
-
-function aiKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    if (!document.getElementById('ai-send').disabled) aiSend();
-  }
-}
-
-function aiResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
-}
-
-document.addEventListener('input', e => {
-  if (e.target.id === 'ai-input') {
-    document.getElementById('ai-send').disabled = !e.target.value.trim() || state.thinking;
-  }
-});
-
-function hideAiEmpty() {
-  const empty = document.getElementById('ai-empty');
-  if (empty) empty.remove();
-}
-
-function addBubble(role, content, isErr=false) {
-  hideAiEmpty();
-  const div = document.createElement('div');
-  div.className = 'ai-msg ' + role;
-  div.innerHTML = `<div class="ai-bubble">${content.replace(/\n/g,'<br/>')}</div>`;
-  if (isErr) div.querySelector('.ai-bubble').style.cssText = 'background:#F0DCD0;border-color:#E0BFA8;color:#7A2C18';
-  document.getElementById('ai-msgs').appendChild(div);
-  document.getElementById('ai-msgs').scrollTop = 999999;
-}
-
-function showThinking() {
-  hideAiEmpty();
-  const div = document.createElement('div');
-  div.className = 'ai-msg bot'; div.id = 'thinking';
-  div.innerHTML = `<div class="ai-bubble"><div class="ai-typing"><span></span><span></span><span></span></div></div>`;
-  document.getElementById('ai-msgs').appendChild(div);
-  document.getElementById('ai-msgs').scrollTop = 999999;
-}
-
-function removeThinking() {
-  const t = document.getElementById('thinking');
-  if (t) t.remove();
-}
-
-async function aiSend() {
-  const inp = document.getElementById('ai-input');
-  const text = inp.value.trim();
-  if (!text || state.thinking) return;
-  inp.value = ''; inp.style.height = 'auto';
-  document.getElementById('ai-send').disabled = true;
-  state.thinking = true;
-  addBubble('user', text);
-  state.chat.push({ role:'user', content:text });
-  showThinking();
-
-  // Build context for AI — include full prescription if multi-test
-  const winner = state.result?.ranked[0];
-  const isMulti = state.tests.length > 1;
-  const cityName = state.city ? CITIES.find(c => c.id === state.city).name : '';
-
-  let ctx;
-  if (isMulti && winner) {
-    const itemsTxt = winner.itemized.map(i => `${i.testName} (Rs ${i.price}, TAT ${i.tat})`).join(', ');
-    ctx = `Context: User has a prescription for ${winner.itemized.length} tests in ${cityName}: ${itemsTxt}. Recommended lab: ${winner.name} (${winner.bestBranch.name}, score ${winner.score}). Total cost Rs ${winner.total}. They are asking a follow-up question.`;
-  } else if (winner) {
-    const t = TESTS.find(t => t.id === state.tests[0]);
-    ctx = `Context: User just got a verdict for ${t?.name || 'a test'} in ${cityName}. The recommended lab is ${winner.name} (${winner.bestBranch.name}, score ${winner.score}). Price Rs ${winner.itemized[0]?.price}, TAT ${winner.itemized[0]?.tat}. They are asking a follow-up question.`;
-  } else {
-    ctx = `Context: User is on the verdict page asking a follow-up.`;
-  }
-
-  try {
-    const resp = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        messages: [{ role:'user', content: ctx + '\n\nUser question: ' + text }],
-        language: state.lang
-      })
+    searchBtn.addEventListener("click", () => runSearch());
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") runSearch();
     });
-    if (!resp.ok) throw new Error('API error');
-    const data = await resp.json();
-    if (data.error) throw new Error(data.error);
-    state.chat.push({ role:'assistant', content: data.reply });
-    removeThinking();
-    addBubble('bot', data.reply);
-  } catch(err) {
-    removeThinking();
-    addBubble('bot', state.lang === 'ur' ? 'معذرت، جواب نہیں مل سکا۔' : 'Sorry, I couldn\'t reach the AI. Please try again.', true);
-  }
-
-  state.thinking = false;
-  document.getElementById('ai-send').disabled = !document.getElementById('ai-input').value.trim();
-}
-
-// ═══════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2400);
-}
-
-// ═══════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════
-goScene(1);
-</script>
+    examples.forEach((button) => {
+      button.addEventListener("click", () => runSearch(button.dataset.query));
+    });
+  </script>
 </body>
 </html>
