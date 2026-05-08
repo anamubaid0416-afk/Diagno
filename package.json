@@ -1,7 +1,7 @@
 {
-  "name": "diagnoRate",
+  "name": "diagno",
   "version": "1.0.0",
-  "description": "Pakistan's First Diagnostic Transparency AI Agent",
+  "description": "Pakistan diagnostic lab and radiology transparency platform",
   "private": true,
   "engines": {
     "node": "20.x"
