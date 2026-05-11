@@ -2,6 +2,7 @@
   "version": 2,
   "routes": [
     { "src": "/api/chat", "dest": "/api/chat.js" },
+    { "src": "/api/vision", "dest": "/api/vision.js" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }
