@@ -1,6 +1,4 @@
-[README.md](https://github.com/user-attachments/files/27518756/README.md)
-# Diagno
-Healthcare Rating and Suggestive AI Agent
+[README.md](https://github.com/user-attachments/files/27588729/README.md)
 # Diagno
 
 Diagnostic lab and radiology transparency platform for Pakistan.
