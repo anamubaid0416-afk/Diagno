@@ -3,6 +3,7 @@
   "routes": [
     { "src": "/api/chat", "dest": "/api/chat.js" },
     { "src": "/api/vision", "dest": "/api/vision.js" },
+    { "src": "/api/prescription", "dest": "/api/prescription.js" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }
