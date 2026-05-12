@@ -134,6 +134,18 @@
     .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
     .chip { display: inline-flex; border-radius: 999px; padding: 8px 11px; background: var(--teal-soft); color: #11766f; font-weight: 800; font-size: 13px; }
     .status { display: none; margin-top: 12px; padding: 12px; border-radius: 14px; background: var(--amber-bg); color: var(--amber); font-weight: 800; font-size: 13px; }
+    .pipeline { display: grid; gap: 10px; margin-bottom: 14px; }
+    .pipe-step { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: #fff; }
+    .pipe-num { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 10px; background: var(--soft); color: var(--navy); font-weight: 900; font-size: 13px; }
+    .pipe-step strong { display: block; color: var(--navy); font-size: 14px; }
+    .pipe-step span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .pipe-step.done { border-color: rgba(42, 161, 152, 0.45); background: var(--teal-soft); }
+    .reader-output { display: none; margin-top: 12px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; }
+    .reader-output-head { display: flex; justify-content: space-between; gap: 10px; padding: 12px; border-bottom: 1px solid var(--line); background: var(--soft); color: var(--navy); font-weight: 900; }
+    .reader-output-body { padding: 12px; color: var(--muted); font-size: 13px; }
+    .reader-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .reader-list { min-height: 80px; border: 1px solid var(--line); border-radius: 12px; padding: 10px; background: var(--soft); }
+    .reader-list h4 { margin: 0 0 8px; color: var(--navy); font-size: 13px; }
     .ocr-result { display: none; margin-top: 12px; border: 1px solid var(--line); border-radius: 14px; background: #fff; overflow: hidden; }
     .ocr-head { display: flex; justify-content: space-between; gap: 12px; background: var(--soft); color: var(--navy); font-weight: 900; padding: 12px; border-bottom: 1px solid var(--line); }
     .ocr-text { max-height: 180px; overflow: auto; padding: 12px; white-space: pre-wrap; color: var(--muted); font-size: 12px; }
@@ -146,7 +158,7 @@
 
     @media (max-width: 900px) {
       .nav-links a:not(.nav-cta) { display: none; }
-      .hero, .simple-grid, .tool-grid { grid-template-columns: 1fr; }
+      .hero, .simple-grid, .tool-grid, .reader-columns { grid-template-columns: 1fr; }
       .decision-card { order: -1; }
       .section-head { display: block; }
       .section-copy { margin-top: 10px; }
@@ -261,18 +273,36 @@
       <details>
         <summary>Prescription Reader Practice</summary>
         <div class="details-body">
+          <div class="pipeline" id="prescriptionPipeline">
+            <div class="pipe-step" data-step="0"><div class="pipe-num">1</div><div><strong>Azure OCR</strong><span>Reads handwriting/image text when Azure keys are configured.</span></div></div>
+            <div class="pipe-step" data-step="1"><div class="pipe-num">2</div><div><strong>GPT/Gemini/OpenAI interpretation layer</strong><span>Normalizes messy OCR into likely tests, scans, and medicines.</span></div></div>
+            <div class="pipe-step" data-step="2"><div class="pipe-num">3</div><div><strong>Medicine database matching</strong><span>Matches common medicine names separately from diagnostic tests.</span></div></div>
+            <div class="pipe-step done" data-step="3"><div class="pipe-num">4</div><div><strong>Human correction fallback</strong><span>The user/admin confirms readable items before comparison.</span></div></div>
+          </div>
           <div class="tool-grid">
             <div>
               <div class="drop">
                 <input id="prescriptionInput" type="file" accept="image/*,.pdf" />
-                <div id="prescriptionEmpty"><strong>Upload prescription image</strong><br><span class="muted">Then type what you can read. This is not diagnosis.</span></div>
+                <div id="prescriptionEmpty"><strong>Upload prescription image</strong><br><span class="muted">Azure OCR runs on Vercel when configured. This is not diagnosis.</span></div>
                 <img class="preview" id="prescriptionPreview" alt="Prescription preview" />
               </div>
             </div>
             <div>
-              <textarea id="prescriptionText" placeholder="Example: CBC, LFT, TSH, Vitamin D, HbA1c, Lipid profile, ultrasound abdomen..."></textarea>
-              <button class="btn btn-primary" id="parsePrescriptionBtn" type="button" style="margin-top:10px">Extract likely tests</button>
+              <textarea id="prescriptionText" placeholder="Human correction fallback: type or correct readable items here. Example: CBC, LFT, TSH, Vitamin D, HbA1c, Lipid profile, ultrasound abdomen, Panadol..."></textarea>
+              <button class="btn btn-primary" id="parsePrescriptionBtn" type="button" style="margin-top:10px">Run prescription pipeline</button>
+              <div class="status" id="prescriptionStatus"></div>
               <div class="chip-row" id="readerChips"></div>
+            </div>
+          </div>
+          <div class="reader-output" id="readerOutput">
+            <div class="reader-output-head"><span>Prescription extraction result</span><span id="readerProvider">Fallback</span></div>
+            <div class="reader-output-body">
+              <div class="reader-columns">
+                <div class="reader-list"><h4>Likely tests / scans</h4><div id="readerTests" class="chip-row"></div></div>
+                <div class="reader-list"><h4>Medicine matches</h4><div id="readerMedicines" class="chip-row"></div></div>
+              </div>
+              <textarea id="confirmedPrescriptionText" style="margin-top:12px" placeholder="Correct final tests/scans here before comparing labs."></textarea>
+              <p class="muted">Final confirmation is required before Diagno uses this for lab comparison. Not medical advice.</p>
             </div>
           </div>
         </div>
@@ -394,12 +424,21 @@
     const prescriptionText = document.getElementById("prescriptionText");
     const parsePrescriptionBtn = document.getElementById("parsePrescriptionBtn");
     const readerChips = document.getElementById("readerChips");
+    const prescriptionStatus = document.getElementById("prescriptionStatus");
+    const readerOutput = document.getElementById("readerOutput");
+    const readerProvider = document.getElementById("readerProvider");
+    const readerTests = document.getElementById("readerTests");
+    const readerMedicines = document.getElementById("readerMedicines");
+    const confirmedPrescriptionText = document.getElementById("confirmedPrescriptionText");
+    const pipelineSteps = document.querySelectorAll("#prescriptionPipeline .pipe-step");
+    let prescriptionDataUrl = "";
 
     prescriptionInput.addEventListener("change", async (event) => {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
       if (file.type && file.type.startsWith("image/")) {
-        prescriptionPreview.src = await readFileAsDataUrl(file);
+        prescriptionDataUrl = await readFileAsDataUrl(file);
+        prescriptionPreview.src = prescriptionDataUrl;
         prescriptionPreview.style.display = "block";
         prescriptionEmpty.style.display = "none";
       } else {
@@ -407,10 +446,56 @@
       }
     });
 
-    parsePrescriptionBtn.addEventListener("click", () => {
-      const text = prescriptionText.value.toLowerCase();
-      const items = prescriptionDictionary.filter(([_, terms]) => terms.some((term) => text.includes(term))).map(([label]) => label);
-      readerChips.innerHTML = items.length ? items.map((item) => `<span class="chip">${item}</span>`).join("") : `<span class="muted">No known test detected yet.</span>`;
+    function paintPipeline(pipeline) {
+      pipelineSteps.forEach((step, index) => {
+        const result = pipeline && pipeline[index];
+        step.classList.toggle("done", Boolean(result?.complete) || index === 3);
+        const label = step.querySelector("span");
+        if (label && result?.status) label.textContent = result.status;
+      });
+    }
+
+    function renderChips(target, items, emptyText) {
+      target.innerHTML = items && items.length
+        ? items.map((item) => `<span class="chip">${item.name || item}</span>`).join("")
+        : `<span class="muted">${emptyText}</span>`;
+    }
+
+    parsePrescriptionBtn.addEventListener("click", async () => {
+      const manualText = prescriptionText.value.trim();
+      prescriptionStatus.style.display = "block";
+      prescriptionStatus.textContent = "Running Azure OCR, AI interpretation, medicine matching, and human fallback...";
+      readerChips.innerHTML = "";
+
+      try {
+        const response = await fetch("/api/prescription", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imageBase64: prescriptionDataUrl, manualText })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Prescription pipeline unavailable");
+
+        paintPipeline(data.pipeline);
+        readerOutput.style.display = "block";
+        readerProvider.textContent = data.ai?.provider ? `${data.ai.provider} layer` : "Fallback";
+        renderChips(readerTests, data.tests, "No known test or scan detected yet.");
+        renderChips(readerMedicines, data.medicines, "No known medicine detected yet.");
+        confirmedPrescriptionText.value = data.lines?.length ? data.lines.join("\n") : data.text || manualText;
+        readerChips.innerHTML = data.tests?.length ? data.tests.map((item) => `<span class="chip">${item.name}</span>`).join("") : `<span class="muted">No comparison-ready test detected yet. Correct the text below.</span>`;
+        prescriptionStatus.textContent = data.disclaimer || "Pipeline complete. Please confirm before comparing labs.";
+      } catch (error) {
+        const text = manualText.toLowerCase();
+        const items = prescriptionDictionary.filter(([_, terms]) => terms.some((term) => text.includes(term))).map(([label]) => ({ name: label }));
+        paintPipeline([{ complete: false, status: "Azure unavailable" }, { complete: false, status: "AI unavailable" }, { complete: false, status: "Local matching only" }, { complete: true, status: "Manual correction active" }]);
+        readerOutput.style.display = "block";
+        readerProvider.textContent = "Manual fallback";
+        renderChips(readerTests, items, "No known test detected yet.");
+        renderChips(readerMedicines, [], "No known medicine detected yet.");
+        confirmedPrescriptionText.value = manualText;
+        readerChips.innerHTML = items.length ? items.map((item) => `<span class="chip">${item.name}</span>`).join("") : `<span class="muted">No known test detected yet.</span>`;
+        prescriptionStatus.textContent = `${error.message}. Manual correction fallback is active.`;
+      }
     });
 
     const receiptInput = document.getElementById("receiptInput");
