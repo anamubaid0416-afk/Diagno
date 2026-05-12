@@ -4,28 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diagno - Compare diagnostic labs with confidence</title>
-  <meta name="description" content="Compare diagnostic labs across Pakistan using prices, report delivery, patient experiences, radiology availability, and transparency indicators." />
+  <meta name="description" content="Compare diagnostic labs across Pakistan by price and convenience, with patient experience tools available when needed." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #0b2545;
-      --navy-2: #123b63;
-      --teal: #11b7a5;
-      --teal-2: #dff9f5;
-      --sky: #eaf5ff;
-      --ink: #102033;
-      --muted: #607086;
-      --line: #e5edf4;
-      --soft: #f6f9fc;
-      --white: #ffffff;
-      --amber: #b7791f;
-      --green: #0f8f70;
-      --shadow: 0 18px 55px rgba(11, 37, 69, 0.11);
-      --shadow-soft: 0 8px 30px rgba(11, 37, 69, 0.08);
-      --radius: 22px;
-      --radius-sm: 14px;
+      --navy: #102a43;
+      --navy-soft: #193b5a;
+      --teal: #2aa198;
+      --teal-soft: #e8f6f4;
+      --cream: #fbfaf7;
+      --paper: #ffffff;
+      --ink: #122033;
+      --muted: #697789;
+      --line: #e6edf3;
+      --soft: #f4f8fb;
+      --amber: #9a6a18;
+      --amber-bg: #fff6df;
+      --shadow: 0 16px 44px rgba(16, 42, 67, 0.08);
+      --radius: 18px;
     }
 
     * { box-sizing: border-box; }
@@ -34,1555 +32,349 @@
       margin: 0;
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
-      background: var(--white);
-      line-height: 1.5;
+      background: var(--cream);
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
     }
 
     a { color: inherit; text-decoration: none; }
-    button, input { font: inherit; }
+    button, input, textarea { font: inherit; }
 
-    .page {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 88% 4%, rgba(17, 183, 165, 0.12), transparent 30%),
-        linear-gradient(180deg, #f8fcff 0%, #ffffff 36%, #f7fbff 100%);
-    }
+    .wrap { width: min(1080px, calc(100% - 32px)); margin: 0 auto; }
 
     .nav {
       position: sticky;
       top: 0;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 16px clamp(18px, 5vw, 72px);
-      background: rgba(255,255,255,0.86);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(229,237,244,0.8);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      color: var(--navy);
-      letter-spacing: 0;
-      font-size: 20px;
-    }
-
-    .brand-mark {
-      width: 36px;
-      height: 36px;
-      border-radius: 11px;
-      background: linear-gradient(135deg, var(--navy), var(--teal));
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-size: 17px;
-      box-shadow: 0 10px 22px rgba(17,183,165,0.22);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .nav-cta {
-      background: var(--navy);
-      color: #fff;
-      padding: 11px 16px;
-      border-radius: 999px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .wrap {
-      width: min(1180px, calc(100% - 36px));
-      margin: 0 auto;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(330px, 0.98fr);
-      gap: clamp(28px, 5vw, 64px);
-      align-items: center;
-      padding: clamp(46px, 8vw, 94px) 0 34px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      color: var(--green);
-      background: #e9fbf6;
-      border: 1px solid #c9f1e7;
-      font-weight: 700;
-      font-size: 13px;
-      margin-bottom: 20px;
-    }
-
-    .pulse {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--teal);
-      box-shadow: 0 0 0 5px rgba(17,183,165,0.13);
-      animation: blink 1.4s infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.45; transform: scale(0.82); }
-    }
-
-    h1 {
-      margin: 0;
-      color: var(--navy);
-      font-size: clamp(44px, 7vw, 78px);
-      line-height: 0.98;
-      letter-spacing: 0;
-      max-width: 760px;
-    }
-
-    .hero-copy {
-      margin: 24px 0 0;
-      color: var(--muted);
-      font-size: clamp(17px, 2vw, 20px);
-      max-width: 660px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin: 28px 0 0;
-    }
-
-    .btn {
-      border: 0;
-      cursor: pointer;
-      min-height: 48px;
-      padding: 0 20px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-weight: 800;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: var(--navy); color: #fff; box-shadow: var(--shadow-soft); }
-    .btn-secondary { background: #fff; color: var(--navy); border: 1px solid var(--line); }
-
-    .trust-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 26px;
-    }
-
-    .trust-pill {
-      background: rgba(255,255,255,0.84);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--muted);
-      padding: 8px 11px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .mockup {
-      background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(229,237,244,0.9);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      padding: 18px;
-      overflow: hidden;
-    }
-
-    .mockup-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .window-dots { display: flex; gap: 7px; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; background: #d7e2ed; }
-    .dot:nth-child(2) { background: #bfe9e4; }
-    .dot:nth-child(3) { background: #9fd7ff; }
-
-    .score-chip {
-      color: var(--green);
-      background: #e9fbf6;
-      border: 1px solid #c9f1e7;
-      border-radius: 999px;
-      padding: 7px 11px;
-      font-weight: 800;
-      font-size: 12px;
-    }
-
-    .live-dot {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .live-dot::before {
-      content: "";
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--teal);
-      box-shadow: 0 0 0 5px rgba(17,183,165,0.13);
-      animation: blink 1.3s infinite;
-    }
-
-    .dashboard {
-      background: linear-gradient(180deg, #f7fbff, #fff);
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      padding: 16px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .dash-search {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 13px 15px;
-      color: var(--muted);
-      font-size: 13px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .compare-mini {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .mini-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 14px;
-      box-shadow: 0 4px 14px rgba(11,37,69,0.04);
-    }
-
-    .mini-card h3 {
-      margin: 0 0 8px;
-      font-size: 15px;
-      color: var(--navy);
-    }
-
-    .metric {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 8px 0;
-      border-top: 1px solid #eef4f8;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .metric strong { color: var(--ink); }
-
-    .analytics-row {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 12px;
-    }
-
-    .bars {
-      display: grid;
-      gap: 9px;
-    }
-
-    .bar-line {
-      height: 10px;
-      border-radius: 999px;
-      background: #e7eef6;
-      overflow: hidden;
-    }
-
-    .bar-line span {
-      display: block;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--teal), #48c7f2);
-    }
-
-    section { padding: 54px 0; }
-
-    .search-shell {
-      margin-top: 18px;
-      background: var(--white);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-      border-radius: 26px;
-      padding: 16px;
-    }
-
-    .search-box {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: center;
-      background: var(--soft);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 10px 10px 10px 18px;
-    }
-
-    .search-box input {
-      border: 0;
-      outline: 0;
-      background: transparent;
-      color: var(--ink);
-      font-size: 16px;
-      min-width: 0;
-    }
-
-    .examples {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      padding: 14px 2px 0;
-    }
-
-    .example {
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--muted);
-      border-radius: 999px;
-      padding: 8px 11px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin-bottom: 22px;
-    }
-
-    .kicker {
-      color: var(--teal);
-      font-weight: 800;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    h2 {
-      margin: 0;
-      color: var(--navy);
-      font-size: clamp(30px, 4.4vw, 50px);
-      line-height: 1.04;
-      letter-spacing: 0;
-    }
-
-    .section-copy {
-      margin: 0;
-      color: var(--muted);
-      max-width: 520px;
-      font-size: 16px;
-    }
-
-    .comparison {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-    }
-
-    .journey-panel {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
-      gap: 18px;
-      align-items: start;
-    }
-
-    .journey-copy {
-      background: linear-gradient(135deg, #ffffff, #f6fbff);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .journey-copy h3 {
-      margin: 0 0 10px;
-      color: var(--navy);
-      font-size: 25px;
-      letter-spacing: 0;
-      line-height: 1.12;
-    }
-
-    .journey-copy p {
-      margin: 0 0 16px;
-      color: var(--muted);
-    }
-
-    .journey-map {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .map-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 16px;
+      z-index: 10;
+      background: rgba(251, 250, 247, 0.9);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
-      background: #fbfdff;
     }
 
-    .map-location {
-      color: var(--navy);
-      font-weight: 900;
-      font-size: 14px;
-    }
-
-    .preference-row {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-      padding: 14px 16px 0;
-    }
-
-    .pref-chip {
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--muted);
-      border-radius: 999px;
-      padding: 8px 11px;
-      font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .pref-chip.active {
-      color: #fff;
-      background: var(--navy);
-      border-color: var(--navy);
-    }
-
-    .recommendation-stack {
-      display: grid;
-      gap: 10px;
-      padding: 16px;
-    }
-
-    .recommendation {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 12px;
-      align-items: center;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fff;
-    }
-
-    .recommendation.nearest {
-      border-color: rgba(17,183,165,0.45);
-      box-shadow: 0 0 0 4px rgba(17,183,165,0.08);
-    }
-
-    .pin {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: var(--sky);
-      color: var(--navy);
-      font-weight: 900;
-    }
-
-    .recommendation h4 {
-      margin: 0 0 3px;
-      color: var(--navy);
-      font-size: 15px;
-    }
-
-    .recommendation p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .rank-score {
-      text-align: right;
-      color: var(--green);
-      font-weight: 900;
-      font-size: 18px;
-    }
-
-    .journey-blocks {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .journey-block {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 6px 22px rgba(11,37,69,0.05);
-    }
-
-    .journey-block strong {
-      display: block;
-      color: var(--navy);
-      margin-bottom: 7px;
-      font-size: 14px;
-    }
-
-    .journey-block span {
-      display: block;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .parameter-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-    }
-
-    .parameter {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px;
-      color: var(--navy);
-      font-weight: 800;
+    .nav-inner {
       min-height: 72px;
       display: flex;
-      align-items: end;
-      box-shadow: 0 4px 18px rgba(11,37,69,0.04);
-    }
-
-    .feedback-flow {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .feedback-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: 0 8px 28px rgba(11,37,69,0.05);
-    }
-
-    .feedback-card h3 {
-      margin: 0 0 8px;
-      color: var(--navy);
-      font-size: 18px;
-    }
-
-    .feedback-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .lens-section {
-      background:
-        radial-gradient(circle at 8% 0%, rgba(17,183,165,0.11), transparent 26%),
-        linear-gradient(180deg, #ffffff, #f6fbff);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .lens-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
-      gap: 18px;
-      align-items: start;
-    }
-
-    .lens-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-      padding: 22px;
-    }
-
-    .lens-drop {
-      position: relative;
-      min-height: 230px;
-      border: 1.5px dashed #b8d5e7;
-      border-radius: 18px;
-      background: #f8fcff;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 18px;
-      overflow: hidden;
-    }
-
-    .lens-drop input {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    .lens-empty strong {
-      display: block;
-      color: var(--navy);
-      font-size: 18px;
-      margin-bottom: 6px;
-    }
-
-    .lens-empty span {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .receipt-preview {
-      display: none;
-      width: 100%;
-      max-height: 300px;
-      object-fit: contain;
-      border-radius: 14px;
-      background: #fff;
-    }
-
-    .receipt-status {
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 14px;
-      background: var(--teal-2);
-      color: var(--green);
-      font-weight: 800;
-      font-size: 13px;
-      display: none;
-    }
-
-    .receipt-status.error {
-      background: #fff4e5;
-      color: #9a5b00;
-    }
-
-    .ocr-result {
-      display: none;
-      margin-top: 12px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .ocr-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px;
-      background: #f8fbfe;
-      border-bottom: 1px solid var(--line);
-      color: var(--navy);
-      font-weight: 900;
-      font-size: 13px;
-    }
-
-    .ocr-text {
-      max-height: 180px;
-      overflow: auto;
-      padding: 12px;
-      color: var(--muted);
-      font-size: 12px;
-      white-space: pre-wrap;
-      line-height: 1.55;
-    }
-
-    .lens-fields {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .field-note {
-      background: #f8fbfe;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-    }
-
-    .field-note span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .field-note strong {
-      color: var(--navy);
-      font-size: 14px;
-    }
-
-    .vision-choice {
-      display: grid;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .vision-row {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 13px;
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      background: #fff;
-    }
-
-    .vision-row strong {
-      color: var(--navy);
-      display: block;
-      margin-bottom: 3px;
-    }
-
-    .vision-row span {
-      color: var(--muted);
-      font-size: 13px;
-      display: block;
-    }
-
-    .lab-directory {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .lab-pill {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-      color: var(--navy);
-      font-weight: 800;
-      font-size: 13px;
-      box-shadow: 0 4px 18px rgba(11,37,69,0.04);
-    }
-
-    .compare-grid {
-      display: grid;
-      grid-template-columns: 1.1fr repeat(3, 1fr);
-      min-width: 760px;
-    }
-
-    .cell {
-      padding: 18px;
-      border-bottom: 1px solid var(--line);
-      border-right: 1px solid var(--line);
-      min-height: 70px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-    }
-
-    .cell:nth-child(4n) { border-right: 0; }
-    .head-cell {
-      background: #f8fbfe;
-      color: var(--navy);
-      font-weight: 800;
-    }
-
-    .label-cell {
-      color: var(--muted);
-      font-weight: 700;
-      background: #fbfdff;
-    }
-
-    .score {
-      font-size: 28px;
-      font-weight: 900;
-      color: var(--green);
-      letter-spacing: 0;
-    }
-
-    .small-note { color: var(--muted); font-size: 12px; }
-
-    .experience {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
       align-items: center;
-    }
-
-    .tag-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .tag {
-      padding: 12px 14px;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      box-shadow: 0 4px 18px rgba(11,37,69,0.05);
-      color: var(--navy);
-      font-weight: 800;
-      font-size: 14px;
-    }
-
-    .human-card {
-      background: linear-gradient(135deg, #0b2545, #0d756d);
-      color: #fff;
-      border-radius: var(--radius);
-      padding: clamp(24px, 4vw, 38px);
-      box-shadow: var(--shadow);
-    }
-
-    .human-card p {
-      color: rgba(255,255,255,0.78);
-      margin: 14px 0 0;
-      font-size: 17px;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .step, .feature, .trust-card, .lab-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: 0 8px 28px rgba(11,37,69,0.05);
-    }
-
-    .step-num {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: var(--teal-2);
-      color: var(--green);
-      font-weight: 900;
-      margin-bottom: 18px;
-    }
-
-    .step h3, .feature h3, .trust-card h3, .lab-card h3 {
-      margin: 0 0 8px;
-      color: var(--navy);
-      font-size: 18px;
-      letter-spacing: 0;
-    }
-
-    .step p, .feature p, .trust-card p, .lab-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 13px;
-      display: grid;
-      place-items: center;
-      background: var(--sky);
-      margin-bottom: 14px;
-      font-size: 18px;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .lab-section {
-      background: var(--soft);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .lab-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .lab-card ul {
-      list-style: none;
-      padding: 0;
-      margin: 12px 0 0;
-      display: grid;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .lab-card li::before {
-      content: "•";
-      color: var(--teal);
-      font-weight: 900;
-      margin-right: 8px;
-    }
-
-    .cta-band {
-      background: var(--navy);
-      color: #fff;
-      border-radius: 30px;
-      padding: clamp(26px, 5vw, 46px);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 22px;
-      align-items: center;
-      box-shadow: var(--shadow);
-    }
-
-    .cta-band h2 { color: #fff; }
-    .cta-band p { color: rgba(255,255,255,0.72); margin: 12px 0 0; max-width: 620px; }
-    .cta-band .btn { background: #fff; color: var(--navy); }
-
-    footer {
-      padding: 38px 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .footer-row {
-      display: flex;
       justify-content: space-between;
       gap: 18px;
-      flex-wrap: wrap;
-      border-top: 1px solid var(--line);
-      padding-top: 22px;
     }
 
-    .mobile-only { display: none; }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--navy); font-size: 22px; font-weight: 800; }
+    .brand-mark { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--navy); color: #fff; box-shadow: var(--shadow); }
+
+    .nav-links { display: flex; align-items: center; gap: 20px; color: var(--muted); font-size: 14px; font-weight: 700; }
+    .nav-cta { background: var(--navy); color: #fff; padding: 10px 15px; border-radius: 999px; }
+
+    .hero { padding: clamp(42px, 7vw, 82px) 0 28px; display: grid; grid-template-columns: 1fr 0.92fr; gap: 34px; align-items: center; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; padding: 7px 11px; border-radius: 999px; background: var(--teal-soft); color: #11766f; font-size: 13px; font-weight: 800; margin-bottom: 18px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+    h1 { margin: 0; max-width: 680px; color: var(--navy); font-size: clamp(40px, 6vw, 68px); line-height: 1.02; letter-spacing: 0; }
+    .hero p { margin: 20px 0 0; color: var(--muted); font-size: clamp(17px, 2vw, 20px); max-width: 650px; }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+    .btn { border: 0; min-height: 48px; padding: 0 20px; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; }
+    .btn-primary { background: var(--navy); color: #fff; box-shadow: var(--shadow); }
+    .btn-secondary { background: #fff; color: var(--navy); border: 1px solid var(--line); }
+
+    .decision-card { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow); padding: 20px; }
+    .decision-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 14px; }
+    .live { display: inline-flex; align-items: center; gap: 7px; color: #11766f; font-weight: 800; font-size: 13px; }
+    .live::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 5px rgba(42, 161, 152, 0.12); }
+    .location { color: var(--muted); font-size: 13px; font-weight: 700; }
+
+    .toggle-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .toggle { border: 1px solid var(--line); background: var(--soft); color: var(--navy); border-radius: 15px; padding: 14px; cursor: pointer; text-align: left; }
+    .toggle strong { display: block; font-size: 16px; margin-bottom: 3px; }
+    .toggle span { color: var(--muted); font-size: 12px; }
+    .toggle.active { border-color: rgba(42, 161, 152, 0.5); background: var(--teal-soft); box-shadow: 0 0 0 4px rgba(42, 161, 152, 0.08); }
+
+    .lab-list { display: grid; gap: 10px; }
+    .lab-row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+    .rank { width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center; background: var(--soft); color: var(--navy); font-weight: 900; }
+    .lab-row h3 { margin: 0 0 3px; color: var(--navy); font-size: 16px; }
+    .lab-row p { margin: 0; color: var(--muted); font-size: 13px; }
+    .price { color: var(--navy); font-weight: 900; text-align: right; }
+    .best { border-color: rgba(42, 161, 152, 0.5); }
+
+    section { padding: 48px 0; }
+    .section-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 20px; }
+    .kicker { color: var(--teal); font-weight: 900; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    h2 { margin: 0; color: var(--navy); font-size: clamp(28px, 4vw, 44px); line-height: 1.08; letter-spacing: 0; }
+    .section-copy { margin: 0; max-width: 540px; color: var(--muted); }
+
+    .search-shell { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 14px; box-shadow: var(--shadow); }
+    .search-box { display: grid; grid-template-columns: 1fr auto; gap: 10px; background: var(--soft); border: 1px solid var(--line); border-radius: 16px; padding: 9px 9px 9px 16px; }
+    .search-box input { border: 0; outline: 0; background: transparent; color: var(--ink); min-width: 0; font-size: 16px; }
+    .examples { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 12px; }
+    .example { border: 1px solid var(--line); background: #fff; color: var(--muted); border-radius: 999px; padding: 8px 11px; font-weight: 700; cursor: pointer; font-size: 13px; }
+
+    .simple-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .simple-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.05); }
+    .simple-card h3 { margin: 0 0 8px; color: var(--navy); font-size: 18px; }
+    .simple-card p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .compare-table { background: #fff; border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
+    .table-row { display: grid; grid-template-columns: 1.1fr repeat(3, 1fr); border-bottom: 1px solid var(--line); min-width: 720px; }
+    .table-row:last-child { border-bottom: 0; }
+    .table-row > div { padding: 16px; border-right: 1px solid var(--line); }
+    .table-row > div:last-child { border-right: 0; }
+    .table-head { background: var(--soft); color: var(--navy); font-weight: 900; }
+    .muted { color: var(--muted); font-size: 13px; }
+
+    details { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 8px 24px rgba(16, 42, 67, 0.05); overflow: hidden; }
+    details + details { margin-top: 12px; }
+    summary { cursor: pointer; padding: 18px 20px; color: var(--navy); font-weight: 900; }
+    .details-body { border-top: 1px solid var(--line); padding: 18px 20px; color: var(--muted); }
+
+    .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .drop { position: relative; min-height: 180px; display: grid; place-items: center; text-align: center; border: 1.5px dashed #c8d8e6; border-radius: 16px; background: var(--soft); padding: 16px; overflow: hidden; }
+    .drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .preview { display: none; max-width: 100%; max-height: 260px; object-fit: contain; border-radius: 12px; }
+    textarea { width: 100%; min-height: 150px; resize: vertical; border: 1px solid var(--line); border-radius: 14px; padding: 12px; outline: none; }
+    .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .chip { display: inline-flex; border-radius: 999px; padding: 8px 11px; background: var(--teal-soft); color: #11766f; font-weight: 800; font-size: 13px; }
+    .status { display: none; margin-top: 12px; padding: 12px; border-radius: 14px; background: var(--amber-bg); color: var(--amber); font-weight: 800; font-size: 13px; }
+    .ocr-result { display: none; margin-top: 12px; border: 1px solid var(--line); border-radius: 14px; background: #fff; overflow: hidden; }
+    .ocr-head { display: flex; justify-content: space-between; gap: 12px; background: var(--soft); color: var(--navy); font-weight: 900; padding: 12px; border-bottom: 1px solid var(--line); }
+    .ocr-text { max-height: 180px; overflow: auto; padding: 12px; white-space: pre-wrap; color: var(--muted); font-size: 12px; }
+
+    .lab-directory { display: flex; gap: 8px; flex-wrap: wrap; }
+    .lab-pill { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 8px 11px; color: var(--navy); font-weight: 800; font-size: 13px; }
+
+    footer { padding: 36px 0; color: var(--muted); }
+    .footer-row { border-top: 1px solid var(--line); padding-top: 20px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
     @media (max-width: 900px) {
-      .nav { padding: 14px 18px; }
       .nav-links a:not(.nav-cta) { display: none; }
-      .hero, .experience, .cta-band { grid-template-columns: 1fr; }
-      .hero { padding-top: 36px; }
-      .mockup { order: -1; }
-      .steps, .features, .trust-grid, .lab-grid, .journey-panel, .journey-blocks, .parameter-grid, .feedback-flow, .lab-directory, .lens-grid, .lens-fields { grid-template-columns: 1fr; }
+      .hero, .simple-grid, .tool-grid { grid-template-columns: 1fr; }
+      .decision-card { order: -1; }
       .section-head { display: block; }
-      .section-copy { margin-top: 12px; }
-      .comparison { overflow-x: auto; }
-      .mobile-only { display: inline; }
+      .section-copy { margin-top: 10px; }
+      .compare-table { overflow-x: auto; }
     }
 
     @media (max-width: 560px) {
-      .wrap { width: min(100% - 28px, 1180px); }
-      h1 { font-size: 43px; }
-      .hero-actions .btn, .search-box .btn { width: 100%; }
-      .search-box { grid-template-columns: 1fr; padding: 14px; }
-      .compare-mini, .analytics-row { grid-template-columns: 1fr; }
-      .mockup { padding: 12px; border-radius: 24px; }
-      section { padding: 42px 0; }
-      .cell { padding: 15px; }
+      .wrap { width: min(100% - 28px, 1080px); }
+      h1 { font-size: 40px; }
+      .search-box, .toggle-row { grid-template-columns: 1fr; }
+      .btn, .search-box .btn { width: 100%; }
+      section { padding: 38px 0; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="nav">
-      <a class="brand" href="#top" aria-label="Diagno home">
-        <span class="brand-mark">D</span>
-        <span>Diagno</span>
-      </a>
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#journey">Patient journey</a>
+  <div class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="brand-mark">D</span><span>Diagno</span></a>
+      <nav class="nav-links">
         <a href="#compare">Compare</a>
-        <a href="#experience">Patient experience</a>
-        <a href="#coverage">Pakistan coverage</a>
-        <a class="nav-cta" href="#search">Compare Labs</a>
+        <a href="#tools">Practice tools</a>
+        <a href="#coverage">Coverage</a>
+        <a class="nav-cta" href="#search">Start</a>
       </nav>
-    </header>
-
-    <main id="top">
-      <section class="wrap hero">
-        <div>
-          <div class="eyebrow"><span class="pulse"></span> Diagnostic transparency for Pakistan</div>
-          <h1>Find the right diagnostic option when time matters.</h1>
-          <p class="hero-copy">
-            Compare nearby labs, prices, report delivery, radiology availability, and real patient experience so a stressful healthcare decision feels clear.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#search">Compare Labs</a>
-            <a class="btn btn-secondary" href="#compare">Explore Transparency Scores</a>
-          </div>
-          <div class="trust-row">
-            <span class="trust-pill">Blood work</span>
-            <span class="trust-pill">Radiology</span>
-            <span class="trust-pill">Patient experience</span>
-            <span class="trust-pill">Privacy-protected feedback</span>
-          </div>
-        </div>
-
-        <aside class="mockup" aria-label="Dashboard preview">
-          <div class="mockup-top">
-            <div class="window-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-            <span class="score-chip">Transparency AI</span>
-          </div>
-          <div class="dashboard">
-            <div class="dash-search">
-              <span>Near Ali Medical, F-8 Islamabad</span>
-              <strong>10 options</strong>
-            </div>
-            <div class="compare-mini">
-              <div class="mini-card">
-                <h3><span class="live-dot">IDC F-8</span></h3>
-                <div class="metric"><span>Convenience</span><strong>Nearest</strong></div>
-                <div class="metric"><span>Radiology</span><strong>Strong</strong></div>
-                <div class="metric"><span>Status</span><strong>Busy hour</strong></div>
-              </div>
-              <div class="mini-card">
-                <h3>Aga Khan Lab</h3>
-                <div class="metric"><span>Best match</span><strong>5 km</strong></div>
-                <div class="metric"><span>Blood work</span><strong>Strong</strong></div>
-                <div class="metric"><span>Trust</span><strong>High</strong></div>
-              </div>
-            </div>
-            <div class="analytics-row">
-              <div class="mini-card">
-                <h3>Patient experience</h3>
-                <div class="bars">
-                  <div class="bar-line"><span style="width: 91%"></span></div>
-                  <div class="bar-line"><span style="width: 78%"></span></div>
-                  <div class="bar-line"><span style="width: 64%"></span></div>
-                </div>
-              </div>
-              <div class="mini-card">
-                <h3>Signals</h3>
-                <div class="metric"><span>Clear billing</span><strong>High</strong></div>
-                <div class="metric"><span>Wait time</span><strong>Low</strong></div>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      <section class="wrap" id="search">
-        <div class="search-shell">
-          <div class="search-box">
-            <input id="searchInput" type="search" placeholder="Search tests, scans, labs, or your current area..." aria-label="Search tests, scans, labs, or current area" />
-            <button class="btn btn-primary" id="searchBtn">Search</button>
-          </div>
-          <div class="examples" aria-label="Search examples">
-            <button class="example" data-query="MRI Islamabad">MRI Islamabad</button>
-            <button class="example" data-query="CBC near me">CBC near me</button>
-            <button class="example" data-query="Home sampling">Home sampling</button>
-            <button class="example" data-query="Cheapest Vitamin D">Cheapest Vitamin D</button>
-            <button class="example" data-query="Ultrasound Lahore">Ultrasound Lahore</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="wrap" id="journey">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Patient journey</div>
-            <h2>A calm path from confusion to a clear choice.</h2>
-          </div>
-          <p class="section-copy">A patient can use only the calculator, compare individual labs, or continue the full journey with confirmation, live feedback, and complaint support.</p>
-        </div>
-        <div class="journey-panel">
-          <div class="journey-copy">
-            <h3>Imagine standing outside Ali Medical, F-8.</h3>
-            <p>Diagno detects the closest practical options first, then explains the best option according to your selected priorities.</p>
-            <div class="trust-row">
-              <span class="trust-pill">Closest option</span>
-              <span class="trust-pill">Best within 5 km</span>
-              <span class="trust-pill">Price-first</span>
-              <span class="trust-pill">Radiology-first</span>
-            </div>
-            <div class="journey-blocks">
-              <div class="journey-block"><strong>1. Compare</strong><span>Price, distance, quality, wait time, TAT, and patient experience.</span></div>
-              <div class="journey-block"><strong>2. Choose</strong><span>User selects IDC, Chughtai, Aga Khan, Excel, or another lab.</span></div>
-              <div class="journey-block"><strong>3. Confirm</strong><span>Arrival can lock the journey and validate the selected branch.</span></div>
-              <div class="journey-block"><strong>4. Improve</strong><span>Feedback, receipt complaints, and route issues improve future rankings.</span></div>
-            </div>
-          </div>
-          <div class="journey-map">
-            <div class="map-top">
-              <div>
-                <div class="map-location">Detected area: Islamabad F-8</div>
-                <div class="small-note">Starting near Ali Medical Hospital</div>
-              </div>
-              <span class="score-chip">Live journey</span>
-            </div>
-            <div class="preference-row" aria-label="Preference selector">
-              <button class="pref-chip active" data-mode="balanced">Balanced</button>
-              <button class="pref-chip" data-mode="price">Lowest price</button>
-              <button class="pref-chip" data-mode="near">Nearest</button>
-              <button class="pref-chip" data-mode="radiology">MRI / CT</button>
-              <button class="pref-chip" data-mode="speed">Fast report</button>
-            </div>
-            <div class="recommendation-stack" id="recommendationStack">
-              <div class="recommendation nearest">
-                <div class="pin">1</div>
-                <div><h4><span class="live-dot">IDC F-8 branch</span></h4><p>Nearest option. Strong for radiology, useful if urgency and distance matter.</p></div>
-                <div class="rank-score">79</div>
-              </div>
-              <div class="recommendation">
-                <div class="pin">2</div>
-                <div><h4>Aga Khan Collection Point</h4><p>Best trust score within reach for blood work and critical investigations.</p></div>
-                <div class="rank-score">91</div>
-              </div>
-              <div class="recommendation">
-                <div class="pin">3</div>
-                <div><h4>Chughtai nearby branch</h4><p>Balanced routine tests, home sampling, price, and broad accessibility.</p></div>
-                <div class="rank-score">84</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="wrap" id="compare">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Comparison preview</div>
-            <h2>See the tradeoffs before you book.</h2>
-          </div>
-          <p class="section-copy">Diagno turns scattered lab details into a simple decision view: price, distance, report delivery, radiology, and lived patient experience.</p>
-        </div>
-        <div class="comparison" role="region" aria-label="Lab comparison table" tabindex="0">
-          <div class="compare-grid">
-            <div class="cell head-cell">Signal</div>
-            <div class="cell head-cell">Aga Khan Lab</div>
-            <div class="cell head-cell">Chughtai Lab</div>
-            <div class="cell head-cell">IDC</div>
-
-            <div class="cell label-cell">Transparency score</div>
-            <div class="cell"><span class="score">91</span><span class="small-note">Verified quality signals</span></div>
-            <div class="cell"><span class="score">84</span><span class="small-note">Broad branch access</span></div>
-            <div class="cell"><span class="score">79</span><span class="small-note">Radiology strength</span></div>
-
-            <div class="cell label-cell">Example price</div>
-            <div class="cell"><strong>CBC Rs 850</strong><span class="small-note">Price before visit confirmation</span></div>
-            <div class="cell"><strong>CBC Rs 800</strong><span class="small-note">Routine tests friendly</span></div>
-            <div class="cell"><strong>MRI available</strong><span class="small-note">Radiology + lab services</span></div>
-
-            <div class="cell label-cell">Report delivery</div>
-            <div class="cell"><strong>Fast</strong><span class="small-note">Strong for critical tests</span></div>
-            <div class="cell"><strong>Moderate</strong><span class="small-note">Branch dependent</span></div>
-            <div class="cell"><strong>Variable</strong><span class="small-note">Modality dependent</span></div>
-
-            <div class="cell label-cell">Patient experience</div>
-            <div class="cell"><strong>Smooth</strong><span class="small-note">Clear process</span></div>
-            <div class="cell"><strong>Mixed-positive</strong><span class="small-note">Wait time varies</span></div>
-            <div class="cell"><strong>Mixed</strong><span class="small-note">Availability focused</span></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Top decision parameters</div>
-            <h2>Patients can compare everything or just one thing.</h2>
-          </div>
-          <p class="section-copy">Most people may come for price comparison first. The same system can also rank by convenience, MRI/CT availability, waiting time, or trust.</p>
-        </div>
-        <div class="parameter-grid">
-          <div class="parameter">Price</div>
-          <div class="parameter">Distance</div>
-          <div class="parameter">Report time</div>
-          <div class="parameter">Accuracy signals</div>
-          <div class="parameter">Radiology</div>
-          <div class="parameter">Queue status</div>
-          <div class="parameter">Home sampling</div>
-          <div class="parameter">Billing clarity</div>
-          <div class="parameter">Complaint response</div>
-          <div class="parameter">Human experience</div>
-        </div>
-      </section>
-
-      <section class="wrap experience" id="experience">
-        <div class="human-card">
-          <div class="kicker" style="color:#95fff0">Human experience layer</div>
-          <h2>Built around real patient experiences.</h2>
-          <p>
-            People do not choose labs only by price. They care about waiting, billing clarity, sample collection, staff behavior, report timing, route stress, and whether complaints are handled fairly.
-          </p>
-        </div>
-        <div class="tag-cloud">
-          <span class="tag">Smooth Visit</span>
-          <span class="tag">Long Wait</span>
-          <span class="tag">Clear Billing</span>
-          <span class="tag">Fast Reports</span>
-          <span class="tag">Helpful Staff</span>
-          <span class="tag">Comfortable Environment</span>
-          <span class="tag">Home Sampling</span>
-          <span class="tag">Radiology Queue</span>
-          <span class="tag">Receipt Complaint</span>
-          <span class="tag">Route Delay</span>
-          <span class="tag">Arrival Confirmed</span>
-        </div>
-      </section>
-
-      <section class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Feedback loop</div>
-            <h2>The patient can stop anywhere. Diagno still learns.</h2>
-          </div>
-          <p class="section-copy">The system quietly connects the journey blocks only when the user chooses to share. No patient needs to feel watched or forced.</p>
-        </div>
-        <div class="feedback-flow">
-          <article class="feedback-card">
-            <div class="icon">⌖</div>
-            <h3>Choice confirmation</h3>
-            <p>If the patient reaches Aga Khan after comparing with Chughtai or IDC, the selected journey can be locked as a confirmed choice.</p>
-          </article>
-          <article class="feedback-card">
-            <div class="icon">◷</div>
-            <h3>Live experience signals</h3>
-            <p>Busy hour at 4:00 PM, long queue, quick blood sampling, helpful staff, delayed report, or clear billing can update the branch picture.</p>
-          </article>
-          <article class="feedback-card">
-            <div class="icon">▣</div>
-            <h3>Receipt-based complaint</h3>
-            <p>One user can launch one complaint with a receipt copy, reducing noise and giving the platform a fair basis to follow up.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="lens-section" id="receipt-lens">
-        <div class="wrap">
-          <div class="section-head">
-            <div>
-              <div class="kicker">Receipt Lens</div>
-              <h2>Complaint proof without making the patient work harder.</h2>
-            </div>
-            <p class="section-copy">Diagno now uses Google Cloud Vision for receipt OCR when configured. If the key is missing or OCR fails, the receipt still attaches as complaint proof.</p>
-          </div>
-          <div class="lens-grid">
-            <div class="lens-card">
-              <div class="lens-drop">
-                <input id="receiptInput" type="file" accept="image/*,.pdf" aria-label="Upload receipt image" />
-                <div class="lens-empty" id="receiptEmpty">
-                  <strong>Upload receipt or bill</strong>
-                  <span>For price mismatch, delayed report, duplicate billing, or complaint verification.</span>
-                </div>
-                <img class="receipt-preview" id="receiptPreview" alt="Receipt preview" />
-              </div>
-              <div class="receipt-status" id="receiptStatus">Receipt attached. Complaint slot reserved for this visit.</div>
-              <div class="ocr-result" id="ocrResult">
-                <div class="ocr-head"><span>Google Vision OCR</span><span id="ocrSummary">Ready</span></div>
-                <div class="ocr-text" id="ocrText"></div>
-              </div>
-              <div class="lens-fields">
-                <div class="field-note"><span>Complaint rule</span><strong>One complaint per visit</strong></div>
-                <div class="field-note"><span>Current mode</span><strong>Google OCR + proof</strong></div>
-                <div class="field-note"><span>Fallback</span><strong>Manual proof if OCR fails</strong></div>
-                <div class="field-note"><span>Patient control</span><strong>Optional sharing only</strong></div>
-              </div>
-            </div>
-            <div class="lens-card">
-              <div class="kicker">Vision AI decision</div>
-              <h2 style="font-size:30px">Google Cloud Vision is connected behind the lens.</h2>
-              <p class="section-copy" style="margin-top:12px">The browser sends the receipt image to Diagno's own serverless endpoint. Your Google key stays server-side in Vercel and is never exposed in page JavaScript.</p>
-              <div class="vision-choice">
-                <div class="vision-row">
-                  <div class="icon">G</div>
-                  <div><strong>Now: Google Cloud Vision OCR</strong><span>Extracts receipt text and likely price/date/lab signals when the API key is configured.</span></div>
-                </div>
-                <div class="vision-row">
-                  <div class="icon">0</div>
-                  <div><strong>Fallback: manual complaint proof</strong><span>If OCR is unavailable, the file still supports one complaint for that visit.</span></div>
-                </div>
-                <div class="vision-row">
-                  <div class="icon">🔒</div>
-                  <div><strong>Key stays private</strong><span>Add GOOGLE_CLOUD_VISION_API_KEY in Vercel. Do not paste the key into frontend code.</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">How it works</div>
-            <h2>Three steps. No confusion.</h2>
-          </div>
-        </div>
-        <div class="steps">
-          <article class="step">
-            <div class="step-num">1</div>
-            <h3>Search labs</h3>
-            <p>Search by test, scan, city, current location, lab name, or home sampling need.</p>
-          </article>
-          <article class="step">
-            <div class="step-num">2</div>
-            <h3>Compare signals</h3>
-            <p>View pricing, distance, report delivery, radiology availability, patient experience, and complaint handling.</p>
-          </article>
-          <article class="step">
-            <div class="step-num">3</div>
-            <h3>Choose confidently</h3>
-            <p>Pick the lab that fits budget, urgency, route, service type, and trust expectations.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Trust & verification</div>
-            <h2>Confidence, not review spam.</h2>
-          </div>
-          <p class="section-copy">Diagno is positioned as a healthcare decision platform, not a generic star-rating site.</p>
-        </div>
-        <div class="trust-grid">
-          <article class="trust-card">
-            <div class="icon">✓</div>
-            <h3>Verified visits</h3>
-            <p>Experience signals can be weighted higher when backed by visit proof.</p>
-          </article>
-          <article class="trust-card">
-            <div class="icon">₨</div>
-            <h3>Receipt-backed complaints</h3>
-            <p>Billing and pricing complaints become more useful when tied to receipts.</p>
-          </article>
-          <article class="trust-card">
-            <div class="icon">↗</div>
-            <h3>Transparency metrics</h3>
-            <p>Scores focus on price clarity, report timing, accreditation, and complaint response.</p>
-          </article>
-          <article class="trust-card">
-            <div class="icon">🔒</div>
-            <h3>Privacy-protected feedback</h3>
-            <p>Patient identity should remain protected while platform quality improves.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">Feature highlights</div>
-            <h2>Everything patients check before visiting.</h2>
-          </div>
-        </div>
-        <div class="features">
-          <article class="feature"><div class="icon">₨</div><h3>Price comparison</h3><p>Compare test and scan prices across labs when public or verified prices are available.</p></article>
-          <article class="feature"><div class="icon">⏱</div><h3>TAT insights</h3><p>Understand claimed versus patient-reported report delivery timelines.</p></article>
-          <article class="feature"><div class="icon">⌂</div><h3>Home sampling</h3><p>Quickly identify labs offering home collection and branch coverage.</p></article>
-          <article class="feature"><div class="icon">☑</div><h3>Patient experience</h3><p>Track staff behavior, wait time, billing clarity, and environment quality.</p></article>
-          <article class="feature"><div class="icon">◇</div><h3>Transparency indicators</h3><p>Highlight accreditation, public pricing, clear process, and service reliability.</p></article>
-          <article class="feature"><div class="icon">!</div><h3>Complaint handling</h3><p>Separate emotional reviews from verified, actionable complaints and lab responses.</p></article>
-        </div>
-      </section>
-
-      <section class="lab-section" id="coverage">
-        <div class="wrap">
-          <div class="section-head">
-            <div>
-              <div class="kicker">Pakistan-wide coverage</div>
-              <h2>Blood work and radiology in one comparison layer.</h2>
-            </div>
-            <p class="section-copy">The platform is designed to cover national networks, city labs, hospital labs, diagnostic centers, and radiology providers across Pakistan.</p>
-          </div>
-          <div class="lab-grid">
-            <article class="lab-card">
-              <h3>Major lab networks</h3>
-              <p>Useful for routine blood work, home sampling, and multi-city access.</p>
-              <ul>
-                <li>Aga Khan Laboratory</li>
-                <li>Chughtai Lab</li>
-                <li>Dr. Essa Laboratory</li>
-                <li>Excel Labs</li>
-                <li>IDC / Islamabad Diagnostic Centre</li>
-                <li>Shaukat Khanum Laboratory</li>
-                <li>Metropole Laboratories</li>
-              </ul>
-            </article>
-            <article class="lab-card">
-              <h3>Hospital and city labs</h3>
-              <p>Useful for complex tests, specialist referrals, and hospital-linked diagnostics.</p>
-              <ul>
-                <li>Shifa International Lab</li>
-                <li>Dow Diagnostic Research & Reference Lab</li>
-                <li>Indus Hospital Lab</li>
-                <li>Rehman Medical Institute Lab</li>
-                <li>Liaquat National Hospital Lab</li>
-                <li>National Hospital & Medical Centre Lab</li>
-                <li>Shaheen Lab</li>
-                <li>Zeenat Lab</li>
-              </ul>
-            </article>
-            <article class="lab-card">
-              <h3>Radiology and imaging</h3>
-              <p>Built for MRI, CT scan, ultrasound, X-ray, mammography, and diagnostic imaging comparison.</p>
-              <ul>
-                <li>IDC Radiology</li>
-                <li>Chughtai Medical Center Imaging</li>
-                <li>Advanced Diagnostic Centre</li>
-                <li>City and hospital radiology departments</li>
-                <li>Private imaging centers</li>
-                <li>Branch-level availability tracking</li>
-                <li>Advanced / Advance diagnostic providers</li>
-              </ul>
-            </article>
-          </div>
-          <div class="lab-directory" aria-label="Indicative lab directory">
-            <div class="lab-pill">Aga Khan</div>
-            <div class="lab-pill">Chughtai</div>
-            <div class="lab-pill">IDC</div>
-            <div class="lab-pill">Excel Labs</div>
-            <div class="lab-pill">Dr. Essa</div>
-            <div class="lab-pill">Shaukat Khanum</div>
-            <div class="lab-pill">Shifa Lab</div>
-            <div class="lab-pill">Dow Lab</div>
-            <div class="lab-pill">Indus Lab</div>
-            <div class="lab-pill">Liaquat National</div>
-            <div class="lab-pill">Metropole</div>
-            <div class="lab-pill">Shaheen Lab</div>
-            <div class="lab-pill">Zeenat Lab</div>
-            <div class="lab-pill">Advance Lab</div>
-            <div class="lab-pill">City labs</div>
-            <div class="lab-pill">Radiology centers</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="wrap">
-        <div class="cta-band">
-          <div>
-            <h2>Help patients make a calmer diagnostic decision.</h2>
-            <p>Diagno helps people compare options quickly, choose a path, and share experience only if they want to continue the journey.</p>
-          </div>
-          <a class="btn" href="#search">Start Comparing</a>
-        </div>
-      </section>
-    </main>
-
-    <footer class="wrap">
-      <div class="footer-row">
-        <div><strong>Diagno</strong> - confidence in healthcare decisions.</div>
-        <div>Not medical advice. Prices and availability should be confirmed before visiting.</div>
-      </div>
-    </footer>
+    </div>
   </div>
 
+  <main id="top">
+    <section class="wrap hero">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Diagnostic comparison for Pakistan</div>
+        <h1>Compare labs by price and convenience.</h1>
+        <p>Start with the two things patients need most in a stressful moment: what it costs and which reliable option is easiest to reach.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#search">Compare Labs</a>
+          <a class="btn btn-secondary" href="#tools">Practice Prescription Reader</a>
+        </div>
+      </div>
+
+      <aside class="decision-card" aria-label="Simple comparison preview">
+        <div class="decision-top">
+          <div>
+            <div class="live">Nearby options</div>
+            <div class="location">Example: Ali Medical, F-8 Islamabad</div>
+          </div>
+          <strong id="modeLabel">Price-first</strong>
+        </div>
+        <div class="toggle-row">
+          <button class="toggle active" data-mode="price"><strong>Price</strong><span>Lowest practical cost</span></button>
+          <button class="toggle" data-mode="convenience"><strong>Convenience</strong><span>Nearest useful option</span></button>
+        </div>
+        <div class="lab-list" id="labList"></div>
+      </aside>
+    </section>
+
+    <section class="wrap" id="search">
+      <div class="search-shell">
+        <div class="search-box">
+          <input id="searchInput" type="search" placeholder="Search test, scan, lab, or area..." />
+          <button class="btn btn-primary" id="searchBtn">Search</button>
+        </div>
+        <div class="examples">
+          <button class="example" data-query="CBC near me">CBC near me</button>
+          <button class="example" data-query="MRI Islamabad">MRI Islamabad</button>
+          <button class="example" data-query="Cheapest Vitamin D">Cheapest Vitamin D</button>
+          <button class="example" data-query="Home sampling">Home sampling</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker">First phase</div>
+          <h2>Keep the decision small.</h2>
+        </div>
+        <p class="section-copy">Advanced signals can come later. The first product should help patients compare quickly without feeling that healthcare is another headache.</p>
+      </div>
+      <div class="simple-grid">
+        <article class="simple-card"><h3>1. Price</h3><p>Show approximate test or scan cost where available, with a reminder to confirm before visiting.</p></article>
+        <article class="simple-card"><h3>2. Convenience</h3><p>Show closest practical branch and a better option nearby when distance is not the only priority.</p></article>
+        <article class="simple-card"><h3>Optional proof</h3><p>Receipt and prescription tools stay available for practice, feedback, and future complaint verification.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap" id="compare">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Comparison</div>
+          <h2>One clean table, no noise.</h2>
+        </div>
+        <p class="section-copy">A patient should instantly understand nearest versus better-fit.</p>
+      </div>
+      <div class="compare-table">
+        <div class="table-row table-head"><div>Lab</div><div>Example price</div><div>Convenience</div><div>Best use</div></div>
+        <div class="table-row"><div><strong>Chughtai</strong><div class="muted">Routine tests</div></div><div>Often competitive</div><div>Many branches</div><div>Price + access</div></div>
+        <div class="table-row"><div><strong>IDC F-8</strong><div class="muted">Near Ali Medical</div></div><div>Confirm before visit</div><div>Nearest in example</div><div>Radiology / urgent access</div></div>
+        <div class="table-row"><div><strong>Aga Khan</strong><div class="muted">Trust-forward</div></div><div>Usually premium</div><div>May be farther</div><div>Critical blood work</div></div>
+      </div>
+    </section>
+
+    <section class="wrap" id="tools">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Optional practice tools</div>
+          <h2>Use only when needed.</h2>
+        </div>
+        <p class="section-copy">These are deliberately tucked away so the landing page stays clean.</p>
+      </div>
+
+      <details>
+        <summary>Prescription Reader Practice</summary>
+        <div class="details-body">
+          <div class="tool-grid">
+            <div>
+              <div class="drop">
+                <input id="prescriptionInput" type="file" accept="image/*,.pdf" />
+                <div id="prescriptionEmpty"><strong>Upload prescription image</strong><br><span class="muted">Then type what you can read. This is not diagnosis.</span></div>
+                <img class="preview" id="prescriptionPreview" alt="Prescription preview" />
+              </div>
+            </div>
+            <div>
+              <textarea id="prescriptionText" placeholder="Example: CBC, LFT, TSH, Vitamin D, HbA1c, Lipid profile, ultrasound abdomen..."></textarea>
+              <button class="btn btn-primary" id="parsePrescriptionBtn" type="button" style="margin-top:10px">Extract likely tests</button>
+              <div class="chip-row" id="readerChips"></div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Receipt Lens / Complaint Proof</summary>
+        <div class="details-body">
+          <div class="tool-grid">
+            <div>
+              <div class="drop">
+                <input id="receiptInput" type="file" accept="image/*,.pdf" />
+                <div id="receiptEmpty"><strong>Upload receipt or bill</strong><br><span class="muted">For price mismatch, billing issue, or complaint proof.</span></div>
+                <img class="preview" id="receiptPreview" alt="Receipt preview" />
+              </div>
+              <div class="status" id="receiptStatus"></div>
+            </div>
+            <div>
+              <div class="simple-card">
+                <h3>Google Vision ready, but optional</h3>
+                <p>If billing/key works, OCR extracts text. If not, the receipt still acts as manual proof.</p>
+              </div>
+              <div class="ocr-result" id="ocrResult"><div class="ocr-head"><span>OCR</span><span id="ocrSummary">Ready</span></div><div class="ocr-text" id="ocrText"></div></div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="wrap" id="coverage">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Coverage</div>
+          <h2>Start broad, rank carefully.</h2>
+        </div>
+        <p class="section-copy">Include major networks and smaller labs, but be honest where price or quality signals need confirmation.</p>
+      </div>
+      <div class="lab-directory">
+        <span class="lab-pill">Aga Khan</span><span class="lab-pill">Chughtai</span><span class="lab-pill">IDC</span><span class="lab-pill">Excel</span><span class="lab-pill">Dr. Essa</span><span class="lab-pill">Shaukat Khanum</span><span class="lab-pill">Shifa</span><span class="lab-pill">Dow</span><span class="lab-pill">Indus</span><span class="lab-pill">Metropole</span><span class="lab-pill">Shaheen</span><span class="lab-pill">Zeenat</span><span class="lab-pill">Advance</span><span class="lab-pill">City labs</span><span class="lab-pill">Radiology centers</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div class="footer-row"><div><strong>Diagno</strong> - confidence in diagnostic decisions.</div><div>Not medical advice. Confirm prices and availability before visiting.</div></div>
+  </footer>
+
   <script>
+    const labModes = {
+      price: {
+        label: "Price-first",
+        rows: [
+          ["Chughtai nearby branch", "Routine tests, broad access", "Rs 800", true],
+          ["Dr. Essa / city branch", "Budget-friendly where available", "Rs 720", false],
+          ["Shaheen / Zeenat local lab", "Confirm quality and timing", "Low-cost", false]
+        ]
+      },
+      convenience: {
+        label: "Convenience-first",
+        rows: [
+          ["IDC F-8 branch", "Closest in the Ali Medical example", "Nearest", true],
+          ["Chughtai nearby branch", "Good access and routine tests", "Nearby", false],
+          ["Aga Khan Collection Point", "Better trust when distance is acceptable", "~5 km", false]
+        ]
+      }
+    };
+
+    const labList = document.getElementById("labList");
+    const modeLabel = document.getElementById("modeLabel");
+    const toggles = document.querySelectorAll(".toggle");
     const input = document.getElementById("searchInput");
     const searchBtn = document.getElementById("searchBtn");
     const examples = document.querySelectorAll(".example");
-    const prefButtons = document.querySelectorAll(".pref-chip");
-    const recommendationStack = document.getElementById("recommendationStack");
-    const receiptInput = document.getElementById("receiptInput");
-    const receiptEmpty = document.getElementById("receiptEmpty");
-    const receiptPreview = document.getElementById("receiptPreview");
-    const receiptStatus = document.getElementById("receiptStatus");
-    const ocrResult = document.getElementById("ocrResult");
-    const ocrSummary = document.getElementById("ocrSummary");
-    const ocrText = document.getElementById("ocrText");
 
-    const recommendations = {
-      balanced: [
-        ["IDC F-8 branch", "Nearest option. Strong for radiology, useful if urgency and distance matter.", "79", true],
-        ["Aga Khan Collection Point", "Best trust score within reach for blood work and critical investigations.", "91", false],
-        ["Chughtai nearby branch", "Balanced routine tests, home sampling, price, and broad accessibility.", "84", false],
-      ],
-      price: [
-        ["Chughtai nearby branch", "Strong routine-test value with broad branch access and home sampling.", "84", true],
-        ["Dr. Essa / city branch", "Often budget-friendly for routine blood work where available.", "76", false],
-        ["Shaheen / Zeenat local lab", "Lower-cost local option. Confirm quality signals and report timing before choosing.", "68", false],
-      ],
-      near: [
-        ["IDC F-8 branch", "Closest practical option from Ali Medical F-8 for urgent movement.", "79", true],
-        ["Chughtai nearby branch", "Nearby routine blood-work option with better broad-network accessibility.", "84", false],
-        ["Excel / Advance diagnostic option", "Worth checking if the closest branch has a long queue.", "77", false],
-      ],
-      radiology: [
-        ["IDC F-8 / IDC Radiology", "Strong suggestion for MRI or CT when proximity and imaging availability matter.", "86", true],
-        ["Excel Labs / imaging partner", "Useful alternate route if IDC is crowded or modality slot is delayed.", "80", false],
-        ["Hospital radiology department", "Consider when specialist referral or urgent imaging context is involved.", "78", false],
-      ],
-      speed: [
-        ["Aga Khan Collection Point", "Best trust-forward option when report reliability matters more than nearest distance.", "91", true],
-        ["Chughtai nearby branch", "Good routine-test speed if the branch is not at peak queue time.", "84", false],
-        ["IDC F-8 branch", "Convenient but timing depends on modality, branch load, and selected test.", "79", false],
-      ],
-    };
-
-    function paintRecommendations(mode) {
-      const items = recommendations[mode] || recommendations.balanced;
-      recommendationStack.innerHTML = items.map((item, index) => {
-        const [name, detail, score, active] = item;
-        const label = active ? `<span class="live-dot">${name}</span>` : name;
-        return `
-          <div class="recommendation ${active ? "nearest" : ""}">
-            <div class="pin">${index + 1}</div>
-            <div><h4>${label}</h4><p>${detail}</p></div>
-            <div class="rank-score">${score}</div>
-          </div>
-        `;
-      }).join("");
+    function paintLabs(mode) {
+      const data = labModes[mode] || labModes.price;
+      modeLabel.textContent = data.label;
+      labList.innerHTML = data.rows.map((row, index) => `
+        <div class="lab-row ${row[3] ? "best" : ""}">
+          <div class="rank">${index + 1}</div>
+          <div><h3>${row[0]}</h3><p>${row[1]}</p></div>
+          <div class="price">${row[2]}</div>
+        </div>
+      `).join("");
     }
+
+    toggles.forEach((button) => {
+      button.addEventListener("click", () => {
+        toggles.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        paintLabs(button.dataset.mode);
+      });
+    });
+    paintLabs("price");
 
     function runSearch(query) {
-      const value = (query || input.value || "").trim();
-      if (!value) {
-        input.focus();
-        return;
-      }
-      input.value = value;
-      const compare = document.getElementById("compare");
-      compare.scrollIntoView({ behavior: "smooth", block: "start" });
+      input.value = (query || input.value || "").trim();
+      document.getElementById("compare").scrollIntoView({ behavior: "smooth" });
     }
+    searchBtn.addEventListener("click", () => runSearch());
+    input.addEventListener("keydown", (event) => { if (event.key === "Enter") runSearch(); });
+    examples.forEach((button) => button.addEventListener("click", () => runSearch(button.dataset.query)));
 
     function readFileAsDataUrl(file) {
       return new Promise((resolve, reject) => {
@@ -1593,65 +385,66 @@
       });
     }
 
-    function formatOcrSummary(signals) {
-      const bits = [];
-      if (signals?.likelyTotal) bits.push(`Likely total Rs ${signals.likelyTotal.toLocaleString()}`);
-      if (signals?.date) bits.push(`Date ${signals.date}`);
-      if (signals?.labHints?.length) bits.push(signals.labHints.join(", "));
-      return bits.length ? bits.join(" · ") : "Text extracted";
-    }
+    const prescriptionDictionary = [
+      ["CBC", ["cbc", "complete blood count", "blood count"]], ["HbA1c", ["hba1c", "hb a1c", "a1c"]], ["Lipid Profile", ["lipid", "cholesterol", "triglyceride"]], ["LFT", ["lft", "liver", "sgpt", "sgot", "alt", "ast"]], ["RFT", ["rft", "renal", "creatinine", "urea"]], ["TSH", ["tsh", "thyroid"]], ["Vitamin D", ["vit d", "vitamin d"]], ["Urine DR", ["urine", "urinalysis"]], ["CRP", ["crp"]], ["ESR", ["esr"]], ["Ultrasound", ["ultrasound", "usg"]], ["X-ray", ["xray", "x-ray", "x ray"]], ["MRI", ["mri"]], ["CT Scan", ["ct scan", "ct brain", "ct"]]
+    ];
+    const prescriptionInput = document.getElementById("prescriptionInput");
+    const prescriptionPreview = document.getElementById("prescriptionPreview");
+    const prescriptionEmpty = document.getElementById("prescriptionEmpty");
+    const prescriptionText = document.getElementById("prescriptionText");
+    const parsePrescriptionBtn = document.getElementById("parsePrescriptionBtn");
+    const readerChips = document.getElementById("readerChips");
 
-    searchBtn.addEventListener("click", () => runSearch());
-    input.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") runSearch();
+    prescriptionInput.addEventListener("change", async (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      if (file.type && file.type.startsWith("image/")) {
+        prescriptionPreview.src = await readFileAsDataUrl(file);
+        prescriptionPreview.style.display = "block";
+        prescriptionEmpty.style.display = "none";
+      } else {
+        prescriptionEmpty.innerHTML = `<strong>${file.name}</strong><br><span class="muted">File attached. Type readable items on the right.</span>`;
+      }
     });
-    examples.forEach((button) => {
-      button.addEventListener("click", () => runSearch(button.dataset.query));
+
+    parsePrescriptionBtn.addEventListener("click", () => {
+      const text = prescriptionText.value.toLowerCase();
+      const items = prescriptionDictionary.filter(([_, terms]) => terms.some((term) => text.includes(term))).map(([label]) => label);
+      readerChips.innerHTML = items.length ? items.map((item) => `<span class="chip">${item}</span>`).join("") : `<span class="muted">No known test detected yet.</span>`;
     });
-    prefButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        prefButtons.forEach((item) => item.classList.remove("active"));
-        button.classList.add("active");
-        paintRecommendations(button.dataset.mode);
-      });
-    });
+
+    const receiptInput = document.getElementById("receiptInput");
+    const receiptPreview = document.getElementById("receiptPreview");
+    const receiptEmpty = document.getElementById("receiptEmpty");
+    const receiptStatus = document.getElementById("receiptStatus");
+    const ocrResult = document.getElementById("ocrResult");
+    const ocrSummary = document.getElementById("ocrSummary");
+    const ocrText = document.getElementById("ocrText");
+
     receiptInput.addEventListener("change", async (event) => {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
-      receiptStatus.classList.remove("error");
       receiptStatus.style.display = "block";
-      receiptStatus.textContent = "Receipt attached. Running Google Vision OCR...";
-      ocrResult.style.display = "none";
-      ocrText.textContent = "";
-      ocrSummary.textContent = "Scanning";
-
       if (file.type && file.type.startsWith("image/")) {
         const dataUrl = await readFileAsDataUrl(file);
         receiptPreview.src = dataUrl;
         receiptPreview.style.display = "block";
         receiptEmpty.style.display = "none";
+        receiptStatus.textContent = "Receipt attached. Running OCR if configured...";
         try {
-          const response = await fetch("/api/vision", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ imageBase64: dataUrl }),
-          });
+          const response = await fetch("/api/vision", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ imageBase64: dataUrl }) });
           const data = await response.json();
-          if (!response.ok) throw new Error(data.error || "Google Vision OCR failed");
-          receiptStatus.textContent = "Receipt OCR complete. Complaint slot reserved for this visit.";
+          if (!response.ok) throw new Error(data.error || "OCR unavailable");
           ocrResult.style.display = "block";
-          ocrSummary.textContent = formatOcrSummary(data.signals);
-          ocrText.textContent = data.text || "No readable text found. Keep the receipt image attached as proof.";
+          ocrSummary.textContent = data.signals?.likelyTotal ? `Likely total Rs ${data.signals.likelyTotal.toLocaleString()}` : "Text extracted";
+          ocrText.textContent = data.text || "No readable text found.";
+          receiptStatus.textContent = "Receipt OCR complete. Complaint proof attached.";
         } catch (error) {
-          receiptStatus.classList.add("error");
-          receiptStatus.textContent = `${error.message}. Receipt remains attached as manual complaint proof.`;
+          receiptStatus.textContent = `${error.message}. Receipt remains attached as manual proof.`;
         }
       } else {
-        receiptPreview.style.display = "none";
-        receiptEmpty.style.display = "block";
-        receiptEmpty.innerHTML = `<strong>${file.name}</strong><span>File attached for complaint proof.</span>`;
-        receiptStatus.classList.add("error");
-        receiptStatus.textContent = "PDF attached as manual complaint proof. Google Vision OCR currently runs on image receipts.";
+        receiptEmpty.innerHTML = `<strong>${file.name}</strong><br><span class="muted">File attached as manual proof.</span>`;
+        receiptStatus.textContent = "PDF attached as manual complaint proof.";
       }
     });
   </script>
