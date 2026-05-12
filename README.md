@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/27588729/README.md)
+[README.md](https://github.com/user-attachments/files/27633557/README.md)
 # Diagno
 
 Diagnostic lab and radiology transparency platform for Pakistan.
