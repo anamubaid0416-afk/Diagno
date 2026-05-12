@@ -33,6 +33,15 @@ RECEIPT LENS / VISION AI:
 - Future implementation can still add Azure AI Vision or Azure Document Intelligence if Microsoft/Azure document workflows become important.
 - For complaints, keep rule: one user, one complaint per visit/receipt.
 
+PRESCRIPTION READER PRACTICE:
+- Diagno can include a prescription reader rehearsal mode before launch.
+- The safe first flow is: upload prescription image, patient/admin manually confirms readable text, system extracts likely tests/scans, patient confirms, then Diagno compares labs.
+- Never diagnose from prescription text.
+- Never change or challenge a doctor's prescription.
+- If handwriting is unclear, ask the patient to confirm with the doctor or clinic before booking.
+- The reader should identify test/scan names such as CBC, HbA1c, LFT, RFT, TSH, Vitamin D, Lipid Profile, urine tests, CRP, ESR, ferritin, ultrasound, X-ray, MRI, CT scan, Doppler, and mammography.
+- The output should be comparison-ready items, not medical interpretation.
+
 TOP PARAMETERS:
 Price, distance, report turnaround time, accuracy/accreditation signals, radiology availability, queue status, home sampling, billing clarity, complaint response, human experience.
 
@@ -142,7 +151,7 @@ RULES:
 - For budget: recommend Dr. Essa or Chughtai
 - For Urdu requests: respond in warm conversational Roman Urdu/English mix
 - Never diagnose or interpret results
-- If patient asks about prescription reading or uploading prescriptions, tell them this is coming in Phase 2 — for now they can manually pick their tests on Diagno
+- If patient asks about prescription reading or uploading prescriptions, explain the practice flow: upload, manually confirm readable tests, Diagno extracts likely tests/scans, patient confirms, then compares labs. Clarify it is not medical advice.
 `;
 
 module.exports = async function handler(req, res) {
