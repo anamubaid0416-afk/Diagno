@@ -274,7 +274,7 @@
         <summary>Prescription Reader Practice</summary>
         <div class="details-body">
           <div class="pipeline" id="prescriptionPipeline">
-            <div class="pipe-step" data-step="0"><div class="pipe-num">1</div><div><strong>Azure OCR</strong><span>Reads handwriting/image text when Azure keys are configured.</span></div></div>
+            <div class="pipe-step" data-step="0"><div class="pipe-num">1</div><div><strong>Google Vision OCR</strong><span>Reads prescription image text when the Google Vision key is configured.</span></div></div>
             <div class="pipe-step" data-step="1"><div class="pipe-num">2</div><div><strong>GPT/Gemini/OpenAI interpretation layer</strong><span>Normalizes messy OCR into likely tests, scans, and medicines.</span></div></div>
             <div class="pipe-step" data-step="2"><div class="pipe-num">3</div><div><strong>Medicine database matching</strong><span>Matches common medicine names separately from diagnostic tests.</span></div></div>
             <div class="pipe-step done" data-step="3"><div class="pipe-num">4</div><div><strong>Human correction fallback</strong><span>The user/admin confirms readable items before comparison.</span></div></div>
@@ -283,7 +283,7 @@
             <div>
               <div class="drop">
                 <input id="prescriptionInput" type="file" accept="image/*,.pdf" />
-                <div id="prescriptionEmpty"><strong>Upload prescription image</strong><br><span class="muted">Azure OCR runs on Vercel when configured. This is not diagnosis.</span></div>
+                <div id="prescriptionEmpty"><strong>Upload prescription image</strong><br><span class="muted">Google Vision OCR runs on Vercel when configured. This is not diagnosis.</span></div>
                 <img class="preview" id="prescriptionPreview" alt="Prescription preview" />
               </div>
             </div>
@@ -322,8 +322,8 @@
             </div>
             <div>
               <div class="simple-card">
-                <h3>Google Vision ready, but optional</h3>
-                <p>If billing/key works, OCR extracts text. If not, the receipt still acts as manual proof.</p>
+                <h3>Receipt OCR is optional</h3>
+                <p>Prescription and receipt OCR use Google Vision when configured. If OCR is unavailable, both still support manual correction/proof.</p>
               </div>
               <div class="ocr-result" id="ocrResult"><div class="ocr-head"><span>OCR</span><span id="ocrSummary">Ready</span></div><div class="ocr-text" id="ocrText"></div></div>
             </div>
@@ -464,7 +464,7 @@
     parsePrescriptionBtn.addEventListener("click", async () => {
       const manualText = prescriptionText.value.trim();
       prescriptionStatus.style.display = "block";
-      prescriptionStatus.textContent = "Running Azure OCR, AI interpretation, medicine matching, and human fallback...";
+      prescriptionStatus.textContent = "Running Google Vision OCR, AI interpretation, medicine matching, and human fallback...";
       readerChips.innerHTML = "";
 
       try {
@@ -487,7 +487,7 @@
       } catch (error) {
         const text = manualText.toLowerCase();
         const items = prescriptionDictionary.filter(([_, terms]) => terms.some((term) => text.includes(term))).map(([label]) => ({ name: label }));
-        paintPipeline([{ complete: false, status: "Azure unavailable" }, { complete: false, status: "AI unavailable" }, { complete: false, status: "Local matching only" }, { complete: true, status: "Manual correction active" }]);
+        paintPipeline([{ complete: false, status: "Google Vision unavailable" }, { complete: false, status: "AI unavailable" }, { complete: false, status: "Local matching only" }, { complete: true, status: "Manual correction active" }]);
         readerOutput.style.display = "block";
         readerProvider.textContent = "Manual fallback";
         renderChips(readerTests, items, "No known test detected yet.");
