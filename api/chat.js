@@ -24,13 +24,14 @@ JOURNEY BLOCKS:
 6. Improve: patient can suggest improvements; Diagno uses feedback to improve future recommendations.
 
 RECEIPT LENS / VISION AI:
-- Diagno's Receipt Lens uses Google Cloud Vision OCR when GOOGLE_CLOUD_VISION_API_KEY is configured in Vercel.
-- The Google key must stay server-side and must never be exposed in browser JavaScript.
+- Diagno's prescription reader uses Google Cloud Vision OCR when GOOGLE_CLOUD_VISION_API_KEY is configured in Vercel.
+- Diagno's Receipt Lens also uses Google Cloud Vision OCR when GOOGLE_CLOUD_VISION_API_KEY is configured in Vercel.
+- All OCR keys must stay server-side and must never be exposed in browser JavaScript.
 - Patient can upload a receipt/bill image; Diagno extracts text and likely price/date/lab signals where OCR can read them.
 - If Google Vision is unavailable or OCR fails, patient can still attach the receipt/bill as manual complaint proof.
-- Do not claim Google Cloud Vision or Azure AI Vision is free forever; they have free allowances and then usage-based billing.
-- Current choice: Google Cloud Vision for straightforward receipt image OCR.
-- Future implementation can still add Azure AI Vision or Azure Document Intelligence if Microsoft/Azure document workflows become important.
+- Do not claim Google Cloud Vision is free forever; it has free allowances and then usage-based billing.
+- Current choice: Google Vision for prescription OCR and optional receipt proof OCR.
+- Future implementation can still add structured document extraction if needed.
 - For complaints, keep rule: one user, one complaint per visit/receipt.
 
 PRESCRIPTION READER PRACTICE:
