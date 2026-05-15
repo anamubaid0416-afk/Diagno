@@ -55,55 +55,38 @@ function splitLikelyLines(text) {
     .slice(0, 30);
 }
 
-async function runAzureOcr(imageBase64) {
-  const endpoint = process.env.AZURE_VISION_ENDPOINT;
-  const key = process.env.AZURE_VISION_KEY || process.env.AZURE_COMPUTER_VISION_KEY;
-  if (!endpoint || !key || !imageBase64) {
-    return { configured: false, text: "", status: "Azure OCR not configured" };
+async function runGoogleOcr(imageBase64) {
+  const apiKey = process.env.GOOGLE_CLOUD_VISION_API_KEY;
+  if (!apiKey || !imageBase64) {
+    return { configured: false, text: "", status: "Google Vision OCR not configured" };
   }
 
   const content = stripDataUrl(imageBase64);
   if (!content || content.length < 100) {
-    return { configured: true, text: "", status: "No valid image data for Azure OCR" };
+    return { configured: true, text: "", status: "No valid image data for Google Vision OCR" };
   }
 
-  const root = endpoint.replace(/\/+$/, "");
-  const submit = await fetch(`${root}/vision/v3.2/read/analyze`, {
+  const response = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/octet-stream",
-      "Ocp-Apim-Subscription-Key": key,
-    },
-    body: Buffer.from(content, "base64"),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      requests: [
+        {
+          image: { content },
+          features: [{ type: "TEXT_DETECTION", maxResults: 1 }],
+          imageContext: { languageHints: ["en", "ur"] },
+        },
+      ],
+    }),
   });
 
-  if (!submit.ok) {
-    const errorText = await submit.text();
-    return { configured: true, text: "", status: `Azure OCR failed: ${errorText || submit.status}` };
+  const data = await response.json();
+  if (!response.ok) {
+    return { configured: true, text: "", status: `Google Vision OCR failed: ${data?.error?.message || response.status}` };
   }
 
-  const operation = submit.headers.get("operation-location");
-  if (!operation) {
-    return { configured: true, text: "", status: "Azure OCR did not return an operation URL" };
-  }
-
-  for (let attempt = 0; attempt < 8; attempt += 1) {
-    await new Promise((resolve) => setTimeout(resolve, 700));
-    const poll = await fetch(operation, { headers: { "Ocp-Apim-Subscription-Key": key } });
-    const data = await poll.json();
-    if (data.status === "succeeded") {
-      const lines = data.analyzeResult?.readResults
-        ?.flatMap((page) => page.lines || [])
-        ?.map((line) => line.text)
-        ?.filter(Boolean) || [];
-      return { configured: true, text: lines.join("\n"), status: "Azure OCR complete" };
-    }
-    if (data.status === "failed") {
-      return { configured: true, text: "", status: "Azure OCR failed while reading handwriting" };
-    }
-  }
-
-  return { configured: true, text: "", status: "Azure OCR timed out; use manual correction" };
+  const text = data?.responses?.[0]?.fullTextAnnotation?.text || data?.responses?.[0]?.textAnnotations?.[0]?.description || "";
+  return { configured: true, text, status: text ? "Google Vision OCR complete" : "Google Vision found no readable text" };
 }
 
 async function callOpenAi(text) {
@@ -188,15 +171,15 @@ module.exports = async function handler(req, res) {
 
   try {
     const { imageBase64, manualText } = req.body || {};
-    const azure = await runAzureOcr(imageBase64);
-    const combinedText = [azure.text, manualText].filter(Boolean).join("\n").trim();
+    const ocr = await runGoogleOcr(imageBase64);
+    const combinedText = [ocr.text, manualText].filter(Boolean).join("\n").trim();
     const ai = await interpretWithAi(combinedText);
     const tests = findMatches(combinedText, TEST_DICTIONARY);
     const medicines = findMatches(combinedText, MEDICINE_DICTIONARY);
 
     return res.status(200).json({
       pipeline: [
-        { step: "Azure OCR", status: azure.status, complete: Boolean(azure.text) },
+        { step: "Google Vision OCR", status: ocr.status, complete: Boolean(ocr.text) },
         { step: "GPT/Gemini/OpenAI interpretation", status: ai.status, complete: ai.provider !== "Fallback" },
         { step: "Medicine database matching", status: `${medicines.length} possible medicine match${medicines.length === 1 ? "" : "es"}`, complete: medicines.length > 0 },
         { step: "Human correction fallback", status: "Editable confirmation is required before lab comparison", complete: true },
