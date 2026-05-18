@@ -865,6 +865,346 @@ body {
   border-color: var(--teal);
 }
 
+/* ════════════════════════════════════════
+   v6.4 — CONTEXT QUESTIONS (optional, on Scene 2B)
+   ════════════════════════════════════════ */
+.ctx-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.ctx-q {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--rs);
+  padding: 14px 16px;
+}
+.ctx-q-text {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.ctx-q-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink4);
+}
+.ctx-opt-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ctx-opt {
+  padding: 7px 13px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--bg-card);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink3);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.ctx-opt:hover { border-color: var(--teal); color: var(--ink2); }
+.ctx-opt.on {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+
+/* ════════════════════════════════════════
+   v6.4 — URGENT-SYMPTOM SCREEN (Scene 2D-urgent)
+   ════════════════════════════════════════ */
+.urgent-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #FEF2F2 0%, var(--bg-card) 70%);
+  border: 1px solid #FCA5A5;
+  border-radius: var(--r);
+  padding: 36px 32px 28px;
+  box-shadow: var(--sh-2);
+}
+.urgent-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #DC2626;
+}
+.urgent-icon svg { width: 64px; height: 64px; }
+.urgent-eye {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #DC2626;
+  margin-bottom: 8px;
+}
+.urgent-label {
+  text-align: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+.urgent-message {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink2);
+  text-align: center;
+  margin: 0 0 24px;
+}
+.urgent-numbers {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--rs);
+  padding: 16px;
+  margin-bottom: 22px;
+}
+.urgent-num-head {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  text-align: center;
+  margin-bottom: 12px;
+}
+.urgent-num-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+@media (max-width: 540px) {
+  .urgent-num-list { grid-template-columns: 1fr; }
+}
+.urgent-num {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 8px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--rs);
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.urgent-num:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+.urgent-num:hover strong,
+.urgent-num:hover span { color: #fff; }
+.urgent-num strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.urgent-num span {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.5px;
+}
+.urgent-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.btn-restart {
+  background: var(--bg-subtle);
+  border: 1px solid var(--line-strong);
+  color: var(--ink3);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-restart:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+.urgent-disclaimer {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--ink4);
+  text-align: center;
+  font-style: italic;
+  margin: 0;
+}
+
+/* ════════════════════════════════════════
+   v6.4 — DOCTOR-CONVERSATION GUIDE (Scene 2D-guide)
+   ════════════════════════════════════════ */
+.guide-echo-block {
+  background: var(--bg-subtle);
+  border-left: 3px solid var(--teal);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+}
+.guide-echo-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--ink4);
+  margin-bottom: 4px;
+}
+.guide-echo-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink2);
+  font-style: italic;
+}
+.guide-echo-context {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--ink4);
+  margin-top: 6px;
+}
+.guide-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 24px 26px;
+  margin-bottom: 18px;
+  box-shadow: var(--sh-1);
+}
+.guide-card-label {
+  display: inline-block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: var(--cyan-pale);
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+.guide-section { margin-bottom: 18px; }
+.guide-section:last-child { margin-bottom: 0; }
+.guide-section-h {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.guide-mention {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink2);
+  margin: 0;
+}
+.guide-questions {
+  margin: 0;
+  padding-left: 18px;
+}
+.guide-questions li {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink2);
+  margin-bottom: 4px;
+}
+.guide-tests {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.guide-test-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--rs);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: 'Inter', sans-serif;
+  text-align: left;
+  width: 100%;
+}
+.guide-test-chip:hover {
+  border-color: var(--navy);
+  background: var(--cyan-pale);
+}
+.gtc-name {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.gtc-sub {
+  font-size: 12px;
+  color: var(--ink4);
+  margin-left: auto;
+}
+.guide-test-chip svg {
+  width: 14px;
+  height: 14px;
+  color: var(--teal);
+  flex-shrink: 0;
+}
+.guide-no-tests {
+  padding: 12px 14px;
+  background: var(--bg-subtle);
+  border-radius: var(--rs);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--ink4);
+  font-style: italic;
+}
+.guide-note {
+  background: var(--cyan-pale);
+  border: 1px solid var(--cyan);
+  border-radius: var(--rs);
+  padding: 11px 14px;
+  margin-top: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink2);
+}
+.guide-note strong { color: var(--navy); font-weight: 700; }
+.guide-disclaimer {
+  background: var(--bg-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--rs);
+  padding: 14px 16px;
+  margin: 18px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--ink3);
+  font-style: italic;
+}
+
 /* ACTION ROW */
 .action-row {
   display: flex;
@@ -2211,28 +2551,24 @@ body {
     </div>
 
     <h1 class="input-h">Tell us <em>how you feel</em>.</h1>
-    <p class="input-sub">In your own words — Urdu or English. We will note which tests are commonly associated with what you describe. This is never a diagnosis — always confirm with your doctor — then we compare the labs.</p>
+    <p class="input-sub">In your own words — Urdu or English. YourMessiah will help you prepare for your doctor visit: what to mention, what to ask, and which common tests might come up. <strong>This is never a diagnosis</strong>. Always see a doctor.</p>
 
     <div class="field-block">
-      <div class="field-label">What's going on?</div>
-      <textarea class="symptom-box" id="symptom-input" placeholder="e.g. I've been feeling tired for two weeks, frequent thirst, and the doctor wants me to check my sugar levels…"></textarea>
+      <div class="field-label">What are you feeling?</div>
+      <textarea class="symptom-box" id="symptom-input" placeholder="e.g. I've been feeling tired for two weeks, gaining weight, and feeling cold all the time…"></textarea>
       <div class="symptom-suggest">
-        <div class="ss" onclick="addSymptom('Fatigue and thirst — possible diabetes')">Fatigue & thirst</div>
-        <div class="ss" onclick="addSymptom('Frequent fevers — need infection workup')">Recurring fever</div>
-        <div class="ss" onclick="addSymptom('Cholesterol concern — family history of heart disease')">Cholesterol concern</div>
-        <div class="ss" onclick="addSymptom('Tired all the time — possible thyroid issue')">Constant tiredness</div>
-        <div class="ss" onclick="addSymptom('Pre-pregnancy checkup needed')">Pre-pregnancy checkup</div>
-        <div class="ss" onclick="addSymptom('General annual blood work')">Annual checkup</div>
+        <div class="ss" onclick="addSymptom('I have been feeling tired and have no energy for the last few weeks.')">Persistent tiredness</div>
+        <div class="ss" onclick="addSymptom('I have been gaining weight without changing my diet, and feel cold all the time.')">Weight gain & feeling cold</div>
+        <div class="ss" onclick="addSymptom('I have a fever that has lasted more than 3 days.')">Persistent fever</div>
+        <div class="ss" onclick="addSymptom('I want a general health checkup — what tests should I prepare for?')">General checkup</div>
+        <div class="ss" onclick="addSymptom('My family has a history of heart disease and I want to check my cholesterol.')">Heart-risk concern</div>
+        <div class="ss" onclick="addSymptom('I have been planning pregnancy and want to know what tests to discuss.')">Pre-pregnancy planning</div>
       </div>
     </div>
 
     <div class="field-block">
-      <div class="field-label">Your city</div>
-      <div class="city-row" id="city-row-b"></div>
-      <button class="find-nearest-btn" onclick="findNearest()">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="2.5"/><path d="M7 1v2M7 11v2M1 7h2M11 7h2"/></svg>
-        <span id="nearest-btn-label-b">Find branches near me</span>
-      </button>
+      <div class="field-label">A few optional details (helps tailor the guide)</div>
+      <div class="ctx-questions" id="ctx-questions"></div>
     </div>
 
     <div class="action-row">
@@ -2240,10 +2576,80 @@ body {
         <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 7H2M6 11L2 7l4-4"/></svg>
         Back
       </button>
-      <button class="btn-primary" id="btn-sym-go" onclick="runSymptomVerdict()" disabled>
-        See your comparison
+      <button class="btn-primary" id="btn-sym-go" onclick="runSymptomGuide()" disabled>
+        Get my doctor-visit guide
         <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
       </button>
+    </div>
+  </div>
+
+  <!-- ═════════ SCENE 2D-URGENT — RED-FLAG SAFETY SCREEN ═════════ -->
+  <div class="scene" id="scene-2d-urgent">
+    <div class="urgent-card">
+      <div class="urgent-icon">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 4L4 26h24L16 4z"/>
+          <path d="M16 13v6M16 22v.5"/>
+        </svg>
+      </div>
+      <div class="urgent-eye">Please seek urgent care</div>
+      <h1 class="urgent-label" id="urgent-label"></h1>
+      <p class="urgent-message" id="urgent-message"></p>
+
+      <div class="urgent-numbers">
+        <div class="urgent-num-head">Pakistan emergency numbers</div>
+        <div class="urgent-num-list">
+          <a class="urgent-num" href="tel:115"><strong>Edhi Ambulance</strong><span>115</span></a>
+          <a class="urgent-num" href="tel:1122"><strong>Rescue 1122</strong><span>1122</span></a>
+          <a class="urgent-num" href="tel:1166"><strong>Sehat Helpline</strong><span>1166</span></a>
+        </div>
+      </div>
+
+      <div class="urgent-actions">
+        <button class="btn-back" onclick="goScene(2, 'symptom')">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 7H2M6 11L2 7l4-4"/></svg>
+          Back to describe again
+        </button>
+        <button class="btn-restart" onclick="restart()">Start over</button>
+      </div>
+
+      <p class="urgent-disclaimer">
+        YourMessiah is an information tool, not a medical service. If anything you are experiencing feels urgent, please seek care in person before doing anything else online.
+      </p>
+    </div>
+  </div>
+
+  <!-- ═════════ SCENE 2D-GUIDE — DOCTOR-VISIT PREPARATION ═════════ -->
+  <div class="scene" id="scene-2d-guide">
+    <div class="progress">
+      <div class="prog-step done"><div class="prog-circle">i</div><span class="prog-label">Path</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step done"><div class="prog-circle">ii</div><span class="prog-label">Tell us</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step active"><div class="prog-circle">iii</div><span class="prog-label">Prepare</span></div>
+    </div>
+
+    <h1 class="input-h">Your <em>doctor-visit guide</em>.</h1>
+    <p class="input-sub">Based on what you described, here is what to mention, what to ask, and which tests sometimes come up in such conversations. <strong>YourMessiah is not your doctor.</strong> The decision about which tests you need is always your doctor's.</p>
+
+    <div class="guide-echo-block">
+      <div class="guide-echo-label">You told us:</div>
+      <div class="guide-echo-text" id="guide-input-echo"></div>
+      <div class="guide-echo-context" id="guide-context-echo" style="display:none;"></div>
+    </div>
+
+    <div id="guide-cards"></div>
+
+    <div class="guide-disclaimer">
+      YourMessiah does not diagnose or treat anything. This guide is to help you have a clearer conversation with your doctor. Do not skip seeing a doctor based on anything shown here. If your symptoms worsen, go to a doctor or emergency room.
+    </div>
+
+    <div class="action-row">
+      <button class="btn-back" onclick="goScene(2, 'symptom')">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 7H2M6 11L2 7l4-4"/></svg>
+        Describe differently
+      </button>
+      <button class="btn-restart" onclick="restart()">Start over</button>
     </div>
   </div>
 
@@ -2951,19 +3357,507 @@ function isOpenNow(hours) {
   return nowMin >= openMin && nowMin <= closeMin;
 }
 
-// SYMPTOM_MAP — keyword → suggested test, with hard "not a diagnosis" wall
-const SYMPTOM_MAP = [
-  { keys:['diabet','sugar','thirst','urinat'], test:'hba1c', why:'HbA1c is a test doctors commonly order when blood sugar is being checked. This is not a diagnosis — please confirm with your doctor what you actually need.' },
-  { keys:['choleste','heart','lipid','fat'], test:'lipid', why:'A lipid profile is commonly ordered when cholesterol is being checked. This is not a diagnosis — please confirm with your doctor.' },
-  { keys:['thyroid','tired','fatigue','weight','cold'], test:'tsh', why:'TSH is a test doctors commonly order when checking thyroid function. Many things cause tiredness — this is not a diagnosis, please confirm with your doctor.' },
-  { keys:['fever','infect','flu','pain'], test:'cbc', why:'A CBC is commonly ordered when investigating fevers or infection. This is not a diagnosis — please confirm with your doctor.' },
-  { keys:['liver','jaundic','yellow','alcohol'], test:'lft', why:'An LFT is commonly ordered when liver function is being checked. This is not a diagnosis — please confirm with your doctor.' },
-  { keys:['kidney','urine','swelling','renal'], test:'rft', why:'An RFT is commonly ordered when kidney function is being checked. This is not a diagnosis — please confirm with your doctor.' },
-  { keys:['vitamin','bone','sun','deficien'], test:'vitd', why:'A Vitamin D test is commonly ordered when checking for deficiency. This is not a diagnosis — please confirm with your doctor.' },
-  { keys:['pregnan','baby','conceiv'], test:'cbc', why:'A CBC is one of the tests commonly ordered around pregnancy planning. This is not a diagnosis — your doctor will tell you the full set you need.' },
-  { keys:['annual','checkup','routine','general'], test:'cbc', why:'A CBC is one of the tests commonly included in a general checkup. This is not a diagnosis — your doctor will advise the full set.' },
-  { keys:['urin','culture','burning','infection'], test:'cculture', why:'A culture test is commonly ordered when an infection is being investigated. This is not a diagnosis — please confirm with your doctor.' }
+// SYMPTOM PATH (v6.4) — doctor-conversation prep, never diagnosis
+// ═══════════════════════════════════════
+// URGENT SYMPTOM PATTERNS — the patient-safety guard
+// ═══════════════════════════════════════
+// When any of these patterns are detected in the patient's text, the
+// platform interrupts the flow and shows the urgent-care screen. The
+// patient cannot proceed to the doctor-conversation guide or the lab
+// comparison from this screen. They are directed to emergency care.
+//
+// These are the genuine red-flag symptom clusters. The intent is to be
+// over-cautious by design — false positives (patient sees the warning
+// when they didn't strictly need to) are acceptable. False negatives
+// (patient with a real emergency does not see the warning) are not.
+
+const URGENT_PATTERNS = [
+  {
+    label: 'Possible heart emergency',
+    patterns: [
+      ['chest pain', 'sweat'],
+      ['chest pain', 'left arm'],
+      ['chest pain', 'jaw'],
+      ['chest pain', 'shoulder'],
+      ['chest pressure'],
+      ['crushing chest'],
+      ['heart attack'],
+    ],
+    message: 'These symptoms can sometimes be a heart emergency. Please reach a doctor or emergency room as soon as possible — call Edhi 115 or Rescue 1122 in Pakistan. Do not wait, and do not drive yourself. YourMessiah is an information tool and is not appropriate for urgent care.'
+  },
+  {
+    label: 'Possible stroke',
+    patterns: [
+      ['face droop'],
+      ['arm weak'],
+      ['slurred speech'],
+      ['sudden confusion'],
+      ['sudden weakness', 'one side'],
+      ['cannot speak'],
+      ['stroke'],
+    ],
+    message: 'These symptoms can sometimes be a stroke. Stroke care is time-critical — every minute matters. Please call Edhi 115 or Rescue 1122 immediately, or get to a hospital emergency room. YourMessiah is not appropriate for this situation.'
+  },
+  {
+    label: 'Severe breathing trouble',
+    patterns: [
+      ['cannot breathe'],
+      ['can\'t breathe'],
+      ['gasping'],
+      ['choking'],
+      ['breathless', 'rest'],
+      ['short of breath', 'rest'],
+      ['blue lips'],
+    ],
+    message: 'Severe breathing difficulty needs urgent medical attention. Please call Edhi 115 or Rescue 1122, or go to the nearest emergency room. Do not wait. YourMessiah is an information tool and is not appropriate for urgent care.'
+  },
+  {
+    label: 'Severe bleeding or blood loss',
+    patterns: [
+      ['vomiting blood'],
+      ['coughing blood'],
+      ['heavy bleeding'],
+      ['blood in stool'],
+      ['black stool'],
+    ],
+    message: 'Significant or unexplained bleeding needs to be seen by a doctor today, not next week. Please go to a hospital emergency room, or call Edhi 115 / Rescue 1122. YourMessiah is an information tool and is not appropriate for this.'
+  },
+  {
+    label: 'Sudden severe headache or possible meningitis',
+    patterns: [
+      ['worst headache'],
+      ['sudden severe headache'],
+      ['thunderclap'],
+      ['headache', 'stiff neck'],
+      ['headache', 'rash', 'fever'],
+    ],
+    message: 'A sudden severe headache, or a headache with stiff neck or rash, can be a sign of a serious condition that needs urgent care. Please go to an emergency room or call Edhi 115 / Rescue 1122. YourMessiah is not appropriate for this.'
+  },
+  {
+    label: 'Loss of consciousness',
+    patterns: [
+      ['fainted'],
+      ['passed out'],
+      ['unconscious'],
+      ['loss of consciousness'],
+      ['blacked out'],
+    ],
+    message: 'Loss of consciousness, even briefly, should be evaluated by a doctor today. Please reach an emergency room, or call Edhi 115 / Rescue 1122. YourMessiah is not the right tool for this — please see a doctor first.'
+  },
+  {
+    label: 'Pregnancy emergency',
+    patterns: [
+      ['pregnant', 'bleeding'],
+      ['pregnant', 'severe pain'],
+      ['pregnant', 'fluid'],
+    ],
+    message: 'Bleeding, severe pain, or unusual fluid in pregnancy should be checked the same day. Please contact your obstetrician or the hospital where you are registered for delivery, or go to an emergency room. YourMessiah is not appropriate for this situation.'
+  },
+  {
+    label: 'Severe accident or injury',
+    patterns: [
+      ['accident', 'pain'],
+      ['fell from'],
+      ['broken bone'],
+      ['head injury'],
+      ['serious injury'],
+    ],
+    message: 'Significant injury needs to be evaluated in person, not by an information tool. Please go to a hospital emergency room or call Rescue 1122. YourMessiah cannot help with this.'
+  },
+  {
+    label: 'Possible suicide or self-harm',
+    patterns: [
+      ['want to die'],
+      ['kill myself'],
+      ['end my life'],
+      ['suicide'],
+      ['hurt myself'],
+    ],
+    message: 'What you are going through sounds incredibly painful, and you deserve real human support — not an app. In Pakistan, you can reach Umang at 0311-7786264 (24-hour mental-health support) or Rozan at 0304-1117978. You can also reach Edhi at 115. Please talk to someone today. YourMessiah is not the right tool for this, but you matter, and help is available.'
+  },
 ];
+
+// ═══════════════════════════════════════
+// SYMPTOM GUIDE — the heart of the new symptom path
+// ═══════════════════════════════════════
+// Each entry is a *conversation pattern*, not a diagnosis. When a
+// symptom matches, the platform produces a doctor-visit preparation
+// guide — what to mention, what doctors commonly ask about, and which
+// tests from our catalogue commonly appear in such conversations.
+//
+// Strict scope: only tests that exist in our TESTS catalogue may appear
+// in any entry's `relatedTests`. The platform will silently drop any
+// test id that doesn't match. This is the safety net.
+
+const SYMPTOM_GUIDE = [
+  {
+    id: 'tiredness-fatigue',
+    keywords: ['tired', 'fatigue', 'exhaust', 'no energy', 'weak', 'drained'],
+    label: 'Persistent tiredness',
+    mention: 'Tell your doctor how long the tiredness has lasted, whether sleep helps, and whether anything else has changed alongside it (weight, appetite, mood, cold tolerance).',
+    doctorQuestions: [
+      'Could this be related to my thyroid?',
+      'Could low iron or vitamin D be contributing?',
+      'Should we check my blood sugar?',
+      'Could something else explain this?'
+    ],
+    relatedTests: ['tsh', 'cbc', 'vitd', 'hba1c'],
+    note: 'Tiredness has dozens of possible causes — only your doctor can sort out which apply to you.'
+  },
+  {
+    id: 'weight-gain',
+    keywords: ['weight gain', 'putting on weight', 'gaining weight', 'getting heavier'],
+    label: 'Unexplained weight gain',
+    mention: 'Tell your doctor how much weight you have gained, over how long, and whether your diet or activity has changed. Mention any tiredness, cold intolerance, or skin changes.',
+    doctorQuestions: [
+      'Could my thyroid be slowing down?',
+      'Could insulin resistance be involved?',
+      'Should we check my blood sugar?'
+    ],
+    relatedTests: ['tsh', 'hba1c', 'lipid'],
+    note: ''
+  },
+  {
+    id: 'weight-loss',
+    keywords: ['weight loss', 'losing weight', 'lost weight', 'getting thinner'],
+    label: 'Unexplained weight loss',
+    mention: 'Tell your doctor how much weight you have lost, over what period, and whether you have been eating less. Significant unintentional weight loss always warrants a proper checkup.',
+    doctorQuestions: [
+      'Could my thyroid be overactive?',
+      'Could my blood sugar be affected?',
+      'Are there other tests I should consider?'
+    ],
+    relatedTests: ['tsh', 'hba1c', 'cbc'],
+    note: 'Unintentional weight loss should always be discussed with a doctor — please do not delay.'
+  },
+  {
+    id: 'thirst-urination',
+    keywords: ['thirst', 'thirsty', 'frequent urin', 'peeing a lot', 'drinking a lot of water'],
+    label: 'Increased thirst or urination',
+    mention: 'Tell your doctor how long this has been going on, how often you are urinating at night, and any family history of diabetes.',
+    doctorQuestions: [
+      'Could this be related to my blood sugar?',
+      'Should we check for diabetes?',
+      'Could anything else explain this?'
+    ],
+    relatedTests: ['hba1c'],
+    note: ''
+  },
+  {
+    id: 'thyroid-symptoms',
+    keywords: ['thyroid', 'goiter', 'goitre', 'neck swelling'],
+    label: 'Thyroid concerns',
+    mention: 'Tell your doctor any family history of thyroid issues, and any symptoms — tiredness, weight changes, feeling hot or cold, heart racing, mood changes.',
+    doctorQuestions: [
+      'What should my thyroid levels look like?',
+      'Is a TSH alone enough, or should we check other thyroid tests too?'
+    ],
+    relatedTests: ['tsh'],
+    note: ''
+  },
+  {
+    id: 'cholesterol-heart',
+    keywords: ['cholesterol', 'lipid', 'heart risk', 'family history of heart', 'high blood pressure'],
+    label: 'Heart-risk concerns',
+    mention: 'Tell your doctor your family history of heart disease, your smoking status, blood pressure history, and any symptoms like chest pain on exertion or breathlessness.',
+    doctorQuestions: [
+      'Should we do a lipid profile?',
+      'Are my numbers in a healthy range for my age?',
+      'What changes would you recommend?'
+    ],
+    relatedTests: ['lipid', 'hba1c'],
+    note: 'If you have any chest pain right now or chest pain with exertion, see a doctor in person — do not wait for tests.'
+  },
+  {
+    id: 'liver-symptoms',
+    keywords: ['liver', 'jaundice', 'yellow eyes', 'yellow skin', 'dark urine'],
+    label: 'Liver concerns',
+    mention: 'Tell your doctor when you first noticed yellowing or dark urine, any alcohol use, any medications you are on, and any abdominal pain or swelling.',
+    doctorQuestions: [
+      'Could this be hepatitis?',
+      'Should we test my liver function?',
+      'Are there other liver tests I should consider?'
+    ],
+    relatedTests: ['lft'],
+    note: 'Yellow eyes or skin can be a sign of liver problems — please see a doctor in person soon, ideally this week.'
+  },
+  {
+    id: 'kidney-symptoms',
+    keywords: ['kidney', 'renal', 'swelling in feet', 'swollen ankles', 'puffy face'],
+    label: 'Kidney concerns',
+    mention: 'Tell your doctor about any swelling (feet, ankles, face), any changes in urination, any blood pressure history, and any family history of kidney disease.',
+    doctorQuestions: [
+      'Should we check my kidney function?',
+      'Should we also check my urine?',
+      'Is my blood pressure affecting my kidneys?'
+    ],
+    relatedTests: ['rft'],
+    note: ''
+  },
+  {
+    id: 'fever',
+    keywords: ['fever', 'high temperature', 'burning up'],
+    label: 'Fever',
+    mention: 'Tell your doctor when the fever started, how high it has gone, any other symptoms (chills, sweats, body ache, cough, urinary symptoms), and where you have travelled recently.',
+    doctorQuestions: [
+      'Could this be an infection that needs antibiotics?',
+      'Should we run a CBC?',
+      'Is a culture test useful here?'
+    ],
+    relatedTests: ['cbc', 'cculture'],
+    note: 'High fever lasting more than three days, or fever with severe symptoms, should be seen by a doctor in person.'
+  },
+  {
+    id: 'recurring-infection',
+    keywords: ['keep getting sick', 'recurrent infection', 'keep falling ill', 'always sick'],
+    label: 'Repeated infections',
+    mention: 'Tell your doctor how often you have been getting sick, which infections (chest, throat, urinary, skin), and any pattern you have noticed.',
+    doctorQuestions: [
+      'Could something be affecting my immunity?',
+      'Should we check my blood counts and sugar?'
+    ],
+    relatedTests: ['cbc', 'hba1c'],
+    note: ''
+  },
+  {
+    id: 'urinary',
+    keywords: ['urine', 'burning urination', 'painful urin', 'urinary'],
+    label: 'Urinary symptoms',
+    mention: 'Tell your doctor about pain, burning, frequency, blood in urine, any fever or back pain alongside.',
+    doctorQuestions: [
+      'Could this be a urinary tract infection?',
+      'Should we do a culture to identify the bacteria?',
+      'Should kidney function also be checked?'
+    ],
+    relatedTests: ['cculture', 'rft'],
+    note: ''
+  },
+  {
+    id: 'pregnancy-planning',
+    keywords: ['pregnan', 'trying for a baby', 'planning baby', 'conceiv'],
+    label: 'Pregnancy and pre-pregnancy',
+    mention: 'Tell your doctor whether you are trying to conceive, are pregnant, or just gave birth. Mention your menstrual history, any prior pregnancies, and any chronic conditions.',
+    doctorQuestions: [
+      'What basic tests should I do at this stage?',
+      'Should we check my thyroid and vitamin levels?',
+      'Are there specific tests for my situation?'
+    ],
+    relatedTests: ['cbc', 'tsh', 'vitd', 'hba1c'],
+    note: 'For pregnancy-related symptoms, please consult your obstetrician — they will know which specific tests apply to you.'
+  },
+  {
+    id: 'general-checkup',
+    keywords: ['checkup', 'annual', 'routine', 'general health', 'overall'],
+    label: 'General health checkup',
+    mention: 'Tell your doctor your age, any chronic conditions in your family, your lifestyle (smoking, activity, diet), and any specific concerns even if they seem minor.',
+    doctorQuestions: [
+      'What baseline tests are appropriate for someone my age?',
+      'Should we check my sugar, cholesterol, and thyroid?',
+      'Anything I should be screening for at this age?'
+    ],
+    relatedTests: ['cbc', 'hba1c', 'lipid', 'tsh', 'vitd'],
+    note: 'A general checkup at a doctor\'s office, not just lab tests, is the right starting point.'
+  },
+  {
+    id: 'bone-pain',
+    keywords: ['bone pain', 'aching bones', 'joint pain', 'muscle pain'],
+    label: 'Bone, joint, or muscle pain',
+    mention: 'Tell your doctor which joints or bones, how long it has lasted, whether it is worse in the morning or at night, and any swelling, redness, or warmth.',
+    doctorQuestions: [
+      'Could vitamin D deficiency be involved?',
+      'Should we check inflammation markers?',
+      'Could this be arthritis?'
+    ],
+    relatedTests: ['vitd', 'cbc'],
+    note: ''
+  },
+  {
+    id: 'vitamin-d',
+    keywords: ['vitamin d', 'deficien', 'no sunlight', 'low vitamin'],
+    label: 'Possible vitamin deficiency',
+    mention: 'Tell your doctor about your sun exposure, any bone or muscle aches, any tiredness, and any prior vitamin testing.',
+    doctorQuestions: [
+      'Should we test my vitamin D level?',
+      'Are there other deficiencies worth checking?'
+    ],
+    relatedTests: ['vitd', 'cbc'],
+    note: 'Vitamin D deficiency is very common in Pakistan — testing is straightforward, your doctor will guide you.'
+  },
+  {
+    id: 'hair-loss',
+    keywords: ['hair loss', 'hair fall', 'losing hair', 'thinning hair'],
+    label: 'Hair loss',
+    mention: 'Tell your doctor when the hair loss started, whether it is gradual or sudden, any family history, and any other symptoms (tiredness, weight change, periods).',
+    doctorQuestions: [
+      'Could this be related to my thyroid?',
+      'Could iron or vitamin D deficiency be involved?',
+      'Should we check my hormones?'
+    ],
+    relatedTests: ['tsh', 'vitd', 'cbc'],
+    note: ''
+  },
+  {
+    id: 'anxiety-mood',
+    keywords: ['anxious', 'anxiety', 'panic', 'depress', 'mood', 'sad'],
+    label: 'Mood or anxiety changes',
+    mention: 'Tell your doctor what you have been feeling, for how long, and whether physical symptoms accompany it (sleep, appetite, energy, heart racing).',
+    doctorQuestions: [
+      'Could a thyroid issue be contributing?',
+      'Should we check my vitamin D?',
+      'Should I see a mental-health professional alongside this?'
+    ],
+    relatedTests: ['tsh', 'vitd'],
+    note: 'Mental health matters as much as physical health. A doctor can refer you to a psychiatrist or psychologist if helpful. In Pakistan, Umang (0311-7786264) and Rozan (0304-1117978) also offer support.'
+  },
+  {
+    id: 'sleep-trouble',
+    keywords: ['sleep', 'insomnia', 'cannot sleep', 'can\'t sleep'],
+    label: 'Sleep problems',
+    mention: 'Tell your doctor how long sleep has been a problem, your sleep pattern, any snoring or breathing pauses, and your daytime energy.',
+    doctorQuestions: [
+      'Could this be related to my thyroid or hormones?',
+      'Should we check basic blood work?',
+      'Could it be related to stress or anxiety?'
+    ],
+    relatedTests: ['tsh', 'vitd', 'cbc'],
+    note: ''
+  },
+  {
+    id: 'cough-chest',
+    keywords: ['cough', 'chest cough', 'phlegm', 'sputum'],
+    label: 'Persistent cough',
+    mention: 'Tell your doctor how long the cough has lasted, whether there is phlegm, blood, fever, weight loss, or night sweats. Mention smoking and any TB exposure.',
+    doctorQuestions: [
+      'Could this be TB or another infection?',
+      'Should we do a blood test and culture?',
+      'Should we do a chest X-ray?'
+    ],
+    relatedTests: ['cbc', 'cculture'],
+    note: 'A cough lasting more than 3 weeks always deserves a doctor visit — TB is still common in Pakistan and is fully treatable when found.'
+  },
+  {
+    id: 'digestive',
+    keywords: ['stomach pain', 'abdominal pain', 'indigestion', 'bloating', 'gastric'],
+    label: 'Digestive symptoms',
+    mention: 'Tell your doctor where the pain is, when it happens (with meals? at night?), any changes in stool, vomiting, weight loss, or family history of GI issues.',
+    doctorQuestions: [
+      'Could this be H. pylori or an ulcer?',
+      'Should we check liver and kidney function?',
+      'Are there imaging tests we should do?'
+    ],
+    relatedTests: ['lft', 'rft', 'cbc'],
+    note: ''
+  },
+  {
+    id: 'diarrhea',
+    keywords: ['diarrhea', 'diarrhoea', 'loose motion', 'loose stool'],
+    label: 'Diarrhoea',
+    mention: 'Tell your doctor how long it has lasted, how many times a day, any blood or mucus, any fever, recent travel, recent antibiotic use, and any other people sick around you.',
+    doctorQuestions: [
+      'Could this be a bacterial or parasitic infection?',
+      'Should we do a stool culture?',
+      'Could I be getting dehydrated?'
+    ],
+    relatedTests: ['cculture', 'cbc'],
+    note: 'Diarrhoea lasting more than 2 days, or with blood or fever, needs a doctor visit. Watch for signs of dehydration in the meantime.'
+  },
+  {
+    id: 'skin-rash',
+    keywords: ['rash', 'skin', 'itching', 'allergy'],
+    label: 'Skin or allergy symptoms',
+    mention: 'Tell your doctor when it started, what makes it worse, any new soaps/foods/medications, family history of allergies, and any breathing or facial swelling.',
+    doctorQuestions: [
+      'Could allergy testing help?',
+      'Should we check basic blood work?'
+    ],
+    relatedTests: ['cbc'],
+    note: 'If a rash comes with swelling of the face/tongue, difficulty breathing, or fainting — that is an emergency, please call Edhi 115.'
+  },
+];
+
+// ═══════════════════════════════════════
+// CONTEXT QUESTIONS — light, optional, never diagnostic
+// ═══════════════════════════════════════
+const CONTEXT_QUESTIONS = [
+  {
+    id: 'age',
+    question: 'How old are you?',
+    sub: '(optional — helps tailor what your doctor might investigate)',
+    options: [
+      { id: 'u25',    label: 'Under 25' },
+      { id: '25-45',  label: '25 to 45' },
+      { id: '45-65',  label: '45 to 65' },
+      { id: '65plus', label: '65 or older' },
+    ]
+  },
+  {
+    id: 'seenDoctor',
+    question: 'Have you already seen a doctor about this?',
+    sub: '(optional)',
+    options: [
+      { id: 'yes',      label: 'Yes' },
+      { id: 'no',       label: 'No' },
+      { id: 'planning', label: 'I\'m planning to' },
+    ]
+  },
+  {
+    id: 'recentTests',
+    question: 'Have you had any blood tests in the last six months?',
+    sub: '(optional — helps avoid repeating tests)',
+    options: [
+      { id: 'yes', label: 'Yes' },
+      { id: 'no',  label: 'No' },
+    ]
+  },
+];
+
+// ═══════════════════════════════════════
+// SYMPTOM MATCHING — pure-text, never an LLM
+// ═══════════════════════════════════════
+
+// Check if the patient's text matches any urgent pattern.
+// Returns the first matching urgent block, or null.
+function checkUrgentPatterns(text) {
+  const t = String(text || '').toLowerCase();
+  for (const u of URGENT_PATTERNS) {
+    for (const pattern of u.patterns) {
+      // Pattern is an array of all-required substrings (AND match)
+      if (pattern.every(p => t.includes(p))) {
+        return u;
+      }
+    }
+  }
+  return null;
+}
+
+// Match the patient's text to symptom-guide entries.
+// Returns an array of matched entries (can be multiple).
+function matchSymptomGuide(text) {
+  const t = String(text || '').toLowerCase();
+  const matches = [];
+  for (const entry of SYMPTOM_GUIDE) {
+    for (const kw of entry.keywords) {
+      if (t.includes(kw)) {
+        matches.push(entry);
+        break;
+      }
+    }
+  }
+  // If nothing matched, fall back to the general checkup entry — this is
+  // the safest "I don't know what you have" response.
+  if (matches.length === 0) {
+    const fallback = SYMPTOM_GUIDE.find(e => e.id === 'general-checkup');
+    if (fallback) matches.push(fallback);
+  }
+  return matches;
+}
+
+// Filter a list of test ids down to those that exist in our TESTS catalogue.
+// This is the strict-scope safety net.
+function filterToCatalog(testIds) {
+  const known = new Set(TESTS.map(t => t.id));
+  return (testIds || []).filter(id => known.has(id));
+}
 
 // ═══════════════════════════════════════
 // STATE
@@ -2987,7 +3881,11 @@ const state = {
   // OCR scan state
   scanTests: [],         // tests as extracted by the backend (raw names)
   scanMedicines: [],     // medicines extracted (display only)
-  scanSelected: new Set()  // test ids the patient confirmed
+  scanSelected: new Set(),  // test ids the patient confirmed
+  // v6.4 symptom-guide state
+  contextAnswers: {},      // { age, seenDoctor, recentTests }
+  urgentMatch: null,       // set if checkUrgentPatterns returned a hit
+  symptomMatches: []       // SYMPTOM_GUIDE entries that matched
 };
 
 // ═══════════════════════════════════════
@@ -3000,8 +3898,13 @@ function goScene(n, forcePath) {
     const p = forcePath || state.path;
     if (p === 'test') document.getElementById('scene-2a').classList.add('on');
     else if (p === 'scan') document.getElementById('scene-2c').classList.add('on');
+    else if (p === 'symptom-urgent') document.getElementById('scene-2d-urgent').classList.add('on');
+    else if (p === 'symptom-guide')  document.getElementById('scene-2d-guide').classList.add('on');
     else document.getElementById('scene-2b').classList.add('on');
-    if (forcePath) state.path = forcePath;
+    // Don't overwrite state.path with internal screens
+    if (forcePath && forcePath !== 'symptom-urgent' && forcePath !== 'symptom-guide') {
+      state.path = forcePath;
+    }
   }
   else if (n === 3) document.getElementById('scene-3').classList.add('on');
   state.scene = n;
@@ -3227,6 +4130,9 @@ function restart() {
   state.scanTests = [];
   state.scanMedicines = [];
   state.scanSelected = new Set();
+  state.contextAnswers = {};
+  state.urgentMatch = null;
+  state.symptomMatches = [];
   goScene(1);
 }
 
@@ -3382,16 +4288,29 @@ function updateTestGoState() {
 // SCENE 2B — SYMPTOM FLOW
 // ═══════════════════════════════════════
 function renderSymptomFlow() {
-  document.getElementById('city-row-b').innerHTML = CITIES.map(c =>
-    `<div class="city-chip${state.city===c.id?' on':''}" onclick="pickCityB('${c.id}',this)">${c.name}</div>`
-  ).join('');
-
   const txt = document.getElementById('symptom-input');
   txt.value = state.symptomText || '';
   txt.oninput = () => {
     state.symptomText = txt.value;
     updateSymGoState();
   };
+
+  // Render the three optional context questions
+  const ctxWrap = document.getElementById('ctx-questions');
+  if (ctxWrap) {
+    ctxWrap.innerHTML = CONTEXT_QUESTIONS.map(q => {
+      const opts = q.options.map(o =>
+        `<button class="ctx-opt${state.contextAnswers[q.id]===o.id?' on':''}" data-opt="${o.id}" onclick="setContextAnswer('${q.id}','${o.id}')">${o.label}</button>`
+      ).join('');
+      return `
+        <div class="ctx-q" data-ctx="${q.id}">
+          <div class="ctx-q-text">${q.question} <span class="ctx-q-sub">${q.sub}</span></div>
+          <div class="ctx-opt-row">${opts}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
   updateSymGoState();
 }
 
@@ -3402,16 +4321,18 @@ function addSymptom(t) {
   updateSymGoState();
 }
 
+// Kept for back-compat: any old caller of pickCityB now silently no-ops
 function pickCityB(id, el) {
   state.city = id;
   document.querySelectorAll('#city-row-b .city-chip').forEach(c => c.classList.remove('on'));
-  el.classList.add('on');
-  updateSymGoState();
+  if (el) el.classList.add('on');
 }
 
 function updateSymGoState() {
-  const ok = state.city && state.symptomText && state.symptomText.trim().length > 4;
-  document.getElementById('btn-sym-go').disabled = !ok;
+  // New flow: only need symptom text. City is picked AFTER guide → test selection.
+  const ok = state.symptomText && state.symptomText.trim().length > 4;
+  const btn = document.getElementById('btn-sym-go');
+  if (btn) btn.disabled = !ok;
 }
 
 // ═══════════════════════════════════════
@@ -3568,18 +4489,145 @@ function rankLabs(testIds, cityId, priorities) {
 }
 
 // ═══════════════════════════════════════
-// SYMPTOM → TEST SUGGESTION
+// SYMPTOM → DOCTOR-CONVERSATION GUIDE (v6.4)
 // ═══════════════════════════════════════
-function suggestTest(symptomText) {
-  const lower = symptomText.toLowerCase();
-  for (const m of SYMPTOM_MAP) {
-    if (m.keys.some(k => lower.includes(k))) return { test: m.test, why: m.why };
+//
+// This is the new symptom flow. Three steps:
+//   1. Patient types what they feel + optional context
+//   2. Urgent-symptom guard intercepts red flags
+//   3. Show doctor-conversation guide with relevant tests
+//
+// At no point does the platform interpret, diagnose, or recommend.
+// It surfaces *commonly associated* information for the patient to
+// discuss with their actual doctor.
+
+function runSymptomGuide() {
+  const text = (state.symptomText || '').trim();
+  if (!text) { showToast('Please describe what you are feeling'); return; }
+
+  // Safety guard FIRST — before any other processing
+  const urgent = checkUrgentPatterns(text);
+  if (urgent) {
+    state.urgentMatch = urgent;
+    goScene(2, 'symptom-urgent');
+    paintUrgentScreen();
+    return;
   }
-  return { test: 'cbc', why: 'A CBC is one of the most common general tests. This is not a diagnosis or medical advice — please confirm with your doctor what you actually need.' };
+
+  // Otherwise: produce the doctor-conversation guide
+  const matches = matchSymptomGuide(text);
+  state.symptomMatches = matches;
+  goScene(2, 'symptom-guide');
+  paintSymptomGuide();
 }
 
 // ═══════════════════════════════════════
-// RUN VERDICT
+// URGENT SCREEN
+// ═══════════════════════════════════════
+function paintUrgentScreen() {
+  const u = state.urgentMatch;
+  if (!u) return;
+  document.getElementById('urgent-label').textContent = u.label;
+  document.getElementById('urgent-message').textContent = u.message;
+}
+
+// ═══════════════════════════════════════
+// DOCTOR-CONVERSATION GUIDE SCREEN
+// ═══════════════════════════════════════
+function paintSymptomGuide() {
+  const matches = state.symptomMatches || [];
+
+  // Echo what the patient said back (so they see we read them)
+  document.getElementById('guide-input-echo').textContent = state.symptomText || '';
+
+  // Render context, if provided
+  const ctxParts = [];
+  if (state.contextAnswers.age) {
+    const a = CONTEXT_QUESTIONS[0].options.find(o => o.id === state.contextAnswers.age);
+    if (a) ctxParts.push(`Age: ${a.label}`);
+  }
+  if (state.contextAnswers.seenDoctor) {
+    const a = CONTEXT_QUESTIONS[1].options.find(o => o.id === state.contextAnswers.seenDoctor);
+    if (a) ctxParts.push(`Seen a doctor: ${a.label}`);
+  }
+  if (state.contextAnswers.recentTests) {
+    const a = CONTEXT_QUESTIONS[2].options.find(o => o.id === state.contextAnswers.recentTests);
+    if (a) ctxParts.push(`Tests in last 6 months: ${a.label}`);
+  }
+  const ctxEl = document.getElementById('guide-context-echo');
+  if (ctxParts.length) {
+    ctxEl.textContent = ctxParts.join(' · ');
+    ctxEl.style.display = '';
+  } else {
+    ctxEl.style.display = 'none';
+  }
+
+  // Build each match as a card
+  const wrap = document.getElementById('guide-cards');
+  wrap.innerHTML = matches.map(m => {
+    // Strict scope: only catalogue tests
+    const tests = filterToCatalog(m.relatedTests);
+    const testChips = tests.length
+      ? tests.map(tid => {
+          const t = getTest(tid);
+          if (!t) return '';
+          return `<button class="guide-test-chip" onclick="pickGuideTest('${tid}')">
+            <span class="gtc-name">${t.name}</span>
+            <span class="gtc-sub">${t.sub}</span>
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+          </button>`;
+        }).join('')
+      : '<div class="guide-no-tests">No tests from our catalogue are commonly associated here — please follow your doctor\'s advice.</div>';
+
+    const questions = m.doctorQuestions.map(q => `<li>${q}</li>`).join('');
+    const noteHtml = m.note ? `<div class="guide-note"><strong>Note:</strong> ${m.note}</div>` : '';
+
+    return `
+      <div class="guide-card">
+        <div class="guide-card-label">${m.label}</div>
+
+        <div class="guide-section">
+          <div class="guide-section-h">Things to mention to your doctor</div>
+          <p class="guide-mention">${m.mention}</p>
+        </div>
+
+        <div class="guide-section">
+          <div class="guide-section-h">Questions doctors commonly explore with these symptoms</div>
+          <ul class="guide-questions">${questions}</ul>
+        </div>
+
+        <div class="guide-section">
+          <div class="guide-section-h">If your doctor orders any of these tests, you can compare prices here</div>
+          <div class="guide-tests">${testChips}</div>
+        </div>
+
+        ${noteHtml}
+      </div>
+    `;
+  }).join('');
+}
+
+// Patient tapped a test chip on the symptom-guide screen — route them
+// into the test-selection flow with that test pre-ticked
+function pickGuideTest(testId) {
+  state.tests = [testId];
+  state.priorities = [];
+  state.path = 'test';
+  goScene(2, 'test');
+  renderTestFlow();
+  showToast('Test added — pick your city to compare lab prices');
+}
+
+// Context answer handler
+function setContextAnswer(qid, optId) {
+  state.contextAnswers[qid] = optId;
+  document.querySelectorAll(`[data-ctx="${qid}"] .ctx-opt`).forEach(el => el.classList.remove('on'));
+  const target = document.querySelector(`[data-ctx="${qid}"] .ctx-opt[data-opt="${optId}"]`);
+  if (target) target.classList.add('on');
+}
+
+// ═══════════════════════════════════════
+// RUN TEST VERDICT — unchanged from v6.3
 // ═══════════════════════════════════════
 function runTestVerdict() {
   const ranked = rankBranches(state.tests, state.city, state.area, state.priorities, state.userLat, state.userLng);
@@ -3609,16 +4657,9 @@ function runTestVerdict() {
   paintPicker();
 }
 
+// Back-compat — anywhere old code calls runSymptomVerdict, it now routes through the new guide
 function runSymptomVerdict() {
-  const sug = suggestTest(state.symptomText);
-  state.test = sug.test;
-  state.tests = [sug.test];
-  state.priorities = [];
-  const ranked = rankBranches(state.tests, state.city, state.area, state.priorities, state.userLat, state.userLng);
-  state.result = { ranked, suggestedReason: sug.why, splitSavings: null };
-  state.compareSelection = [];
-  goScene(3);
-  paintPicker();
+  runSymptomGuide();
 }
 
 // ═══════════════════════════════════════
