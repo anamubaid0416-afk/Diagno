@@ -2163,6 +2163,307 @@ body {
   margin-top: 8px;
 }
 
+/* ════════════════════════════════════════
+   v6.5 — CARD-BASED COMPARISON
+   Replaces the matrix grid with a hero card + alternative cards.
+   ════════════════════════════════════════ */
+
+/* The container for everything below the intro */
+#matrix-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+/* HERO BEST-MATCH CARD — full width, accented */
+.lab-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 0;
+  box-shadow: var(--sh-1);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+.lab-card-hero {
+  border: 1.5px solid var(--navy);
+  box-shadow: 0 16px 40px rgba(18, 60, 105, 0.10);
+}
+
+/* Best-match strip at the very top of the hero card */
+.lc-match-strip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 22px;
+  background: linear-gradient(90deg, var(--navy) 0%, #1a4d80 100%);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.lc-match-strip svg {
+  width: 16px; height: 16px;
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+.lc-match-strip strong {
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Header — brand, branch, address */
+.lc-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 22px 24px 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.lc-card-alt .lc-header { padding: 18px 20px 14px; }
+.lc-brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  flex-shrink: 0;
+}
+.lab-card-alt .lc-brand-mark {
+  width: 36px; height: 36px;
+  font-size: 13px;
+  border-radius: 9px;
+}
+.lc-header-text { flex: 1; min-width: 0; }
+.lc-brand {
+  font-family: 'Manrope', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.lab-card-alt .lc-brand { font-size: 16px; }
+.lc-branch {
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink3);
+  margin-bottom: 3px;
+}
+.lab-card-alt .lc-branch { font-size: 12.5px; }
+.lc-addr {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--ink4);
+  line-height: 1.4;
+}
+.lab-card-alt .lc-addr { font-size: 11.5px; }
+
+/* PRICE BLOCK — the king visual element */
+.lc-price-block {
+  padding: 20px 24px 18px;
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-subtle) 100%);
+  border-bottom: 1px solid var(--line-soft);
+}
+.lab-card-alt .lc-price-block {
+  padding: 16px 20px 14px;
+  background: var(--bg-subtle);
+}
+.lc-price-amount {
+  font-family: 'Manrope', sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--navy);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.lab-card-alt .lc-price-amount {
+  font-size: 30px;
+  letter-spacing: -1px;
+}
+.lc-price-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--ink4);
+}
+.lab-card-alt .lc-price-label { font-size: 10px; }
+
+/* PRIORITY CIRCLES — bold, dashboard-feel */
+.lc-circles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.lab-card-alt .lc-circles {
+  padding: 16px 20px 14px;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+}
+.pcircle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 12px;
+  background: var(--bg-subtle);
+  border: 1.5px solid var(--line);
+  border-radius: 100px;
+  aspect-ratio: 1;
+  justify-content: center;
+  text-align: center;
+  min-height: 130px;
+  max-width: 160px;
+  margin: 0 auto;
+  width: 100%;
+}
+.lab-card-alt .pcircle {
+  min-height: 100px;
+  max-width: 120px;
+  padding: 12px 8px;
+}
+.pcircle-good {
+  background: linear-gradient(180deg, var(--cyan-pale) 0%, var(--bg-card) 100%);
+  border-color: var(--teal);
+}
+.pcircle-neutral {
+  background: var(--bg-card);
+  border-color: var(--line-strong);
+}
+.pcircle-muted {
+  background: var(--bg-subtle);
+  border-color: var(--line);
+  opacity: 0.85;
+}
+.pcircle-value {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  color: var(--navy);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.lab-card-alt .pcircle-value { font-size: 17px; }
+.pcircle-good .pcircle-value { color: var(--navy); }
+.pcircle-muted .pcircle-value { color: var(--ink3); }
+.pcircle-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 3px;
+}
+.lab-card-alt .pcircle-label { font-size: 9.5px; }
+.pcircle-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  color: var(--ink4);
+  line-height: 1.3;
+  max-width: 140px;
+}
+.lab-card-alt .pcircle-sub { font-size: 9.5px; max-width: 100px; }
+
+/* SECONDARY FACTS — quieter list below the circles */
+.lc-secondary {
+  padding: 14px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lab-card-alt .lc-secondary { padding: 12px 20px 16px; }
+.fact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+}
+.fact-row:last-child { border-bottom: none; }
+.fact-label {
+  color: var(--ink3);
+  font-weight: 500;
+}
+.fact-value {
+  font-weight: 600;
+  color: var(--ink2);
+}
+.fact-good {
+  color: var(--teal);
+  font-weight: 700;
+}
+.fact-neutral {
+  color: var(--ink3);
+  font-weight: 600;
+}
+.fact-not-published {
+  color: var(--ink4);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 12.5px;
+}
+
+/* ALTERNATIVES ROW — paired smaller cards below the hero */
+.lab-cards-alts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* MOBILE TUNING */
+@media (max-width: 720px) {
+  .lc-header { padding: 16px 18px 12px; }
+  .lc-brand { font-size: 16px; }
+  .lc-price-amount { font-size: 32px; }
+  .lab-card-alt .lc-price-amount { font-size: 26px; }
+  .lc-circles {
+    padding: 16px 18px 12px;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  }
+  .pcircle { min-height: 110px; max-width: 130px; padding: 12px 8px; }
+  .pcircle-value { font-size: 18px; }
+  .lc-secondary { padding: 10px 18px 16px; }
+  .lab-cards-alts { grid-template-columns: 1fr; }
+  .lc-match-strip { padding: 10px 16px; font-size: 12.5px; }
+}
+@media (max-width: 460px) {
+  .lc-circles {
+    grid-template-columns: 1fr;
+  }
+  .pcircle {
+    aspect-ratio: auto;
+    min-height: 0;
+    max-width: 100%;
+    border-radius: var(--r);
+    flex-direction: row;
+    gap: 12px;
+    padding: 12px 16px;
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .pcircle-value { margin-bottom: 0; font-size: 20px; min-width: 80px; }
+  .pcircle-label { font-size: 11px; }
+  .pcircle-sub { font-size: 11px; max-width: none; }
+}
+
 /* Mobile: matrix becomes stacked cards */
 @media (max-width: 720px) {
   .matrix-table, .matrix-table tbody, .matrix-table tr, .matrix-table td, .matrix-table th {
@@ -2975,6 +3276,21 @@ const AREAS = [
   // Rawalpindi
   { id:'rwp-saddar',     cityId:'rawalpindi', name:'Saddar',       name_ur:'صدر' },
   { id:'rwp-bahria',     cityId:'rawalpindi', name:'Bahria Town',  name_ur:'بحریہ ٹاؤن' },
+  { id:'rwp-murree-rd',  cityId:'rawalpindi', name:'Murree Road',  name_ur:'مری روڈ' },
+  { id:'rwp-satellite',  cityId:'rawalpindi', name:'Satellite Town', name_ur:'سیٹلائٹ ٹاؤن' },
+  { id:'rwp-cantt',      cityId:'rawalpindi', name:'Cantt',          name_ur:'چھاؤنی' },
+  { id:'rwp-chaklala',   cityId:'rawalpindi', name:'Chaklala Scheme 3', name_ur:'چکلالہ سکیم ۳' },
+  { id:'rwp-range-rd',   cityId:'rawalpindi', name:'Range Road',     name_ur:'رینج روڈ' },
+  { id:'rwp-aphs',       cityId:'rawalpindi', name:'Airport Housing Society', name_ur:'ایئرپورٹ ہاؤسنگ سوسائٹی' },
+  { id:'rwp-faisal-col', cityId:'rawalpindi', name:'Faisal Colony',  name_ur:'فیصل کالونی' },
+  { id:'rwp-ghauri',     cityId:'rawalpindi', name:'Ghauri Town',    name_ur:'غوری ٹاؤن' },
+  { id:'rwp-westridge',  cityId:'rawalpindi', name:'Westridge',      name_ur:'ویسٹ رج' },
+  { id:'rwp-adyala',     cityId:'rawalpindi', name:'Adyala Road',    name_ur:'اڈیالہ روڈ' },
+  { id:'rwp-lalkurti',   cityId:'rawalpindi', name:'Lalkurti',       name_ur:'لال کرتی' },
+  { id:'rwp-holy-fam',   cityId:'rawalpindi', name:'Holy Family',    name_ur:'ہولی فیملی' },
+  { id:'rwp-saidpur-rd', cityId:'rawalpindi', name:'Saidpur Road',   name_ur:'سیدپور روڈ' },
+  { id:'rwp-asghar-mall',cityId:'rawalpindi', name:'Asghar Mall',    name_ur:'اصغر مال' },
+  { id:'rwp-mall-rd',    cityId:'rawalpindi', name:'Mall Road',      name_ur:'مال روڈ' },
   // Peshawar
   { id:'pesh-university-rd', cityId:'peshawar', name:'University Road', name_ur:'یونیورسٹی روڈ' },
   { id:'pesh-hayatabad', cityId:'peshawar', name:'Hayatabad',      name_ur:'حیات آباد' },
@@ -3200,6 +3516,333 @@ const BRANCHES = [
     verifiedDate:'2026-04-15',
     sourceUrl:'https://chughtailab.com/branches',
     notes:''
+  },
+
+  // === RAWALPINDI — verified from idc.net.pk and chughtailab.com, May 2026 ===
+  // IDC BRANCHES (17 verified from official IDC Rawalpindi locations page)
+  {
+    id:'IDC-RWP-MURR-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-murree-rd',
+    name:'IDC — Murree Road (Chandni Chowk)',
+    address:'Plot B-133, Ghazali Plaza, Near Allied Bank, Main Murree Road, Chandni Chowk, Rawalpindi',
+    lat:33.6437, lng:73.0727,
+    phone:'051-111-000-432',
+    hours:{ mon:'24/7', tue:'24/7', wed:'24/7', thu:'24/7', fri:'24/7', sat:'24/7', sun:'24/7' },
+    services:['blood','urine','xray','ultrasound'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/locations/rawalpindi/',
+    notes:'Verified from IDC official site. Coordinates approximate — confirm via Google Maps right-click before public launch.'
+  },
+  {
+    id:'IDC-RWP-MALL-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-mall-rd',
+    name:'IDC — Mall Road Saddar',
+    address:'Ground Floor, One The Mall Plaza, Opposite AFIC Mall Road, Saddar, Rawalpindi',
+    lat:33.5973, lng:73.0479,
+    phone:'051-111-000-432',
+    hours:{ mon:'24/7', tue:'24/7', wed:'24/7', thu:'24/7', fri:'24/7', sat:'24/7', sun:'8:00-23:00' },
+    services:['blood','urine','xray','ultrasound','ct','mri','mammo'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-mall-road-saddar-branch/',
+    notes:'Flagship branch. Full imaging suite. Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-RANG-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-range-rd',
+    name:'IDC — Range Road',
+    address:'Ground Floor, Shakeel Arcade, CB-1164/5-A, Range Road, Ward 9, Rawalpindi',
+    lat:33.5851, lng:73.0598,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-range-road/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-APHS-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-aphs',
+    name:'IDC — APHS (Airport Housing Society)',
+    address:'Civic Centre, Airport Housing Society, Gulzar e Quaid, Rawalpindi',
+    lat:33.5532, lng:73.1085,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-airport-housing-society/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-FAIS-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-faisal-col',
+    name:'IDC — Faisal Colony',
+    address:'Airport Road, Faisal Colony, Rawalpindi',
+    lat:33.5739, lng:73.0930,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-faisal-colony/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-GHAU-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-ghauri',
+    name:'IDC — Ghauri Town',
+    address:'Abdullah Plaza, Ground Floor, Ghauri Town Phase 5-B, Near Garden Chowk, Rawalpindi',
+    lat:33.6005, lng:73.1582,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-ghori-town/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-BAH4-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-bahria',
+    name:'IDC — Bahria Phase 4 (Civic Center)',
+    address:'Ground Floor, Civic Centre, Phase 4, Bahria Town, Rawalpindi',
+    lat:33.5219, lng:73.1019,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine','ultrasound'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-bahria-phase-4/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-BAH7-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-bahria',
+    name:'IDC — Bahria Phase 7',
+    address:'Opposite Clock Tower, Bahria Phase 7, Near Allied Bank, Rawalpindi',
+    lat:33.5172, lng:73.1130,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine','ultrasound'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-bahria-phase-7/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-BBHM-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-asghar-mall',
+    name:'IDC — BBH Murree Road (Asghar Mall)',
+    address:'Main Murree Rd, opposite BBH Hospital OPD Gate Joharabad, Asghar Mall Scheme, Rawalpindi',
+    lat:33.6188, lng:73.0780,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-muree-road/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-AVAL-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-mall-rd',
+    name:'IDC — Avalon Plaza Mall Road',
+    address:'Avalon Plaza, Mall Road, opp. PIA Office, Rawalpindi',
+    lat:33.5988, lng:73.0461,
+    phone:'051-111-000-432',
+    hours:{ mon:'8:00-20:00', tue:'8:00-20:00', wed:'8:00-20:00', thu:'8:00-20:00', fri:'8:00-20:00', sat:'8:00-20:00', sun:'8:00-20:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-avalon-plaza-mall-road-rwp/',
+    notes:'Shorter hours than other IDC branches. Coordinates approximate.'
+  },
+  {
+    id:'IDC-RWP-SADQ-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-satellite',
+    name:'IDC — Sadiqabad',
+    address:'82-C, Satellite Town, Near Chandni Chowk, Sadqabad, Rawalpindi',
+    lat:33.6403, lng:73.0688,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-sadiqabad/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-WEST-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-westridge',
+    name:'IDC — Westridge',
+    address:'Ground Floor, Chand Plaza, Lane No 6, Near McDonald, Peshawar Road, Rawalpindi',
+    lat:33.5934, lng:73.0192,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-westridge/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-CHAK-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-chaklala',
+    name:'IDC — Scheme 3 Chaklala',
+    address:'Khawaja Tower, Imran Khan Ave, near medicine point, Scheme 3 Chaklala Cantt, Rawalpindi',
+    lat:33.5733, lng:73.0716,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-scheme-3/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-ADYA-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-adyala',
+    name:'IDC — Adyala Road',
+    address:'Ground Floor, Adjacent Naeem Electronics, Main Adyala Road, Opposite Manawar Colony, Rawalpindi',
+    lat:33.5440, lng:73.0205,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-adyala-road/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-LALK-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-lalkurti',
+    name:'IDC — Lalkurti',
+    address:'Ground Floor, Panorama Center, Lalkurti, Rawalpindi',
+    lat:33.6011, lng:73.0532,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-lalkurti-rawalpindi/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-CANT-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-cantt',
+    name:'IDC — Cantt (Sehgal Emporium)',
+    address:'Sehgal Emporium, Ground Floor, Sadar, Cantt, Rawalpindi',
+    lat:33.5969, lng:73.0481,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-saddar-cantt/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'IDC-RWP-HOLY-001', labId:'idc', cityId:'rawalpindi', areaId:'rwp-holy-fam',
+    name:'IDC — Opposite Holy Family Hospital',
+    address:'Al Suffah Hospital, Opposite Holy Family Hospital, Gate No 3, Rawalpindi',
+    lat:33.6109, lng:73.0701,
+    phone:'051-111-000-432',
+    hours:{ mon:'7:30-22:00', tue:'7:30-22:00', wed:'7:30-22:00', thu:'7:30-22:00', fri:'7:30-22:00', sat:'7:30-22:00', sun:'7:30-22:00' },
+    services:['blood','urine'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://idc.net.pk/location/idc-opposite-holy-family/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+
+  // CHUGHTAI BRANCHES (6 verified from chughtailab.com)
+  {
+    id:'CHU-RWP-SAID-001', labId:'chughtai', cityId:'rawalpindi', areaId:'rwp-saidpur-rd',
+    name:'Chughtai Lab — Saidpur Road (Regional Lab)',
+    address:'Ground Floor, Global Star Plaza, Near Kali Tanki Chowk, Saidpur Road, Rawalpindi',
+    lat:33.6298, lng:73.0682,
+    phone:'03-111-456-789',
+    hours:{ mon:'7:00-22:00', tue:'7:00-22:00', wed:'7:00-22:00', thu:'7:00-22:00', fri:'7:00-22:00', sat:'7:00-22:00', sun:'8:00-20:00' },
+    services:['blood','urine','culture','histo'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://chughtailab.com/regional-lab/chughtai-lab-rawalpindi-2/',
+    notes:'Chughtai regional lab for Rawalpindi. Coordinates approximate — confirm.'
+  },
+  {
+    id:'CHU-RWP-CHAK-001', labId:'chughtai', cityId:'rawalpindi', areaId:'rwp-chaklala',
+    name:'Chughtai Lab — Chaklala Scheme III',
+    address:'Shop No.1 Cantt Plaza, Commercial Market, Chaklala Scheme III, Rawalpindi',
+    lat:33.5742, lng:73.0708,
+    phone:'03-111-456-789',
+    hours:{ mon:'7:00-22:00', tue:'7:00-22:00', wed:'7:00-22:00', thu:'7:00-22:00', fri:'7:00-22:00', sat:'7:00-22:00', sun:'8:00-20:00' },
+    services:['blood','urine','culture'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://chughtailab.com/medical-center/locations-273/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'CHU-RWP-MURR-001', labId:'chughtai', cityId:'rawalpindi', areaId:'rwp-murree-rd',
+    name:'Chughtai Lab — Murree Road (BBH)',
+    address:'Shop No O/1006/7 Ground Floor, Opp Benazir Bhutto Hospital Out Gate, Main Murree Road, Rawalpindi',
+    lat:33.6171, lng:73.0779,
+    phone:'051-4906785',
+    hours:{ mon:'7:00-22:00', tue:'7:00-22:00', wed:'7:00-22:00', thu:'7:00-22:00', fri:'7:00-22:00', sat:'7:00-22:00', sun:'8:00-20:00' },
+    services:['blood','urine','culture'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://chughtailab.com/medical-center/locations-274/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'CHU-RWP-BAH7-001', labId:'chughtai', cityId:'rawalpindi', areaId:'rwp-bahria',
+    name:'Chughtai Lab — Bahria Town Phase 7',
+    address:'Haroon Plaza 28-B, Mini Commercial Extension, Opp DHA Bridge, Bahria Town Phase 7, Rawalpindi',
+    lat:33.5175, lng:73.1132,
+    phone:'03-111-456-789',
+    hours:{ mon:'7:00-22:00', tue:'7:00-22:00', wed:'7:00-22:00', thu:'7:00-22:00', fri:'7:00-22:00', sat:'7:00-22:00', sun:'8:00-20:00' },
+    services:['blood','urine','culture'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://chughtailab.com/medical-center/locations-275/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'CHU-RWP-HOLY-001', labId:'chughtai', cityId:'rawalpindi', areaId:'rwp-holy-fam',
+    name:'Chughtai Lab — Holy Family Hospital Branch',
+    address:'F-879, Family Plaza Shop#2, Opp Gate#3 Holy Family Hospital, Rawalpindi',
+    lat:33.6112, lng:73.0698,
+    phone:'0345-8402876',
+    hours:{ mon:'7:00-22:00', tue:'7:00-22:00', wed:'7:00-22:00', thu:'7:00-22:00', fri:'7:00-22:00', sat:'7:00-22:00', sun:'8:00-20:00' },
+    services:['blood','urine','culture'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://chughtailab.com/medical-center/saddar/',
+    notes:'Coordinates approximate — confirm before public launch.'
+  },
+  {
+    id:'CHU-RWP-SADD-001', labId:'chughtai', cityId:'rawalpindi', areaId:'rwp-saddar',
+    name:'Chughtai Lab — Saddar (Mall Plaza)',
+    address:'Mall Plaza, opposite Military Hospital, Saddar, Rawalpindi',
+    lat:33.5980, lng:73.0489,
+    phone:'03-111-456-789',
+    hours:{ mon:'7:00-22:00', tue:'7:00-22:00', wed:'7:00-22:00', thu:'7:00-22:00', fri:'7:00-22:00', sat:'7:00-22:00', sun:'8:00-20:00' },
+    services:['blood','urine','culture'],
+    homeSampling:true,
+    mapUrl:'',
+    verifiedDate:'2026-05-18',
+    sourceUrl:'https://chughtailab.com/medical-center/saddar/',
+    notes:'Coordinates approximate — confirm before public launch.'
   },
 
   // === KARACHI ===
@@ -4209,34 +4852,52 @@ function findNearest() {
     pos => {
       state.userLat = pos.coords.latitude;
       state.userLng = pos.coords.longitude;
-      // Find nearest city
-      let nearestCity = null;
+
+      // FIX (v6.4): find the nearest BRANCH (not nearest sample-per-city),
+      // then derive city/area from that branch. This handles cases like
+      // Rawalpindi/Islamabad border, or any city pair where a patient is
+      // closer to a different city's branch than to their own city's
+      // arbitrary sample branch.
+      let nearestBranch = null;
       let nearestDist = Infinity;
-      CITIES.forEach(c => {
-        // Use first branch in city as proxy for city centre
-        const sample = BRANCHES.find(b => b.cityId === c.id);
-        if (!sample) return;
-        const d = distanceKm(pos.coords.latitude, pos.coords.longitude, sample.lat, sample.lng);
-        if (d < nearestDist) { nearestDist = d; nearestCity = c; }
+      BRANCHES.forEach(b => {
+        if (typeof b.lat !== 'number' || typeof b.lng !== 'number') return;
+        const d = distanceKm(pos.coords.latitude, pos.coords.longitude, b.lat, b.lng);
+        if (d < nearestDist) { nearestDist = d; nearestBranch = b; }
       });
-      if (nearestCity) {
-        state.city = nearestCity.id;
-        // Re-render the city chips with selection
-        const cityRow = document.getElementById('city-row') || document.getElementById('city-row-b');
-        if (cityRow) {
-          cityRow.innerHTML = CITIES.map(c =>
-            `<div class="city-chip${state.city===c.id?' on':''}" onclick="${cityRow.id==='city-row-b'?'pickCityB':'pickCity'}('${c.id}',this)">${c.name}</div>`
-          ).join('');
-        }
-        renderAreas();
-        setLabel(`Located — nearest city is ${nearestCity.name}`);
-        document.querySelectorAll('.find-nearest-btn').forEach(b => b.classList.add('active'));
-        updateTestGoState();
-        updateSymGoState();
-      } else {
+
+      if (!nearestBranch) {
         setLabel('Find branches near me');
-        showToast('Couldn\'t match your location to a city — pick manually');
+        showToast('No branches with coordinates in the dataset yet — pick a city manually.');
+        return;
       }
+
+      // Set city + area from the nearest branch
+      const city = getCity(nearestBranch.cityId);
+      const area = nearestBranch.areaId ? getArea(nearestBranch.areaId) : null;
+      state.city = nearestBranch.cityId;
+      state.area = nearestBranch.areaId || null;
+
+      // Re-render the city chips with selection
+      const cityRow = document.getElementById('city-row') || document.getElementById('city-row-b');
+      if (cityRow) {
+        const handler = cityRow.id === 'city-row-b' ? 'pickCityB' : 'pickCity';
+        cityRow.innerHTML = CITIES.map(c =>
+          `<div class="city-chip${state.city===c.id?' on':''}" onclick="${handler}('${c.id}',this)">${c.name}</div>`
+        ).join('');
+      }
+      renderAreas();
+
+      // Tell the patient exactly what we found and how close — full transparency
+      const distTxt = nearestDist < 1
+        ? `${Math.round(nearestDist * 1000)} m`
+        : `${nearestDist.toFixed(1)} km`;
+      const areaTxt = area ? `${area.name}, ${city.name}` : city.name;
+      setLabel(`Closest branch: ${nearestBranch.name} (${distTxt} · ${areaTxt})`);
+
+      document.querySelectorAll('.find-nearest-btn').forEach(b => b.classList.add('active'));
+      updateTestGoState();
+      updateSymGoState();
     },
     err => {
       setLabel('Find branches near me');
@@ -4774,31 +5435,245 @@ function cellNotPublished() {
 }
 
 function renderMatrixCell(branch, row, isMatchCol) {
-  const cls = isMatchCol ? 'matrix-cell is-match-col' : 'matrix-cell';
-  let content;
+  // DEPRECATED in v6.5 — kept only so any straggling call doesn't crash.
+  // The card-based renderer (renderLabCard) replaces this.
+  return '';
+}
 
-  // Get computed matrix facts for this branch
+// ═══════════════════════════════════════════════════════════════════════
+// v6.5 — CARD-BASED COMPARISON (replaces the matrix table)
+// ═══════════════════════════════════════════════════════════════════════
+//
+// Each compared lab becomes its own rich card:
+//   - Best Match → full-width hero card at top, accented
+//   - 1-2 alternatives → smaller paired cards below
+//
+// Visual hierarchy per card:
+//   1. Header (brand, branch, address)
+//   2. Price block — the king, always biggest single number
+//   3. Priority circles — the bold visual answer to "what matters to me"
+//   4. Secondary facts — quieter list
+//
+// Legal posture is preserved exactly — the methodology disclaimer sits
+// above the cards, and no card claims YourMessiah ranked or endorsed
+// the lab. The cards are presented as a comparison of public data.
+
+// Compute the priority-circle facts for a branch — the bold "what
+// matters to me" answers shown as circles. Returns an array of
+// { label, value, sub, tone } where tone influences accent color.
+function getPriorityCircles(branch, allBranches, priorities) {
   const facts = branchMatrixFacts(branch, state.userLat, state.userLng);
+  const circles = [];
 
-  if (row.id === 'price') {
-    const isMulti = state.tests.length > 1;
-    content = `<span class="cell-value">Rs ${branch.total.toLocaleString()}<span class="cv-sub">${isMulti ? state.tests.length + ' tests, published total' : 'published price'}</span></span>`;
-  } else if (row.id === 'distance') {
-    if (facts.distance != null) {
-      content = `<span class="cell-value">${facts.distance.toFixed(1)} km<span class="cv-sub">from your location</span></span>`;
-    } else {
-      content = cellNotPublished();
-    }
-  } else if (row.type === 'bool') {
-    const val = facts[row.id];
-    if (row.id === 'accredPublished' || row.id === 'tatPublished') {
-      content = val ? cellYes() : cellNotPublished();
-    } else {
-      content = val ? cellYes() : cellNo();
+  // If patient picked no priorities, default to price + distance + home
+  const effectivePriorities = priorities.length
+    ? priorities
+    : ['price', 'distance', 'home'];
+
+  for (const p of effectivePriorities) {
+    if (p === 'price') {
+      // Compute relative position vs other compared branches
+      const totals = allBranches.map(b => b.total);
+      const cheapest = Math.min(...totals);
+      const isCheapest = branch.total === cheapest;
+      const diff = branch.total - cheapest;
+      circles.push({
+        label: 'Price',
+        value: `Rs ${branch.total.toLocaleString()}`,
+        sub: isCheapest ? 'lowest among selected' : `Rs ${diff.toLocaleString()} more than lowest`,
+        tone: isCheapest ? 'good' : 'neutral'
+      });
+    } else if (p === 'distance') {
+      if (facts.distance != null) {
+        circles.push({
+          label: 'Distance',
+          value: `${facts.distance.toFixed(1)} km`,
+          sub: 'from your location',
+          tone: facts.distance < 5 ? 'good' : 'neutral'
+        });
+      } else {
+        circles.push({
+          label: 'Distance',
+          value: '—',
+          sub: 'location not set',
+          tone: 'muted'
+        });
+      }
+    } else if (p === 'tat') {
+      // Take longest TAT across selected tests for this lab brand
+      const tatHours = state.tests.map(tid => {
+        const t = TAT[tid]?.[branch.labId];
+        if (!t) return 24;
+        if (t.includes('Same day')) return 24;
+        const m = t.match(/(\d+)/);
+        return m ? parseInt(m[1]) : 24;
+      });
+      const maxTat = Math.max(...tatHours);
+      circles.push({
+        label: 'Turnaround',
+        value: maxTat <= 6 ? `${maxTat}h` : maxTat <= 24 ? '< 1 day' : `${Math.round(maxTat/24)} days`,
+        sub: 'published max time',
+        tone: maxTat <= 6 ? 'good' : maxTat <= 24 ? 'neutral' : 'muted'
+      });
+    } else if (p === 'home') {
+      circles.push({
+        label: 'Home sampling',
+        value: branch.homeSampling ? 'Yes' : 'No',
+        sub: branch.homeSampling ? 'available at this branch' : 'not at this branch',
+        tone: branch.homeSampling ? 'good' : 'muted'
+      });
     }
   }
+  return circles;
+}
 
-  return `<td class="${cls}" data-lab="${branch.labName}">${content}</td>`;
+// Compute the "why this is the best match" sentence — strictly factual
+function buildWhyBestMatch(branch, allBranches, priorities) {
+  if (!priorities.length) {
+    return `Highest overall match across your selected labs based on price, distance, and turnaround.`;
+  }
+
+  const parts = [];
+  for (const p of priorities) {
+    if (p === 'price') {
+      const cheapest = Math.min(...allBranches.map(b => b.total));
+      if (branch.total === cheapest) parts.push('lowest published price among the labs you selected');
+    } else if (p === 'distance') {
+      const closest = Math.min(...allBranches.map(b => {
+        const f = branchMatrixFacts(b, state.userLat, state.userLng);
+        return f.distance != null ? f.distance : Infinity;
+      }));
+      const myFacts = branchMatrixFacts(branch, state.userLat, state.userLng);
+      if (myFacts.distance != null && myFacts.distance === closest) parts.push('closest to your location');
+    } else if (p === 'tat') {
+      parts.push('fast published turnaround');
+    } else if (p === 'home') {
+      if (branch.homeSampling) parts.push('offers home sampling');
+    }
+  }
+  if (!parts.length) return 'Highest overall match among the labs you selected, based on the preferences you picked.';
+  return parts.length === 1
+    ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) + '.'
+    : parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] + '.';
+}
+
+// Render a single lab card. `variant` is 'hero' or 'alt'.
+function renderLabCard(branch, allBranches, priorities, variant) {
+  const facts = branchMatrixFacts(branch, state.userLat, state.userLng);
+  const circles = getPriorityCircles(branch, allBranches, priorities);
+  const isMulti = state.tests.length > 1;
+  const priceLabel = isMulti ? `${state.tests.length} tests · published total` : 'published price';
+  const isHero = variant === 'hero';
+
+  // Header — brand mark, brand name, branch, address
+  const brandShort = (getLab(branch.labId) || {}).shortCode || '?';
+
+  // Priority circles
+  const circlesHtml = circles.map(c => `
+    <div class="pcircle pcircle-${c.tone || 'neutral'}">
+      <div class="pcircle-value">${c.value}</div>
+      <div class="pcircle-label">${c.label}</div>
+      <div class="pcircle-sub">${c.sub}</div>
+    </div>
+  `).join('');
+
+  // Secondary facts — only those NOT already shown as circles
+  const shownInCircles = new Set();
+  circles.forEach(c => {
+    if (c.label === 'Price')         shownInCircles.add('price');
+    if (c.label === 'Distance')      shownInCircles.add('distance');
+    if (c.label === 'Turnaround')    shownInCircles.add('tat');
+    if (c.label === 'Home sampling') shownInCircles.add('home');
+  });
+
+  const secondaryFacts = [];
+  if (!shownInCircles.has('home')) {
+    secondaryFacts.push({
+      label: 'Home sampling',
+      value: branch.homeSampling ? 'Yes' : 'No',
+      good: branch.homeSampling
+    });
+  }
+  if (!shownInCircles.has('distance') && facts.distance != null) {
+    secondaryFacts.push({
+      label: 'Distance from you',
+      value: `${facts.distance.toFixed(1)} km`,
+      good: facts.distance < 5
+    });
+  }
+  if (!shownInCircles.has('tat')) {
+    const tatHours = state.tests.map(tid => {
+      const t = TAT[tid]?.[branch.labId];
+      if (!t) return 24;
+      if (t.includes('Same day')) return 24;
+      const m = t.match(/(\d+)/);
+      return m ? parseInt(m[1]) : 24;
+    });
+    const maxTat = Math.max(...tatHours);
+    secondaryFacts.push({
+      label: 'Turnaround time',
+      value: maxTat <= 6 ? `${maxTat} hours` : maxTat <= 24 ? 'within 1 day' : `${Math.round(maxTat/24)} days`,
+      good: maxTat <= 6
+    });
+  }
+  secondaryFacts.push({
+    label: 'Open at usual hours',
+    value: facts.openNow ? 'Yes' : 'No',
+    good: facts.openNow
+  });
+  secondaryFacts.push({
+    label: 'Accreditation publicly verifiable',
+    value: facts.accredPublished ? 'Yes' : 'Not yet published',
+    good: facts.accredPublished,
+    notPublished: !facts.accredPublished
+  });
+  secondaryFacts.push({
+    label: 'Turnaround time published',
+    value: facts.tatPublished ? 'Yes' : 'Not yet published',
+    good: facts.tatPublished,
+    notPublished: !facts.tatPublished
+  });
+
+  const secondaryHtml = secondaryFacts.map(f => `
+    <div class="fact-row">
+      <span class="fact-label">${f.label}</span>
+      <span class="fact-value ${f.notPublished ? 'fact-not-published' : (f.good ? 'fact-good' : 'fact-neutral')}">${f.value}</span>
+    </div>
+  `).join('');
+
+  // Best Match strip — only on hero card
+  const matchStrip = isHero ? `
+    <div class="lc-match-strip">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1l2 4 4 .5-3 3 .8 4.3-3.8-2-3.8 2L4 8.5l-3-3 4-.5z"/></svg>
+      <span><strong>Best match for your preferences.</strong> ${buildWhyBestMatch(branch, allBranches, priorities)}</span>
+    </div>
+  ` : '';
+
+  return `
+    <div class="lab-card lab-card-${variant}">
+      ${matchStrip}
+
+      <div class="lc-header">
+        <div class="lc-brand-mark">${brandShort}</div>
+        <div class="lc-header-text">
+          <div class="lc-brand">${branch.labName}</div>
+          <div class="lc-branch">${branch.name}</div>
+          <div class="lc-addr">${branch.address}</div>
+        </div>
+      </div>
+
+      <div class="lc-price-block">
+        <div class="lc-price-amount">Rs ${branch.total.toLocaleString()}</div>
+        <div class="lc-price-label">${priceLabel}</div>
+      </div>
+
+      ${circles.length ? `<div class="lc-circles">${circlesHtml}</div>` : ''}
+
+      <div class="lc-secondary">
+        ${secondaryHtml}
+      </div>
+    </div>
+  `;
 }
 
 function showMatrix() {
@@ -4810,55 +5685,30 @@ function showMatrix() {
   document.getElementById('picker-stage').style.display = 'none';
   document.getElementById('matrix-stage').style.display = '';
 
-  // The labs being compared, in the order ranked
   const labs = state.result.ranked.filter(l => state.compareSelection.includes(l.id));
-  // "Best match for your selected preferences" = the highest-ranked among selected
   const matchId = labs[0].id;
+  const matchLab = labs[0];
+  const alternatives = labs.slice(1);
 
-  const isMulti = state.tests.length > 1;
   const cityName = CITIES.find(c => c.id === state.city).name;
 
-  // Intro line
+  // Intro line — same posture as before
   const prefsTxt = state.priorities.length
     ? state.priorities.map(p => PRIORITIES.find(x => x.id === p).label.toLowerCase()).join(', ')
-    : 'overall';
+    : 'overall fit';
   document.getElementById('matrix-intro').textContent =
-    `You're comparing ${labs.length} labs in ${cityName}. Based on the preferences you selected (${prefsTxt}), the closest match is highlighted — but every lab's facts are side by side so the choice stays yours.`;
+    `You're comparing ${labs.length} labs in ${cityName}. The closest match to your selected preferences (${prefsTxt}) is shown first. The choice stays yours.`;
 
-  // Build the matrix table — labs in matrix are actually BRANCHES now
-  let headCells = `<th class="matrix-row-label"></th>`;
-  labs.forEach(br => {
-    const isMatch = br.id === matchId;
-    headCells += `
-      <th class="matrix-col-head${isMatch ? ' is-match' : ''}">
-        ${isMatch ? '<span class="mch-tag">Best match for your preferences</span>' : ''}
-        <div class="mch-name">${br.labName}</div>
-        <div class="mch-branch">${br.name}</div>
-      </th>
-    `;
-  });
+  // Build cards: hero on top, alternatives below
+  const heroHtml = renderLabCard(matchLab, labs, state.priorities, 'hero');
+  const altsHtml = alternatives.length
+    ? `<div class="lab-cards-alts">${alternatives.map(b => renderLabCard(b, labs, state.priorities, 'alt')).join('')}</div>`
+    : '';
 
-  let bodyRows = '';
-  MATRIX_ROWS.forEach(row => {
-    let rowCells = `<td class="matrix-row-label">${row.label}</td>`;
-    labs.forEach(br => {
-      rowCells += renderMatrixCell(br, row, br.id === matchId);
-    });
-    bodyRows += `<tr class="matrix-data-row">${rowCells}</tr>`;
-  });
+  document.getElementById('matrix-wrap').innerHTML = heroHtml + altsHtml;
 
-  document.getElementById('matrix-wrap').innerHTML = `
-    <table class="matrix-table">
-      <thead><tr>${headCells}</tr></thead>
-      <tbody>${bodyRows}</tbody>
-    </table>
-  `;
-
-  // Prescription itemisation + split savings still shown below matrix
-  paintPrescriptionBlock(labs[0]);
-
-  // AI panel now has the comparison context
-  resetAi(labs[0]);
+  paintPrescriptionBlock(matchLab);
+  resetAi(matchLab);
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
